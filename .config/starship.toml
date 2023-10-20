@@ -1,0 +1,110 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+# LINK: https://starship.rs/config
+# LINK: https://github.com/geometry-zsh/geometry
+
+# Inserts a blank line between shell prompts
+add_newline = false
+command_timeout = 1500
+
+# POWERLINE CONTENTS
+
+format = """$character$directory"""
+right_format = """$all"""
+
+[cmd_duration]
+disabled = true
+min_time = 0
+format = ' [$duration]($style) '
+
+# CHARACTER FORMAT
+
+[character]
+success_symbol = '[▲](bright-white)'
+error_symbol = '[△](bright-white)'
+# vimcmd when fixed ▼ ▽
+
+# DIRECTORY WIDGET
+
+[directory]
+# truncation_symbol = '…'
+
+# GIT
+
+[git_branch]
+# truncation_length = 3
+truncation_symbol = '…'
+# ignore_branches = ['master', 'main']
+
+# ⚙ ◆ ▼ ▽
+[git_status]
+disabled = false
+conflicted = "◈"
+ahead = "⇡"
+behind = "⇣"
+up_to_date = ""
+untracked = ""
+stashed = ""
+modified = ""
+staged = ""
+renamed = ""
+deleted = ""
+typechanged = ""
+format = '([$all_status$ahead_behind]($style) )'
+style = "bold purple"
+
+[git_commit]
+format = '[\($hash$tag\)]($style) '
+tag_symbol = ""
+
+# [git_state]
+
+[package]
+symbol = ""
+
+# LANGUAGES
+
+[custom.d]
+# detect_files = ["dub.sdl", "dub.json"]
+when = """test "$(find "$(git rev-parse --show-toplevel)" -name "dub.*")" != """""
+# command = "dub --version | sed -E 's/.*?version //' | sed -E 's/,.*//'"
+style = "bold red"
+format = "via [D]($style)"
+# format = "via [ v$symbol($output )]($style)"
+description = "The currently installed verison of D"
+
+[python]
+# detect_extensions = []
+format = "via [Python]($style)"
+
+[dart]
+format = "via [Dart]($style)"
+
+[c]
+format = "via [C]($style)"
+
+[lua]
+format = "via [Lua]($style)"
+
+[java]
+format = "via [Java]($style)"
+
+[golang]
+format = "via [Go]($style)"
+
+[custom.gitclean]
+when = """git rev-parse --show-toplevel && test "$(git status -s)" = """""
+style = "bright-white"
+format = " [⬢]($style)"
+description = "Shown on clean git repository"
+ignore_timeout = true
+
+[custom.gitdirty]
+when = """git rev-parse --show-toplevel && test "$(git status -s)" != """""
+style = "bright-white"
+format = " [⬡]($style)"
+description = "Shown when git has unstaged files"
+ignore_timeout = true
+
+
