@@ -1,0 +1,76 @@
+#  SYSTEM ------------------------------------------------ #
+btop                    system monitor
+gtop                    top but graph
+
+#  FETCH ------------------------------------------------- #
+neofetch                system info
+onefetch                git fetch
+pfetch                  fast fetch
+cpufetch                cpu fetch
+gpufetch                gpu fetch
+
+# DEV ---------------------------------------------------- #
+git-extras              git but more
+git-stats               git graphs
+cloc                    count lines of code
+nap                     snipper manager
+wordgrinder             text preprocessor
+dscript                 custom script to init d scripts
+snipkit                 snipper manager
+gum                     make scripts fancy
+lnav                    log navigator
+yadm add -u             adds modified files to yadm
+
+#  UNIX -------------------------------------------------- #
+tre                     cool tree
+has                     check presence of various cli tools
+hr                      horisontal ruler
+tail -f file            monitor file changes
+dpkg-reconfigure gdm3   switch display manager (or sddm)
+ranger                  cli file manager
+tmux                    tiling terminal
+luneta                  fuzzy search
+br                      coolest cd (broot)
+aria2c                  torrent (aria2 pkg)
+cod                     completion daemon
+
+# PACMAN ------------------------------------------------- #
+yay                     aur package manager
+pacseek                 tty ncurses aur helper
+mpm                     universal install script
+pkm                     package manager manager
+
+# WEB ---------------------------------------------------- #
+isitup                  is website up
+googler                 google stuff
+howdoi                  howdoi howdoi
+wikit                   pocket wiki
+so                      stack overflow
+buku                    bookmark manager
+
+# MEDIA -------------------------------------------------- #
+musikcube               audio player
+pxv/tai/catimg          ascii generators
+pastel                  nice color display
+cava                    audio visualiser
+curseradio              cli radio
+playerctl               cli media control
+mdless                  ruby markdown viewer
+
+# IRL ---------------------------------------------------- #
+wttr                    weather forecast
+ansiweather             weather forecast
+mapscii                 maps
+tty-clock               displays clock
+gtt                     translate (eeeXun)
+telegram-tg             cli telegram client
+
+# FUN ---------------------------------------------------- #
+no-more-secrets         (nms, sneakers) hack into matrix
+slides                  mdown presentation inside of term
+lookatme                mdown presentation
+lolcat                  rainbows
+cowsay                  < cowsay >---- ~=w=~
+pomo                    pomodoro timer
+bucklespring            (buckle) and get back into 90
+typeracer               speedtyping

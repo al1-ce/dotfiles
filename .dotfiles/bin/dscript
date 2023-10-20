@@ -1,0 +1,98 @@
+#!/usr/bin/env dub
+/+ dub.sdl:
+name "dscript"
+dependency "sily" version="~>1.0.0"
++/
+
+import sily.getopt : printGetopt;
+import std.array : popBack, popFront;
+import std.conv : octal;
+import std.file : exists, getAttributes, setAttributes;
+import std.getopt : getopt, Option, config;
+import std.path : absolutePath, buildNormalizedPath, expandTilde;
+import std.stdio : File, readln, write, writeln;
+import std.string : format, toLower;
+
+string fixPath(string path) { return path.buildNormalizedPath.expandTilde.absolutePath; }
+void chmodpx(string name) {
+    name.setAttributes(name.getAttributes | octal!700);
+}
+
+void main(string[] args) {
+    string env = "rund";
+    bool forceOverride = false;
+    
+    auto help = getopt(
+        args,
+        config.bundling, config.passThrough,
+        "env|e", "Sets env. Default: rund", &env,
+        "force|f", "Force overrides existing scripts", &forceOverride
+    );
+
+    if (help.helpWanted || args.length == 1) {
+        printGetopt(
+            "Usage: dscript [option] [scripts...]",
+            "Creates one or multiple scripts with set env.",
+            "Example:\ndscript -e rdmd rdmdScript\ndscript -e dub scriptWithLibs",
+            "Options",
+            help.options
+        );
+    }
+
+    args.popFront();
+
+    foreach (arg; args) {
+        if ("~/.local/scripts/%s".format(arg).fixPath.exists && !forceOverride) {
+            writeln("Script with name \'%s\' already exists.".format(arg));
+            write("Override? [y/n]: ");
+            string answer = readln().toLower;
+            answer.popBack(); // removes \n
+            if (answer != "y") {
+                continue;
+            }
+        }
+
+        if (env == "dub") {
+            string scriptName = "~/.local/scripts/%s".format(arg).fixPath;
+            File f = File(scriptName, "w+");
+            f.writeln("#!/usr/bin/env dub");
+            f.writeln("/+ dub.sdl:");
+            f.writeln("name \"%s\"".format(arg));
+            f.writeln("// dependency \"depname\" version=\"~>1.0.0\"");
+            f.writeln("+/");
+            f.writeln("");
+            f.writeln("import std.stdio: writeln;");
+            f.writeln("");
+            f.writeln("void main() {");
+            f.writeln("    writeln(\"Edit script at \'~/.local/scripts/%s\' first.\");".format(arg));
+            f.writeln("}");
+            f.close();
+            chmodpx(scriptName);
+
+            writeln("dub script created at \'~/.local/scripts/%s.d\'.".format(arg));
+        } else {
+            string scriptName = "~/.local/scripts/%s".format(arg).fixPath;
+            File f = File(scriptName, "w+");
+            f.writeln("#!/usr/bin/env %s".format(env));
+            f.writeln("# This is a dummy script to be able");
+            f.writeln("# to run it without .d extension");
+            f.writeln("# real script is located at");
+            f.writeln("# ~/.local/scripts/%s".format(arg));
+            f.close();
+            chmodpx(scriptName);
+
+            writeln("%s dummy created at \'~/.local/scripts/%s\'.".format(env, arg));
+
+            f = File("~/.local/scripts/%s.d".format(arg).fixPath, "w+");
+            f.writeln("import std.stdio: writeln;");
+            f.writeln("");
+            f.writeln("void main() {");
+            f.writeln("    writeln(\"Edit script at \'~/.local/scripts/%s.d\' first.\");".format(arg));
+            f.writeln("}");
+            f.close();
+
+            writeln("%s script created at \'~/.local/scripts/%s.d\'.".format(env, arg));
+        }
+    }
+}
+
