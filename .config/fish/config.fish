@@ -27,7 +27,7 @@ function __on_pwd_change --on-variable PWD --description 'Do rvm stuff'
         gitshort
         echo -e "\n"
     else if test $PWD -ef $HOME
-        # ~/.dotfiles/fetch
+        # ~/.dotfiles/bin/fetch
     end
 
     # Uncomment for instant LS
