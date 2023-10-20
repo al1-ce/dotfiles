@@ -37,7 +37,6 @@ dotfiles = home + "/.dotfiles"
 mod = "mod4"
 altbrowser = "vivaldi-stable"
 mybrowser = "qutebrowser"
-quaketerminal = dotfiles + "/xtermquake.sh"
 spawnshortcuts = "qutebrowser --target private-window -R " + dotfiles + "/.shortcuts.html";
 filemanager = terminal_exec + " ranger"
 filemanager_gui = "nemo"
@@ -383,7 +382,7 @@ def get_uptime():
     return "{:02}:{:02}".format(int(h), int(m))
 
 def get_doomsday():
-    return subprocess.run([dotfiles + "/doomsday-clock", "-s"], capture_output = True, text = True).stdout[:-1]
+    return subprocess.run([dotfiles + "/bin/doomsday-clock", "-s"], capture_output = True, text = True).stdout[:-1]
 
 # ---------------------------------------------------------------------------- #
 #                                    LAYOUTS                                   #

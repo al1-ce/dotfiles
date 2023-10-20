@@ -70,7 +70,7 @@ alias onefetch 'onefetch --true-color never --no-title -d authors -d churn -d li
 alias gitfetch 'onefetch -d created -d last-change -d project -d url -d size --no-art -d languages -d contributors -d version -d license'
 alias gitshort 'gitfetch | tr "\n" " "'
 alias calendar 'ncal -yMb'
-alias doomsday '~/.dotfiles/doomsday-clock'
+alias doomsday '~/.dotfiles/bin/doomsday-clock'
 alias dvim /usr/bin/vim
 alias vim nvim
 alias vi nvim
@@ -81,7 +81,7 @@ alias tb taskbook
 
 alias yd yandex-disk
 
-alias setcursor '~/.dotfiles/setcursor.sh'
+alias setcursor '~/.dotfiles/scripts/setcursor.sh'
 
 # function sudo
 #     gum input --password | /usr/sbin/sudo -nS $argv 2>/dev/null
@@ -125,7 +125,6 @@ alias wttr 'curl wttr.in/Moscow'
 alias remind 'cat ~/.dotfiles/.command-reminder'
 alias clock 'tty-clock -s -c -C 7'
 alias cmatrix 'cmatrix -C yellow'
-alias enter-the-shell 'mpv --quiet -vo=caca .dotfiles/gits-op.mp4'
 alias nms 'nms -a'
 
 alias clearvswap 'echo "Removing nvim swap."; rm -rf ~/.local/state/nvim/swap'
@@ -192,7 +191,7 @@ set NAP_THEME gruvbox
 # }
 if status --is-interactive
     cod init $fish_pid fish | source
-    alias cls "clear && ~/.dotfiles/fetch"
+    alias cls "clear && ~/.dotfiles/bin/fetch"
     
     cls
 end
