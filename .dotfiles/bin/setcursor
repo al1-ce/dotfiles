@@ -1,0 +1,11 @@
+#!/bin/bash
+
+if [ "$#" -ne 1 ]; then
+    echo "Please supply cursor name (dirname only) as in /usr/share/icons"
+    exit 0
+fi
+
+echo -e "[icon theme]\nInherits=$1" > ~/.icons/default/index.theme
+echo -e "[Settings]\ngtk-cursor-theme-name=$1" > ~/.config/gtk-3.0/settings.ini
+
+gum confirm "Do you want to logout" --selected.background="208" && loginctl terminate-user $USER || exit 0

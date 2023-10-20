@@ -1,0 +1,16 @@
+nvim // /home/al1-ce/.config/nvim/init.lua
+kitty // /home/al1-ce/.config/kitty/kitty.conf
+fish // /home/al1-ce/.config/fish/config.fish
+qtile // /home/al1-ce/.config/qtile/config.py
+remind // /home/al1-ce/.dotfiles/.command-reminder
+/home/al1-ce/.config/dunst/dunstrc // 
+dunst // /home/al1-ce/.config/dunst/dunstrc
+ranger // /home/al1-ce/.config/ranger/rc.conf
+telegram // /home/al1-ce/.config/tg/conf.py
+pkm // .config/pkm/conf.yaml
+alacritty // /home/al1-ce/.config/alacritty/alacritty.yml
+picom // /home/al1-ce/.config/picom/picom.conf
+qute // /home/al1-ce/.config/qutebrowser/config.py
+backup // /g/linuxrice/update-config.sh
+mpv // /home/al1-ce/.config/mpv/mpv.conf
+rice // /g/linuxrice/
