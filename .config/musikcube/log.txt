@@ -1,0 +1,51 @@
+14:32:29 [info] [LOG SESSION] ---------- START ----------
+14:32:29 [info] [PluginFactory] loading plugins
+14:32:29 [info] [PluginFactory] loaded: /usr/share/musikcube/plugins/libportaudioout.so
+14:32:29 [info] [PluginFactory] loaded: /usr/share/musikcube/plugins/libpipewireout.so
+14:32:29 [info] [PluginFactory] loaded: /usr/share/musikcube/plugins/libpulseout.so
+14:32:29 [info] [PluginFactory] loaded: /usr/share/musikcube/plugins/libserver.so
+14:32:29 [info] [PluginFactory] loaded: /usr/share/musikcube/plugins/libtaglibreader.so
+14:32:29 [info] [PluginFactory] loaded: /usr/share/musikcube/plugins/libmpris.so
+14:32:29 [info] [PluginFactory] loaded: /usr/share/musikcube/plugins/libsndioout.so
+14:32:30 [info] [PluginFactory] loaded: /usr/share/musikcube/plugins/libopenmptdecoder.so
+14:32:30 [info] [PluginFactory] loaded: /usr/share/musikcube/plugins/libffmpegdecoder.so
+14:32:30 [info] [PluginFactory] loaded: /usr/share/musikcube/plugins/libstockencoders.so
+14:32:30 [info] [PluginFactory] loaded: /usr/share/musikcube/plugins/libsupereqdsp.so
+14:32:30 [info] [PluginFactory] loaded: /usr/share/musikcube/plugins/libgmedecoder.so
+14:32:30 [info] [PluginFactory] loaded: /usr/share/musikcube/plugins/libhttpdatastream.so
+14:32:30 [info] [PluginFactory] loaded: /usr/share/musikcube/plugins/libalsaout.so
+14:32:30 [info] [PluginFactory] loaded: /usr/share/musikcube/plugins/libnullout.so
+14:32:30 [info] [PortAudioOut] Pa_Initialize() return code: 0
+14:32:30 [info] [PipeWireOut] shutdown started
+14:32:30 [info] [PipeWireOut] shutdown complete
+14:32:30 [warning] [PortAudioOut] Pa_AbortStream() return code: -9988
+14:32:30 [warning] [PortAudioOut] Pa_CloseStream() return code: -9988
+14:32:30 [info] [PortAudioOut] Pa_Terminate() return code: 0
+14:32:30 [info] [Indexer] indexer source 155697690 running...
+14:32:30 [info] [Indexer] indexer source 155697690 finished
+14:32:30 [info] [Indexer] indexer source -1303229654 running...
+14:32:30 [info] [Indexer] indexer source -1303229654 finished
+14:32:30 [info] [Indexer] scan completed successfully
+14:32:30 [info] [Indexer] cleanup 1/2
+14:32:30 [info] [Indexer] cleanup 2/2
+14:32:30 [info] [Indexer] optimizing
+14:32:30 [info] [Indexer] done!
+14:32:30 [info] [LocalLibrary] query 'PersistedPlayQueueQuery' enqueued
+14:32:30 [info] [LocalLibrary] query 'PersistedPlayQueueQuery' running
+14:32:30 [info] [LocalLibrary] query 'PersistedPlayQueueQuery' finished with status=4
+14:32:30 [info] [PortAudioOut] Pa_Initialize() return code: 0
+14:32:30 [info] [PipeWireOut] shutdown started
+14:32:30 [info] [PipeWireOut] shutdown complete
+14:32:30 [warning] [PortAudioOut] Pa_AbortStream() return code: -9988
+14:32:30 [warning] [PortAudioOut] Pa_CloseStream() return code: -9988
+14:32:30 [info] [PortAudioOut] Pa_Terminate() return code: 0
+14:32:30 [info] [PortAudioOut] Pa_Initialize() return code: 0
+14:32:30 [info] [PipeWireOut] shutdown started
+14:32:30 [info] [PipeWireOut] shutdown complete
+14:32:30 [warning] [PortAudioOut] Pa_AbortStream() return code: -9988
+14:32:30 [warning] [PortAudioOut] Pa_CloseStream() return code: -9988
+14:32:30 [info] [PortAudioOut] Pa_Terminate() return code: 0
+14:32:39 [info] [LocalLibrary] query 'PersistedPlayQueueQuery' enqueued
+14:32:39 [info] [LocalLibrary] query 'PersistedPlayQueueQuery' running
+14:32:39 [info] [LocalLibrary] query 'PersistedPlayQueueQuery' finished with status=4
+14:32:39 [info] [GaplessTransport] stop

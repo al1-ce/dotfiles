@@ -1,0 +1,1 @@
+/home/al1-ce/.local/share/broot/launcher/fish/br.fish

@@ -1,0 +1,192 @@
+#!/bin/fish
+
+# alias ls    "exa   --color=auto"
+alias grep  "grep  --color=auto"
+alias fgrep "fgrep --color=auto"
+alias egrep "egrep --color=auto"
+
+# alias ll "ls -alF"
+# alias la "ls -A"
+# alias l  "ls -CF"
+
+alias ls "exa"
+alias l  "ls -l"
+alias lf "ls -lF"
+alias la "ls -a"
+alias ll "ls -aghl"
+
+alias clear "printf '\033c'"
+alias logoff "logout"
+alias logon "login"
+
+# Better use Alt + S
+# alias please 'sudo $(history -p !!)'
+alias .. 'cd ../'
+alias ... 'cd ../..'
+alias .... 'cd ../../..'
+alias ..... 'cd ../../../..'
+alias mkdir 'mkdir -pv'
+# alias srcrc 'source ~/.bashrc'
+alias cwd pwd
+alias alt 'tput smcup && tput clear'
+alias nrm 'tput rmcup'
+
+alias mv "mv -i"
+alias cp "cp -i"
+alias rm "rm -i"
+alias ln "ln -i"
+
+alias dcat "/usr/bin/cat"
+
+alias dcat /usr/bin/cat
+# bat
+alias bat "bat --tabs 4 --color always --paging always --theme gruvbox-dark"
+# copy-cat
+alias cat "bat --plain"
+
+alias line "hr ─"
+
+# help
+alias bathelp='bat --plain --language=help'
+function help
+    $argv --help 2>&1 | bathelp
+end
+# ---------------------------------- ALIASES --------------------------------- #
+# alias alias-update='source ~/.dotfiles/.bash_aliases'
+# alias alias-edit='vim ~/.dotfiles/.bash_aliases'
+
+# ---------------------------------------------------------------------------- #
+#                                     APPS                                     #
+# ---------------------------------------------------------------------------- #
+
+# ------------------------------------ cli ----------------------------------- #
+alias neofetch 'neofetch --config ~/.dotfiles/.neofetch-themes/basic.conf'
+alias calendar 'ncal -yMb'
+alias doomsday '~/.dotfiles/doomsday-clock'
+alias dvim /usr/bin/vim
+alias vim nvim
+alias vi nvim
+alias v nvim
+alias e "nvim (gum file)"
+
+function tts 
+    spd-say -o rhvoice -y slt "$argv"
+end
+
+alias center '~/.dotfiles/center.sh'
+
+function tuxsay
+    cowsay -f tux "$argv" | center
+end
+
+function lolsay
+    cowsay -f tux "$argv" | center | lolcat
+end
+
+# function sudo
+#     gum input --password | /usr/sbin/sudo -nS $argv 2>/dev/null
+# end
+
+alias jspp jsppext
+
+# ---------------------------------- WEB CLI --------------------------------- #
+alias google='googler -l en -g en -x -c en'
+
+function search
+    if count $argv > /dev/null
+        google -j $(google --np -n 50 $argv | fzf | sed "s/\d*?\.\s*?//")
+    else
+        echo 'Please supply search terms'
+    end
+end
+
+# yewtube
+alias web 'links -g'
+alias webt 'links'
+
+# ------------------------------------ GIT ----------------------------------- #
+function backup
+    git add .
+    if count $argv > /dev/null
+        git commit -m $argv
+    else
+        git commit -m "Updated: `date +'%Y-%m-%d %H:%M:%S'`"
+    end
+    git push origin master
+end
+
+function branch
+    git branch 2> /dev/null | fzf | sed "s/.* //" | awk "{print $argv[1]}" | xargs git checkout
+end
+
+# ----------------------------------- PROGS ---------------------------------- #
+alias wttr 'curl wttr.in/Moscow'
+alias remind 'cat ~/.dotfiles/.command-reminder'
+alias clock 'tty-clock -s -c -C 7'
+alias cmatrix 'cmatrix -C yellow'
+alias enter-the-shell 'mpv --quiet -vo=caca .dotfiles/gits-op.mp4'
+alias nms 'nms -a'
+
+# function godot
+#     cd ~/Godot
+#     ./Godot_* &
+#     cd ~
+# end
+#
+# function godot-quiet
+#     set WD $PWD
+#     cd ~/Godot
+#     nohup ./Godot_* & 
+#     cd $WD
+# end
+
+#jp2a --colors --color-depth=8 --chars=" .,:;!-~=+÷*JS?#%@AX" --width="${PV_WIDTH}" "${FILE_PATH}" && exit 4
+#jp2a --colors --color-depth=8 --chars=" ░▒▓█" --width="${PV_WIDTH}" "${FILE_PATH}" && exit 4
+
+# ---------------------------------- Telnet ---------------------------------- #
+alias mapscii 'telnet mapscii.me'
+
+# ---------------------------------- SERVERS --------------------------------- #
+alias server-start 'python3 -m http.server 8080 --bind 127.0.0.1'
+# http-server
+
+function psearch
+    if count $argv > /dev/null
+        ps axu | grep $argv[1]
+    else
+        echo "Please supply process name"
+    end
+end
+
+# TODO: extract
+
+# ---------------------------------------------------------------------------- #
+#                                     X GUI                                    #
+# ---------------------------------------------------------------------------- #
+
+# ---------------------------------------------------------------------------- #
+#                               ENV CUSTOMISATION                              #
+# ---------------------------------------------------------------------------- #
+
+set NAP_THEME gruvbox
+
+# ---------------------------------------------------------------------------- #
+#                                STARTUP SCRIPT                                #
+# ---------------------------------------------------------------------------- #
+
+# alias cls=bash-startup-func
+#
+# bash-startup-func() {
+#     clear
+#     # neofetch
+#
+#     echo "   ___  __  __       ____  ____"
+#     echo "  / _ |/ /_/ /  ___ / __ \/ __/"
+#     echo " / __ / __/ _ \/ -_) /_/ /\ \  "
+#     echo "/_/ |_\__/_//_/\__/\____/___/  "
+# }
+if status --is-interactive
+    alias cls "clear && ~/.dotfiles/fetch"
+    
+    cls
+end
