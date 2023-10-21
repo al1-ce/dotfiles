@@ -79,8 +79,13 @@ fish_add_path -Ppg /home/linuxbrew/.linuxbrew/bin
 set CARGO_HOME ~/.cargo/
 set RUSTUP_HOME ~/.rustup/
 set GOPATH ~/.go/
+set RUBY_GEMS ~/.local/share/gem/ruby/3.0.0/
+set RUBY_ROOT /usr/lib/ruby/gems/3.0.0
 
 set SHELL /bin/fish
+
+fish_add_path -Ppg $RUBY_GEMS
+fish_add_path -Ppg $RUBY_ROOT
 
 # OTHER
 set fish_greeting
