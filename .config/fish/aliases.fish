@@ -120,6 +120,10 @@ function branch
     git branch 2> /dev/null | fzf | sed "s/.* //" | awk "{print $argv[1]}" | xargs git checkout
 end
 
+alias ga "git add"
+alias gc "git commit"
+alias gp "git push"
+
 # ----------------------------------- PROGS ---------------------------------- #
 alias wttr 'curl wttr.in/Moscow'
 alias remind 'cat ~/.dotfiles/.command-reminder'
