@@ -7,7 +7,7 @@ remind // /home/al1-ce/.dotfiles/.command-reminder
 dunst // /home/al1-ce/.config/dunst/dunstrc
 ranger // /home/al1-ce/.config/ranger/rc.conf
 telegram // /home/al1-ce/.config/tg/conf.py
-pkm // .config/pkm/conf.yaml
+pkm // /home/al1-ce/.config/pkm/conf.yaml
 alacritty // /home/al1-ce/.config/alacritty/alacritty.yml
 picom // /home/al1-ce/.config/picom/picom.conf
 qute // /home/al1-ce/.config/qutebrowser/config.py
