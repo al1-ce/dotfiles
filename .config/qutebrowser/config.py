@@ -2,10 +2,10 @@
 config.load_autoconfig(True)
 
 c.aliases = {
-    'w': 'session-save', 
+    'w': 'session-save',
     'q': 'close',
-    'qa': 'quit', 
-    'wq': 'quit --save', 
+    'qa': 'quit',
+    'wq': 'quit --save',
     'wqa': 'quit --save',
     'o': 'open',
     'yt': 'open https://youtube.com/',
@@ -16,14 +16,15 @@ c.aliases = {
     'g': 'open',
     'rund': 'open http://run.dlang.io/',
     'discord': 'open https://discord.com/channels/@me',
-    'tg': 'open https://web.telegram.org/k/#'
+    'tg': 'open https://web.telegram.org/k/#',
+    'ym': 'https://music.yandex.ru/home',
 }
 
 c.url.default_page = 'https://al1-ce.github.io/homepage/'
 c.url.open_base_url = True
 
 c.url.searchengines = {
-    'DEFAULT': 'https://google.com/search?q={}',
+    'DEFAULT': 'https://duckduckgo.com/?q={}',
     'p': 'https://phind.com/search?q={}',
     'g': 'https://google.com/search?q={}',
     'd': 'https://google.com/search?domains=dlang.org&q={}+site:dlang.org/phobos',
@@ -32,7 +33,8 @@ c.url.searchengines = {
     'gh': 'https://github.com/search?q={}',
     'y': 'https://www.youtube.com/results?search_query={}',
     'yt': 'https://www.youtube.com/results?search_query={}',
-    'tg': 'https://web.telegram.org/k/#?null={}'
+    'tg': 'https://web.telegram.org/k/#?null={}',
+    'ym': 'https://music.yandex.ru/home?null={}',
 }
 
 c.url.start_pages = ['https://al1-ce.github.io/homepage/']
@@ -62,17 +64,17 @@ c.colors.webpage.bg = '#282828'
 c.completion.cmd_history_max_items = 100
 c.completion.delay = 0
 
-# Default filesystem autocomplete suggestions for :open. 
+# Default filesystem autocomplete suggestions for :open.
 c.completion.favorite_paths = []
 
 c.completion.height = '30%'
 c.completion.min_chars = 1
 
 c.completion.open_categories = [
-    'searchengines', 
-    'quickmarks', 
-    'bookmarks', 
-    'history', 
+    'searchengines',
+    'quickmarks',
+    'bookmarks',
+    'history',
     'filesystem'
 ]
 
@@ -85,7 +87,7 @@ c.completion.scrollbar.width = 6
 c.completion.show = 'always'
 c.completion.shrink = True
 
-c.completion.timestamp_format = '%H:%M %d/%m/%Y' 
+c.completion.timestamp_format = '%H:%M %d/%m/%Y'
 
 # Execute the best-matching command on a partial match.
 c.completion.use_best_match = True
@@ -189,8 +191,12 @@ c.prompt.radius = 0
 # Additional arguments to pass to Qt, without leading `--`. With
 c.qt.args = []
 
+c.qt.chromium.process_model = "process-per-site"
 
-# Additional environment variables to set. 
+c.session.lazy_restore = True
+
+
+# Additional environment variables to set.
 # c.qt.environ = {}
 
 # - always: Always show the scrollbar.
@@ -262,14 +268,14 @@ c.window.transparent = True
 
 c.bindings.default = {}
 c.bindings.key_mappings = {
-    # '<Ctrl-[>': '<Escape>', 
-    # '<Ctrl-6>': '<Ctrl-^>', 
-    # '<Ctrl-M>': '<Return>', 
-    # '<Ctrl-J>': '<Return>', 
-    # '<Ctrl-I>': '<Tab>', 
-    # '<Shift-Return>': '<Return>', 
-    '<Enter>': '<Return>', 
-    '<Shift-Enter>': '<Shift-Return>', 
+    # '<Ctrl-[>': '<Escape>',
+    # '<Ctrl-6>': '<Ctrl-^>',
+    # '<Ctrl-M>': '<Return>',
+    # '<Ctrl-J>': '<Return>',
+    # '<Ctrl-I>': '<Tab>',
+    # '<Shift-Return>': '<Return>',
+    '<Enter>': '<Return>',
+    '<Shift-Enter>': '<Shift-Return>',
     '<Ctrl-Enter>': '<Ctrl-Return>',
 }
 
@@ -435,6 +441,7 @@ config.bind('<Alt-,>', 'tab-prev')
 config.bind('<Alt-.>', 'tab-next')
 config.bind('<Ctrl-W>', 'tab-close')
 
+# https://github.com/qutebrowser/qutebrowser/issues/3736
 config.bind('<', 'tab-move -')
 config.bind('>', 'tab-move +')
 config.bind('<Alt-Shift-,>', 'tab-move -')

@@ -297,6 +297,7 @@ settings:
     https://www.google.com: false
     https://www.speedtest.net: false
   content.notifications.enabled:
+    https://music.yandex.ru: false
     https://robertsspaceindustries.com: false
     https://web.telegram.org: false
     https://www.dreamstime.com: false

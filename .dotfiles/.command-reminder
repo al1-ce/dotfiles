@@ -8,6 +8,8 @@ git-stats               git graphs
 gum                     make scripts fancy
 lnav                    log navigator
 yadm add -u             adds modified files to yadm
+gdp-dashboard           gnu debugger tui
+tmate                   share the terminal
 
 #  UNIX -------------------------------------------------- #
 hr                      horisontal ruler
@@ -15,6 +17,8 @@ tail -f file            monitor file changes
 ranger                  cli file manager
 aria2c                  torrent (aria2 pkg)
 cod                     completion daemon
+tere                    quick cd/ls
+tuifi                   tui fm
 
 # PACMAN ------------------------------------------------- #
 yay                     aur package manager
