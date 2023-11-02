@@ -10,6 +10,7 @@ lnav                    log navigator
 yadm add -u             adds modified files to yadm
 gdp-dashboard           gnu debugger tui
 tmate                   share the terminal
+taskbook                task manager
 
 #  UNIX -------------------------------------------------- #
 hr                      horisontal ruler

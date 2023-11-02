@@ -1,23 +1,25 @@
 managers:
 pacman: /usr/bin/pacman
 custom:
-  updupg: -Syu
-  stats: -Ps
-  pkgbuild: -Gp
-  vote: -Wv
-  unvote: -Wu
-  sysupdate: pacman -Syu
-  installed: -Qs
-  find: -F
+    updupg: -Syu
+    stats: -Ps
+    pkgbuild: -Gp
+    vote: -Wv
+    unvote: -Wu
+    sysupdate: pacman -Syu
+    installed: -Qs
+    find: -F
+    sync: -Sy
 alias:
-  i: install
-  s: search
-  r: remove
-  b: pkgbuild
-  u: updupg
-  I: info
-  f: installed
-  F: find
+    i: install
+    s: search
+    r: remove
+    b: pkgbuild
+    u: updupg
+    I: info
+    f: installed
+    F: find
+    S: sync
 separate: yes
 separator: "\u2500"
 separator-color: "\e[38;5;237m"

@@ -296,12 +296,16 @@ settings:
   content.geolocation:
     https://www.google.com: false
     https://www.speedtest.net: false
+  content.javascript.enabled:
+    global: true
   content.notifications.enabled:
     https://music.yandex.ru: false
     https://robertsspaceindustries.com: false
     https://web.telegram.org: false
     https://www.dreamstime.com: false
     https://www.goodfon.com: false
+  input.mouse.rocker_gestures:
+    global: true
   qt.force_platform:
     global: xcb
   qt.force_software_rendering:
