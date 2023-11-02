@@ -322,6 +322,8 @@ config.bind('|to', 'tab-only')
 # config.bind('|tc', 'tab-close')
 config.bind('|tC', 'tab-close -o')
 config.bind('|t\\', '_Menu')
+config.bind('|tR', 'set input.mouse.rocker_gestures true')
+config.bind('|tr', 'set input.mouse.rocker_gestures false')
 
 # Marks
 config.bind('|mq', 'cmd-set-text -s :quickmark-load')

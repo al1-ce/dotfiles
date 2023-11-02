@@ -34,9 +34,6 @@ function __on_pwd_change --on-variable PWD --description 'Do rvm stuff'
     ls
 end
 
-# IDK what it was
-bind \e\[1\;3P ''
-
 function tere
     set --local result (command tere $argv)
     [ -n "$result" ] && cd -- "$result"
@@ -155,6 +152,12 @@ source ~/.config/fish/plugins.fish
 source ~/.config/fish/aliases.fish
 
 bind \ch backward-kill-word
+bind \e\[3\;5~ kill-word
+# IDK what it was
+bind \e\[1\;3P ''
+bind \e\[1\;5A ''
+bind \e\[1\;5B ''
+
 # bind \b backward-kill-word
 
 starship init fish | source
