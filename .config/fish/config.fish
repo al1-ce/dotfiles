@@ -93,6 +93,7 @@ set HAS_ALLOW_UNSAFE y
 set -g -x RANGER_LOAD_DEFAULT_RC false
 set -g -x FILE_PICKER_CMD ranger
 set -g -x DXVK_ASYNC 1
+set -g -x WEBKIT_DISABLE_COMPOSITING_MODE 1
 
 set MANPAGER "sh -c 'col -bx | bat --tabs 4 --color always --paging always -l man -p'"
 set DELTA_PAGER "less -+X" # less -RF 

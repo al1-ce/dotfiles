@@ -76,9 +76,10 @@ sudo systemctl enable dbus.service
 sudo systemctl enable greetd.service
 sudo systemctl enable polkit.service
 sudo systemctl enable touchegg.service
-sudo systemctl enable pipewire 
+sudo systemctl enable pipewire
 sudo systemctl enable pipewire-pulse
 sudo systemctl enable wireplumber
+sudo systemctl enable opentabletdriver
 
 # echo-blue "## Copying scripts ##"
 #

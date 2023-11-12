@@ -55,8 +55,10 @@ yandex-disk-indicator &
 unclutter --timeout 2147483647 --hide-on-touch -b &
 start-pulseaudio-x11 &
 companion &
+gromit-mpx &
 # xinput create-master "Touh"
 # xinput reattach "Melfas LGDisplay Incell Touch" "Touch pointer"
 xinput map-to-output "Melfas LGDisplay Incell Touch" DP-0
+systemctl --user enable opentabletdriver --now
 
 exec qtile start

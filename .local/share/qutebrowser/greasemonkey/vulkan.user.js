@@ -43,7 +43,14 @@ pre code {
 }
 
 a {
-    color: #337ab7;
+    color: #9bc2e3;
     text-decoration: none;
+    border: none;
+}
+
+a:hover {
+    color: #cbcef0;
+    text-decoration: none;
+    border: none;
 }
 `)

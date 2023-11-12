@@ -1,0 +1,9 @@
+{
+    "runtime.version": "LuaJIT",
+    "diagnostics.globals": [
+        "luakit"
+    ],
+    "workspace.library": [
+        "/usr/share/luakit/lib"
+    ]
+}
