@@ -2,7 +2,6 @@
 // @name dlang.org
 // @match https://dlang.org/
 // @match https://dlang.org/*
-// @match https://*.dlang.org/*
 // @description
 // @include
 // ==/UserScript==
@@ -18,44 +17,38 @@ function add_css(css_string) {
 }
 
 add_css(`
-body {
-    color: #f5f5f5;
-    background-color: #222020;
-}
-
-.columns .right-column .content-page {
-    background-color: #333030;
-}
-
-.right-column {
-    background-color: #222020;
+body, th, tr, td {
+    color: #f5f5f5 !important;
+    background-color: #222020 !important;
 }
 
 code {
-    background-color: #222020;
-    color: #f0f0f0;
-    border: 1px solid #333;
+    background-color: #222020 !important;
+    color: #f0f0f0 !important;
+    border: 1px solid #333 !important;
 }
 
 pre code {
-    background: #222020;
-    border: none;
+    background: #222020 !important;
+    border: none !important;
 }
 
-.d_decl {
-    background: #222020;
+.d_decl, .quickindex, subnav,
+.subnav-helper, d_code, .d_code2,
+.post-info, pre, .subnav {
+    background-color: #222020 !important;
 }
 
-.quickindex {
-    background: #222020;
+.hljs-keyword, .hljs-selector-tag, .hljs-built_in, .hljs-name, .hljs-tag {
+    color: #9bc2e3 !important;
 }
 
-.subnav, .subnav-helper {
-    background: #222020;
+.site {
+    background-color: #222020 !important;
 }
 
-.d_code, .d_code2 {
-    background-color: #222020;
+.site-header h1 a, .site-header h2 a {
+    color: #f5f5f5;
 }
 `)
 

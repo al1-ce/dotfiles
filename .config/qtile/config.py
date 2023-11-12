@@ -43,6 +43,7 @@ filemanager_gui = "nemo"
 editor = terminal_exec + " nvim"
 editor_gui = "code"
 process_explr = terminal_exec + " btop"
+osc_draw = "gromit-mpx"
 
 screen_order = [1, 0, 2]
 
@@ -270,7 +271,11 @@ keys = [EzKey(k[0], *k[1:]) for k in [
     ("M-v", lazy.spawn(editor)),
     ("M-S-v", lazy.spawn(editor_gui)),
     ("M-p", lazy.spawn("gpick")),
-    
+    ("M-d", lazy.spawn(osc_draw + " --toggle")),
+    ("M-A-d", lazy.spawn(osc_draw + " --redo")),
+    ("M-C-d", lazy.spawn(osc_draw + " --undo")),
+    ("M-S-d", lazy.spawn(osc_draw + " --clear")),
+
     ("M-t", lazy.spawn(process_explr)),
     ("M-A-t", lazy.spawn("/bin/bash -c '" + tabletscript +"'")),
     ("M-S-t", lazy.spawn("/bin/bash -c '" + touchsscript +"'")),

@@ -70,40 +70,40 @@ symbol = ""
 when = """test "$(find "$(git rev-parse --show-toplevel)" -name "dub.*")" != """""
 # command = "dub --version | sed -E 's/.*?version //' | sed -E 's/,.*//'"
 style = "bold red"
-format = "via [D]($style)"
+format = "via [D]($style) "
 # format = "via [ v$symbol($output )]($style)"
 description = "The currently installed verison of D"
 
 [python]
 # detect_extensions = []
-format = "via [Python]($style)"
+format = "via [Python]($style) "
 
 [dart]
-format = "via [Dart]($style)"
+format = "via [Dart]($style) "
 
 [c]
-format = "via [C]($style)"
+format = "via [C]($style) "
 
 [lua]
-format = "via [Lua]($style)"
+format = "via [Lua]($style) "
 
 [java]
-format = "via [Java]($style)"
+format = "via [Java]($style) "
 
 [golang]
-format = "via [Go]($style)"
+format = "via [Go]($style) "
 
 [custom.gitclean]
 when = """git rev-parse --show-toplevel && test "$(git status -s)" = """""
 style = "bright-white"
-format = " [⬢]($style)"
+format = "[⬢]($style)"
 description = "Shown on clean git repository"
 ignore_timeout = true
 
 [custom.gitdirty]
 when = """git rev-parse --show-toplevel && test "$(git status -s)" != """""
 style = "bright-white"
-format = " [⬡]($style)"
+format = "[⬡]($style)"
 description = "Shown when git has unstaged files"
 ignore_timeout = true
 
