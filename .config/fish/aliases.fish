@@ -81,7 +81,11 @@ alias tb taskbook
 
 alias yd yandex-disk
 
+alias music musikcube
+
 alias setcursor '~/.dotfiles/scripts/setcursor.sh'
+
+alias ytmp3 "yt-dlp -f 'ba' -x --audio-format wav"
 
 # function sudo
 #     gum input --password | /usr/sbin/sudo -nS $argv 2>/dev/null
