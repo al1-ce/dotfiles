@@ -15,6 +15,7 @@ taskbook                task manager
 #  UNIX -------------------------------------------------- #
 hr                      horisontal ruler
 tail -f file            monitor file changes
+watch                   track command output
 ranger                  cli file manager
 aria2c                  torrent (aria2 pkg)
 cod                     completion daemon

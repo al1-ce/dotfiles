@@ -86,6 +86,7 @@ alias music musikcube
 alias setcursor '~/.dotfiles/scripts/setcursor.sh'
 
 alias ytmp3 "yt-dlp -f 'ba' -x --audio-format wav"
+alias feh "feh -Tdefault"
 
 # function sudo
 #     gum input --password | /usr/sbin/sudo -nS $argv 2>/dev/null
@@ -130,7 +131,7 @@ alias gp "git push"
 
 # ----------------------------------- PROGS ---------------------------------- #
 alias wttr 'curl wttr.in/Moscow'
-alias remind 'cat ~/.dotfiles/.command-reminder'
+alias remind 'cat ~/.dotfiles/remind'
 alias clock 'tty-clock -s -c -C 7'
 alias cmatrix 'cmatrix -C yellow'
 alias nms 'nms -a'
