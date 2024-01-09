@@ -202,5 +202,7 @@ if status --is-interactive
     cod init $fish_pid fish | source
     alias cls "clear && ~/.dotfiles/bin/fetch"
     
-    cls
+    ~/.dotfiles/bin/fetch
+
+    # cls
 end
