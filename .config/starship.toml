@@ -93,6 +93,9 @@ format = "via [Java]($style) "
 [golang]
 format = "via [Go]($style) "
 
+[docker_context]
+format = "via [Docker]($style) "
+
 [custom.gitclean]
 when = """git rev-parse --show-toplevel && test "$(git status -s)" = """""
 style = "bright-white"
