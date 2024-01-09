@@ -25,12 +25,13 @@ def is_tool(name):
 
 terminal = guess_terminal()
 terminal_exec = terminal
+term_exec = terminal + " -x bash -c \""
 if (is_tool("kitty")):
     terminal = "kitty"
     terminal_exec = "kitty"
-# if (is_tool("alacritty")): # Until i figure out how to add touch support to kitty
-#     terminal = "alacritty"
-#     terminal_exec = "alacritty -e"
+    term_exec = terminal + " bash -c \""
+term_wait = " && read -p '' -n1 -s\""
+term_end = "\""
 
 home = os.path.expanduser('~')
 dotfiles = home + "/.dotfiles"
@@ -510,13 +511,12 @@ def init_widgets():
         widget.CheckUpdates(
             **widget_defaults,
             # distro = "Arch",
-            custom_command = "yay -Qu", # no manjaro option
+            custom_command = "yay -Qu",
             custom_command_modify = lambda x: x - 1,
             update_interval = 1800,
             display_format = "{updates}",
             no_update_string = " 0",
-            # mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' --hold -e apt list --upgradable')}, # konsole
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' --hold -x yay -Qu')}, # xfce4-terminal
+            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(term_exec + 'yay -Qu' + term_wait)},
             colour_have_updates = colors["accent"],
             colour_no_updates = colors["off"],
             ),
@@ -526,7 +526,7 @@ def init_widgets():
         widget.DF(
             **widget_defaults,
             format="{r:2.0f}%",
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e btop')},
+            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' btop')},
             visible_on_warn = False
             ),
 
@@ -534,7 +534,7 @@ def init_widgets():
         widget.TextBox( **fa_def, text = icons["ram"] ),
         widget.Memory(
             format="{MemPercent:2.0f}%",
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e btop')},
+            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' btop')},
             ),
 
         widget.Spacer(**spacer_def),
@@ -542,7 +542,7 @@ def init_widgets():
         widget.CPU(
             **widget_defaults,
             format="{load_percent:2.0f}%",
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' -e btop')},
+            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' btop')},
             ),
 
         widget.Spacer(**spacer_def),
@@ -570,7 +570,7 @@ def init_widgets():
         widget.Clock(
             **widget_defaults,
             format="%d/%m",
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' --hold -e ncal -yMb')},
+            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(term_exec + 'ncal -yMb' + term_wait)},
             ),
 
         widget.Spacer(**spacer_def),
@@ -578,7 +578,7 @@ def init_widgets():
         widget.Clock(
             **widget_defaults,
             format="%H:%M:%S",
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' --hold -e ncal -yMb')},
+            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(term_exec + 'ncal -yMb' + term_wait)},
             ),
 
         widget.Spacer(**spacer_def),
@@ -644,7 +644,7 @@ def init_widgets_part():
         widget.Clock(
             **widget_defaults,
             format="%d/%m",
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' --hold -e ncal -yMb')},
+            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(term_exec + 'ncal -yMb' + term_wait)},
             ),
 
         widget.Spacer(**spacer_def),
@@ -652,7 +652,7 @@ def init_widgets_part():
         widget.Clock(
             **widget_defaults,
             format="%H:%M:%S",
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(terminal + ' --hold -e ncal -yMb')},
+            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(term_exec + 'ncal -yMb' + term_wait)},
             ),
 
         widget.Spacer(**spacer_def),
