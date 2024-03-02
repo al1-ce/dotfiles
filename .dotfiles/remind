@@ -42,9 +42,10 @@ musikcube               audio player
 pxv/tai/catimg          ascii generators
 pastel                  nice color display
 cava                    audio visualiser
+mdless                  ruby markdown viewer
 curseradio              cli radio
 playerctl               cli media control
-mdless                  ruby markdown viewer
+ani-cli                 cli anime
 
 # IRL ---------------------------------------------------- #
 wttr                    weather forecast

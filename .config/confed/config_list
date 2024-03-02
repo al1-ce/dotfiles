@@ -2,7 +2,7 @@ nvim // /home/al1-ce/.config/nvim/init.lua
 kitty // /home/al1-ce/.config/kitty/kitty.conf
 fish // /home/al1-ce/.config/fish/config.fish
 qtile // /home/al1-ce/.config/qtile/config.py
-remind // /home/al1-ce/.dotfiles/.command-reminder
+remind // /home/al1-ce/.dotfiles/remind
 /home/al1-ce/.config/dunst/dunstrc // 
 dunst // /home/al1-ce/.config/dunst/dunstrc
 ranger // /home/al1-ce/.config/ranger/rc.conf
