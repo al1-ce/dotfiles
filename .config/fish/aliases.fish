@@ -138,7 +138,8 @@ alias nms 'nms -a'
 
 alias clearvswap 'echo "Removing nvim swap."; rm -rf ~/.local/state/nvim/swap'
 
-alias fixpacman 'sudo ntpd -qg && sudo hwclock -w'
+alias pacman-time 'sudo ntpd -qg && sudo hwclock -w'
+alias pacman-clean 'pacman -Qtdq | sudo pacman -Rns -'
 
 # function godot
 #     cd ~/Godot
