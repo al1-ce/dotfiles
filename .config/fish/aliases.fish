@@ -17,7 +17,8 @@ alias ll "ls -aghl"
 
 # alias logout "loginctl terminate-user $USER"
 alias clear "printf '\033c'"
-alias logoff "logout"
+alias logout "exit"
+alias logoff "exit"
 alias logon "login"
 
 # Better use Alt + S

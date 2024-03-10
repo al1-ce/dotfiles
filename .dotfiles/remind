@@ -46,6 +46,11 @@ mdless                  ruby markdown viewer
 curseradio              cli radio
 playerctl               cli media control
 ani-cli                 cli anime
+streamlink              cli video pipe
+
+# SOCIAL ------------------------------------------------- #
+weechat                 irc chat
+twitch-tui              twitch chat in cli
 
 # IRL ---------------------------------------------------- #
 wttr                    weather forecast
