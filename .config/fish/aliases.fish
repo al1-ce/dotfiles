@@ -126,6 +126,17 @@ function branch
     git branch 2> /dev/null | fzf | sed "s/.* //" | awk "{print $argv[1]}" | xargs git checkout
 end
 
+function git-poll
+    for f in $(find . -maxdepth 1 -type d)
+        if test -d $f/.git
+            set git_poll_output $(git -C $f status --porcelain)
+            if test -n "$git_poll_output"
+                printf "\e[4m%-20s %-4s\e[0m\n" $(echo "$f" | cut -c 3-) "$(git -C $f status --porcelain | wc -l)"
+            end
+        end
+    end
+end
+
 alias ga "git add"
 alias gc "git commit"
 alias gp "git push"
@@ -151,7 +162,7 @@ alias pacman-clean 'pacman -Qtdq | sudo pacman -Rns -'
 # function godot-quiet
 #     set WD $PWD
 #     cd ~/Godot
-#     nohup ./Godot_* & 
+#     nohup ./Godot_* &
 #     cd $WD
 # end
 
@@ -203,7 +214,7 @@ set NAP_THEME gruvbox
 if status --is-interactive
     cod init $fish_pid fish | source
     alias cls "clear && ~/.dotfiles/bin/fetch"
-    
+
     ~/.dotfiles/bin/fetch
 
     # cls

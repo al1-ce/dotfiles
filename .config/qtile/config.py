@@ -241,10 +241,10 @@ keys = [EzKey(k[0], *k[1:]) for k in [
     ("M-A-1", lazy.to_screen(screen_order[0])),
     ("M-A-2", lazy.to_screen(screen_order[1])),
     ("M-A-3", lazy.to_screen(screen_order[2])),
-    ("M-A-<Left>", lazy.to_screen(screen_order[0])),
+    ("M-A-<Left>", lazy.to_screen(screen_order[2])),
     ("M-A-<Down>", lazy.to_screen(screen_order[1])),
     ("M-A-<Up>", lazy.to_screen(screen_order[1])),
-    ("M-A-<Right>", lazy.to_screen(screen_order[2])),
+    ("M-A-<Right>", lazy.to_screen(screen_order[0])),
     ("M-A-j", lazy.prev_screen()),
     ("M-A-k", lazy.next_screen()),
     ##Move the focused group to one of the screens and follow it
@@ -557,13 +557,13 @@ def init_widgets():
             update_interval = 60
             ),
 
-        widget.Spacer(**spacer_def),
-        widget.TextBox( **fa_def, text = icons["doomsday"] ),
-        widget.GenPollText(
-            **widget_defaults,
-            func = get_doomsday,
-            update_interval = 60 * 60 * 6
-            ),
+        # widget.Spacer(**spacer_def),
+        # widget.TextBox( **fa_def, text = icons["doomsday"] ),
+        # widget.GenPollText(
+        #     **widget_defaults,
+        #     func = get_doomsday,
+        #     update_interval = 60 * 60 * 6
+        #     ),
 
         widget.Spacer(**spacer_def),
         widget.TextBox( **fa_def, text = icons["calendar"] ),
@@ -693,14 +693,14 @@ screens = [
         top = bar.Bar(widgets = init_widgets(), size = 24, background = bar_color, ), 
         wallpaper=home + '/.config/qtile/wallpapers/center.png', 
         wallpaper_mode='stretch', ),
-    Screen( # right
-        top = bar.Bar(widgets = init_widgets_part(), size = 24, background = bar_color, ), 
-        wallpaper=home + '/.config/qtile/wallpapers/gray_5.png', 
-        wallpaper_mode='fill', ),
     Screen( # left
         top = bar.Bar(widgets = init_widgets_part(), size = 24, background = bar_color, ), 
         wallpaper=home + '/.config/qtile/wallpapers/left.png', 
         wallpaper_mode='stretch', ),
+    Screen( # right
+        top = bar.Bar(widgets = init_widgets_part(), size = 24, background = bar_color, ), 
+        wallpaper=home + '/.config/qtile/wallpapers/gray_5.png', 
+        wallpaper_mode='fill', ),
 ]
 
 # ---------------------------------------------------------------------------- #
@@ -747,6 +747,7 @@ dgroups_app_rules = []  # type: List
 follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
+x11_drag_polling_rate = 60
 
 auto_fullscreen = True
 focus_on_window_activation = "smart"
@@ -786,13 +787,13 @@ def set_screen_groups():
     # left center right = 1 0 2
     screens[0].cmd_toggle_group("SYS") # center
     # screens[1].cmd_toggle_group("WWW") # left
-    screens[2].cmd_toggle_group("DEV") # right
+    screens[1].cmd_toggle_group("DEV") # right
 
 @hook.subscribe.startup_once
 def autostart():
     screens[0].cmd_toggle_group("SYS") # center
     # screens[1].cmd_toggle_group("WWW") # left
-    screens[2].cmd_toggle_group("DEV") # right
+    screens[1].cmd_toggle_group("DEV") # right
 
     # subprocess.Popen([home + '/.config/qtile/autostart.sh'])
     # set_screen_groups()

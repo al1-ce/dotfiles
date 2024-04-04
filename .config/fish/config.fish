@@ -61,9 +61,9 @@ echo '"\e[1;3P": ""' >> ~/.inputrc
 # echo '"\e[H": beginning-of-line' >> ~/.inputrc
 # echo '"\e[F": end-of-line' >> ~/.inputrc
 
-# PATH 
+# PATH
 fish_add_path -Ppg /usr/bin /bin /usr/sbin /sbin /usr/local/homebrew/bin /usr/local/bin
-fish_add_path -Ppg $HOME/.bin  $HOME/.local/bin /var/lib/flatpak/exports/bin/ 
+fish_add_path -Ppg $HOME/.bin  $HOME/.local/bin /var/lib/flatpak/exports/bin/
 fish_add_path -Ppg ~/.cargo/bin
 fish_add_path -Ppg ~/.local/bin
 fish_add_path -Ppg ~/.local/scripts
@@ -96,7 +96,7 @@ set -g -x DXVK_ASYNC 1
 set -g -x WEBKIT_DISABLE_COMPOSITING_MODE 1
 
 set MANPAGER "sh -c 'col -bx | bat --tabs 4 --color always --paging always -l man -p'"
-set DELTA_PAGER "less -+X" # less -RF 
+set DELTA_PAGER "less -+X" # less -RF
 
 set fish_color_normal brwhite
 set fish_color_autosuggestion brblack
@@ -128,17 +128,17 @@ end
 # function ex
 #     if test -f $argv[1]
 #         switch "$argv[1]"
-#             case   '*.tar.bz2'    tar xjf $1   
-#             case   "*.tar.gz"    tar xzf $1   
-#             case   "*.bz2"       bunzip2 $1   
-#             case   "*.rar"       unrar x $1   
-#             case   "*.gz"        gunzip $1    
-#             case   "*.tar"       tar xf $1    
-#             case   "*.tbz2"      tar xjf $1   
-#             case   "*.tgz"       tar xzf $1   
-#             case   "*.zip"       unzip $1     
+#             case   '*.tar.bz2'    tar xjf $1
+#             case   "*.tar.gz"    tar xzf $1
+#             case   "*.bz2"       bunzip2 $1
+#             case   "*.rar"       unrar x $1
+#             case   "*.gz"        gunzip $1
+#             case   "*.tar"       tar xf $1
+#             case   "*.tbz2"      tar xjf $1
+#             case   "*.tgz"       tar xzf $1
+#             case   "*.zip"       unzip $1
 #             case   "*.Z"         uncompress $1
-#             case   "*.7z"        7z x $1      
+#             case   "*.7z"        7z x $1
 #             case   '*'           echo "'$1' cannot be extracted via ex()"
 #         end
 #     else
