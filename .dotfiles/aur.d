@@ -11,7 +11,7 @@ targetPath "bin/"
 import std.getopt: getopt, Option, config;
 import std.stdio: writeln, write, File, readln;
 import std.array: split, replace;
-import std.process: execute;
+import std.process: wait, spawnProcess, execute;
 import std.file;
 
 import sily.getopt;
@@ -67,14 +67,13 @@ int main(string[] args) {
     }
 
     return 0;
-    // string kern = execute(["uname", "-r"]).output[0..$-1];
+    // string kern = wait(spawnProcess(["uname", "-r"]).output[0..$-1]);
 }
 
 int cloneRepo(string repo) {
     assistant("Cloning " ~ repo);
-    auto _out = execute(["git", "clone", gitPath.replace("@", repo)]);
-    write(_out.output);
-    return _out.status;
+    auto _out = wait(spawnProcess(["git", "clone", gitPath.replace("@", repo)]));
+    return _out;
 }
 
 int buildPkg() {
@@ -84,9 +83,8 @@ int buildPkg() {
     }
     assistant("Making package");
     string args = optForce ? "-f" : "";
-    auto _out = execute(["makepkg", args]);
-    write(_out.output);
-    return _out.status;
+    auto _out = wait(spawnProcess(["makepkg", args]));
+    return _out;
 }
 
 int installPkg() {
@@ -96,9 +94,8 @@ int installPkg() {
     }
     assistant("Installing package");
     string args = optForce ? "-fsi" : "-si";
-    auto _out = execute(["makepkg", args]);
-    write(_out.output);
-    return _out.status;
+    auto _out = wait(spawnProcess(["makepkg", args]));
+    return _out;
 }
 
 int genSrcInfo() {
@@ -109,7 +106,7 @@ int genSrcInfo() {
     assistant("Generating .SRCINFO");
     auto info = execute(["makepkg", "--printsrcinfo"]);
     if (info.status != 0) {
-        write(info.output);
+        writeln(info.output);
         return info.status;
     }
     auto srcinfo = File(".SRCINFO", "w");
@@ -124,20 +121,15 @@ int testPkg() {
         return 0;
     }
 
-    auto _out = execute(["makepkg", "-f"]);
+    auto _out = wait(spawnProcess(["makepkg", "-f"]));
     assistant("Testing PKGBUILD");
-    if (_out.status != 0) {
-        write(_out.output);
-        return _out.status;
-    }
-    _out = execute(["namcap", "-i", "PKGBUILD"]);
-    write(_out.output);
-    if (_out.status != 0) return _out.status;
+    if (_out != 0) return _out;
+    _out = wait(spawnProcess(["namcap", "-i", "PKGBUILD"]));
+    if (_out != 0) return _out;
     assistant("Testing package");
     foreach(string filename; dirEntries(getcwd(), "*.pkg.tar.zst", SpanMode.shallow)) {
-        _out = execute(["namcap", "-i", filename]);
-        write(_out.output);
-        if (_out.status != 0) return _out.status;
+        _out = wait(spawnProcess(["namcap", "-i", filename]));
+        if (_out != 0) return _out;
     }
     return 0;
 }
@@ -199,13 +191,11 @@ int initPkg() {
     pkgbuild.writeln();
     pkgbuild.close();
 
-    auto _out = execute(["git", "init"]);
-    write(_out.output);
-    if (_out.status != 0) return _out.status;
-    _out = execute(["git", "remote", "add", "origin", gitPath.replace("@", pkgName)]);
-    write(_out.output);
-    if (_out.status != 0) return _out.status;
-    // _out = execute(["git", "branch", "--set-upstream-to=origin/master", "master"]);
+    auto _out = wait(spawnProcess(["git", "init"]));
+    if (_out != 0) return _out;
+    _out = wait(spawnProcess(["git", "remote", "add", "origin", gitPath.replace("@", pkgName)]));
+    if (_out != 0) return _out;
+    // _out = wait(spawnProcess(["git", "branch", "--set-upstream-to=origin/master", "master"]));
     // write(_out.output);
     // if (_out.status != 0) return _out.status;
 

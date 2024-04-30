@@ -27,7 +27,8 @@ calcurse                curses calendar
 yay                     aur package manager
 pacseek                 tty ncurses aur helper
 mpm                     universal install script
-pkm                     package manager manager
+pkm                     package manager manager (or pkg)
+fnt                     font manager
 
 # WEB ---------------------------------------------------- #
 isitup                  is website up

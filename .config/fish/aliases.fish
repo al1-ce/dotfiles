@@ -75,9 +75,6 @@ alias gitfetch 'onefetch -d created -d last-change -d project -d url -d size --n
 alias gitshort 'gitfetch | tr "\n" " "'
 alias calendar 'ncal -yMb'
 alias doomsday '~/.dotfiles/bin/doomsday-clock'
-alias dvim /usr/bin/vim
-alias vim nvim
-alias vi nvim
 alias v nvim
 alias e "nvim (gum file)"
 
