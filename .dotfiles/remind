@@ -21,6 +21,7 @@ aria2c                  torrent (aria2 pkg)
 cod                     completion daemon
 tere                    quick cd/ls
 tuifi                   tui fm
+calcurse                curses calendar
 
 # PACMAN ------------------------------------------------- #
 yay                     aur package manager
@@ -51,6 +52,7 @@ streamlink              cli video pipe
 # SOCIAL ------------------------------------------------- #
 weechat                 irc chat
 twitch-tui              twitch chat in cli
+newsboat                rss reader
 
 # IRL ---------------------------------------------------- #
 wttr                    weather forecast

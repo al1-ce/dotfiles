@@ -166,13 +166,13 @@ groups = [
     Group("MUS", label = icons["group_mus"], layout="columns"),
     Group("VID", label = icons["group_vid"], layout="columns"),
     Group("GFX", label = icons["group_gfx"], layout="columns"),
-    ScratchPad("scratchpad", [ 
-        DropDown("term", "kitty -T QuakeTerminal", 
+    ScratchPad("scratchpad", [
+        DropDown("term", "kitty -T QuakeTerminal",
             match=Match(title="QuakeTerminal"), width=1, x=0, height=0.45, on_focus_lost_hide=True
             ),
         ])
     ]
-    
+
 
 # ---------------------------------------------------------------------------- #
 #                                   KEYBINDS                                   #
@@ -690,16 +690,17 @@ def init_widgets_part():
 # | *** | DEV | Window Name                       Upd:  45 | Mem:  53% | CPU:   3% | Doom | Up | Time | V |
 screens = [
     Screen( # center
-        top = bar.Bar(widgets = init_widgets(), size = 24, background = bar_color, ), 
-        wallpaper=home + '/.config/qtile/wallpapers/center.png', 
-        wallpaper_mode='stretch', ),
-    Screen( # left
-        top = bar.Bar(widgets = init_widgets_part(), size = 24, background = bar_color, ), 
-        wallpaper=home + '/.config/qtile/wallpapers/left.png', 
+        top = bar.Bar(widgets = init_widgets(), size = 24, background = bar_color, ),
+        # wallpaper=home + '/.config/qtile/wallpapers/center.png', # girl in center
+        wallpaper=home + '/.config/qtile/wallpapers/left.png', # none
         wallpaper_mode='stretch', ),
     Screen( # right
-        top = bar.Bar(widgets = init_widgets_part(), size = 24, background = bar_color, ), 
-        wallpaper=home + '/.config/qtile/wallpapers/gray_5.png', 
+        top = bar.Bar(widgets = init_widgets_part(), size = 24, background = bar_color, ),
+        wallpaper=home + '/.config/qtile/wallpapers/gray_5.png', # girl on right
+        wallpaper_mode='stretch', ),
+    Screen( # left
+        top = bar.Bar(widgets = init_widgets_part(), size = 24, background = bar_color, ),
+        wallpaper=home + '/.config/qtile/wallpapers/left.png', # none
         wallpaper_mode='fill', ),
 ]
 
@@ -714,27 +715,29 @@ floating_layout = layout.Floating(
         # Match(title=WM_NAME, wm_class=WM_CLASS, role=WM_WINDOW_ROLE)
         *layout.Floating.default_float_rules,
         # gitk
-        Match(wm_class="confirmreset"), 
-        Match(wm_class="makebranch"), 
-        Match(wm_class="maketag"), 
+        Match(wm_class="confirmreset"),
+        Match(wm_class="makebranch"),
+        Match(wm_class="maketag"),
         Match(wm_class="ssh-askpass"),
-        Match(title="branchdialog"), 
+        Match(title="branchdialog"),
         Match(title="pinentry"),  # GPG key password entry
         # xfce
         Match(wm_class="xfce4-appearance-settings"),
         # godot
         Match(wm_class="Godot_ProjectList"),
-        Match(title="Load Errors"), 
+        Match(title="Load Errors"),
         # steam
-        Match(title=re.compile(r"Steam \- News.*")), 
+        Match(title=re.compile(r"Steam \- News.*")),
         # sideapps
         Match(wm_class="gpick"),
         # qtile
-        Match(title=re.compile(r"Krita \- Edit.*")), 
+        Match(title=re.compile(r"Krita \- Edit.*")),
         # Match(title=".shortcuts.html - qutebrowser"),
         # Match(title="V .shortcuts.html - qutebrowser"),
         # web
-        Match(title=re.compile(r"Vivaldi Settings:*")), 
+        Match(title=re.compile(r".*Settings.*")),
+        Match(title=re.compile(r"Create.*New.*")),
+        Match(title=re.compile(r".*Confirm.*")),
     ]
 )
 

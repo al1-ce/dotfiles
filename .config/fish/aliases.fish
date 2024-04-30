@@ -15,6 +15,8 @@ alias lf "ls -lF"
 alias la "ls -a"
 alias ll "ls -aghl"
 
+alias pkg "pkm"
+
 # alias logout "loginctl terminate-user $USER"
 alias clear "printf '\033c'"
 alias logout "exit"
@@ -35,7 +37,8 @@ alias nrm 'tput rmcup'
 
 alias mv "mv -i"
 alias cp "cp -i"
-alias rm "rm -i"
+# rm -I gonna ask after 3 files. rm -i always asks
+alias rm "rm -I"
 alias ln "ln -i"
 
 alias fs "cd -"
@@ -54,9 +57,9 @@ alias getcat "pxv -U https://cataas.com/cat -s fit"
 
 # help
 alias bathelp='bat --plain --language=help'
-function help
-    $argv --help 2>&1 | bathelp
-end
+# function help
+#     $argv --help 2>&1 | bathelp
+# end
 # ---------------------------------- ALIASES --------------------------------- #
 # alias alias-update='source ~/.dotfiles/.bash_aliases'
 # alias alias-edit='vim ~/.dotfiles/.bash_aliases'

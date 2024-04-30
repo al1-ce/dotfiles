@@ -4,6 +4,8 @@
 name "fetch"
 dependency "sily" version="~>1.4.1"
 dependency "sily:logger" version="~>1.4.1"
+targetType "executable"
+targetPath "bin/"
 +/
 
 import std.stdio: writeln, write, writef;

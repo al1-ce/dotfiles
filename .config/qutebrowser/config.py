@@ -443,7 +443,7 @@ config.bind('<Alt-,>', 'tab-prev')
 config.bind('<Alt-.>', 'tab-next')
 config.bind('<Ctrl-W>', 'tab-close')
 
-# https://github.com/qutebrowser/qutebrowser/issues/3736
+# LINK: https://github.com/qutebrowser/qutebrowser/issues/3736
 config.bind('<', 'tab-move -')
 config.bind('>', 'tab-move +')
 config.bind('<Alt-Shift-,>', 'tab-move -')
