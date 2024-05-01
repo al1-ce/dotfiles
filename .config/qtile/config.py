@@ -1,10 +1,10 @@
-
+# pylint disable=all
 import os
 import subprocess
-import datetime
+# import datetime
 import re
 
-from typing import List  # noqa: F401
+from typing import List
 
 from libqtile import bar, layout, widget, hook, qtile
 from libqtile.config import Click, Drag, Group, Key, Match, KeyChord
@@ -12,49 +12,56 @@ from libqtile.config import Screen, EzKey, ScratchPad, DropDown
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
-from uptime import uptime
+# from uptime import uptime
 
-# ---------------------------------------------------------------------------- #
-#                                   APP GUESS                                  #
-# ---------------------------------------------------------------------------- #
+# import psutil
+# import time
+
+# def seconds_elapsed():
+#     return time.time() - psutil.boot_time()
+
+# ------------------------------------------------------------------------ #
+#                                 APP GUESS                                #
+# ------------------------------------------------------------------------ #
+
 def is_tool(name):
-    """Check whether `name` is on PATH and marked as executable."""
+    # Check whether `name` is on PATH and marked as executable
     # from whichcraft import which
     from shutil import which
     return which(name) is not None
 
-terminal = guess_terminal()
-terminal_exec = terminal
-term_exec = terminal + " -x bash -c \""
+terminal        = guess_terminal()
+terminal_exec   = terminal
+term_exec       = terminal + " -x bash -c \""
+term_wait       = " && read -p '' -n1 -s\""
+term_end        = "\""
 if (is_tool("kitty")):
-    terminal = "kitty"
+    terminal      = "kitty"
     terminal_exec = "kitty"
-    term_exec = terminal + " bash -c \""
-term_wait = " && read -p '' -n1 -s\""
-term_end = "\""
+    term_exec     = terminal + " bash -c \""
 
-home = os.path.expanduser('~')
-dotfiles = home + "/.dotfiles"
-mod = "mod4"
-altbrowser = "vivaldi-stable"
-mybrowser = "qutebrowser"
-spawnshortcuts = "qutebrowser --target private-window -R " + dotfiles + "/.shortcuts.html";
-filemanager = terminal_exec + " ranger"
+home            = os.path.expanduser('~')
+dotfiles        = home + "/.dotfiles"
+mod             = "mod4"
+altbrowser      = "vivaldi-stable"
+mybrowser       = "qutebrowser"
+spawnshortcuts  = "qutebrowser --target private-window -R " + dotfiles + "/.shortcuts.html"
+filemanager     = terminal_exec + " ranger"
 filemanager_gui = "nemo"
-editor = terminal_exec + " nvim"
-editor_gui = "code"
-process_explr = terminal_exec + " btop"
-osc_draw = "gromit-mpx"
+editor          = terminal_exec + " nvim"
+editor_gui      = "code"
+process_explr   = terminal_exec + " btop"
+osc_draw        = "gromit-mpx"
 
-screen_order = [1, 0, 2]
+screen_order    = [1, 0, 2]
 
-rofi_launcher = home + "/.config/rofi/launchers/type-4/launcher.sh" # Run apps (.desktop)
-rofi_powermenu = home + "/.config/rofi/powermenu/type-1/powermenu.sh" # Power menu
-rofi_run = home + "/.config/rofi/launchers/type-4/launcher-run.sh" # Run bin
-rofi_window =  home + "/.config/rofi/launchers/type-4/launcher-win.sh" # All screens
-rofi_windowcd =  home + "/.config/rofi/launchers/type-4/launcher-wcd.sh" # Current screen
-rofi_websearch = home + "/.config/rofi/applets/rofi-search.sh"
-#
+rofi_launcher   = home + "/.config/rofi/launchers/type-4/launcher.sh"     # Run apps (.desktop)
+rofi_powermenu  = home + "/.config/rofi/powermenu/type-1/powermenu.sh"    # Power menu
+rofi_run        = home + "/.config/rofi/launchers/type-4/launcher-run.sh" # Run bin
+rofi_window     = home + "/.config/rofi/launchers/type-4/launcher-win.sh" # All screens
+rofi_windowcd   = home + "/.config/rofi/launchers/type-4/launcher-wcd.sh" # Current screen
+rofi_websearch  = home + "/.config/rofi/applets/rofi-search.sh"
+
 # rofi_launcher = "rofi -show drun" # Run apps (.desktop)
 # rofi_power_menu = "rofi -show power-menu -modi \"power-menu:rofi-power-menu --no-symbols\"" # Power menu
 # rofi_run = "rofi -show run" # Run bin
@@ -129,28 +136,31 @@ icons = {
     "group_www": "󰋙", # mdi-hexagon-outline
     "group_sys": "󰞷", # mdi-console-line
     "group_dev": "󰅪", # mdi-code-brackets
-    "group_doc": "󰧮", # mdi-file-document-outline
-    "group_vbx": "󰍹", # mdi-monitor
+    "group_doc": "󰻋", # mdi-segment
+    "group_vbx": "", # mdi-monitor
     "group_cht": "󰍪", # mdi-message-text-outline
     "group_mus": "󰲸", # mdi-playlist-music
     "group_vid": "󰯜", # mdi-video-outline
     "group_gfx": "󰌨", # mdi-layers
 
-    "update": "󰑓", # mdi-reload
-    "disk": "󰉉", # mdi-floppy
-    "ram": "󰓡", # mdi-swap-horizontal
-    "cpu": "󰍛", # mdi-memory
-    "volume": "󰕾", # mdi-volume-high
-    "uptime": "󰔛", # mdi-timer-outline
-    "doomsday": "󰯈", # mdi-skull-outline
-    "calendar": "󰸗", # mdi-calendar-month
-    "clock": "󱑏", # mdi-clock-time-five-outline
+    "update":    "󰑓", # mdi-reload
+    "disk":      "󰉉", # mdi-floppy
+    "ram":       "󰓡", # mdi-swap-horizontal
+    "cpu":       "󰍛", # mdi-memory
+    "volume":    "󰕾", # mdi-volume-high
+    "uptime":    "󰔛", # mdi-timer-outline
+    "doomsday":  "󰯈", # mdi-skull-outline
+    "calendar":  "󰸗", # mdi-calendar-month
+    "clock":     "󱑏", # mdi-clock-time-five-outline
 
-    # "screen_focus": "󰍹", # mdi-monitor
+    # "screen_focus":   "󰍹", # mdi-monitor
     # "screen_nofocus": "󰶐", # mdi-monitor-off
-    "screen_focus": "󰞯", # mdi-chart-donut
+    "screen_focus":   "󰞯", # mdi-chart-donut
     "screen_nofocus": "󰞯", # mdi-chart-donut
-    }
+
+    "systray_opened": "󰶮", # mdi-application-import
+    "systray_closed": "󰘔", # mdi-application-outline
+}
 
 # ---------------------------------------------------------------------------- #
 #                                    GROUPS                                    #
@@ -194,9 +204,9 @@ touchsscript = dotfiles + "/scripts/maptotouchs.sh"
 keys = [EzKey(k[0], *k[1:]) for k in [
     # Navigation
     # Swtich focus between panes
-    ("M-<Left>", lazy.layout.left()),
-    ("M-<Down>", lazy.layout.down()),
-    ("M-<Up>", lazy.layout.up()),
+    ("M-<Left>",  lazy.layout.left()),
+    ("M-<Down>",  lazy.layout.down()),
+    ("M-<Up>",    lazy.layout.up()),
     ("M-<Right>", lazy.layout.right()),
 
     ("M-h", lazy.layout.left()),
@@ -205,9 +215,9 @@ keys = [EzKey(k[0], *k[1:]) for k in [
     ("M-l", lazy.layout.right()),
 
     # Swap panes: target relative to active.
-    ("M-S-<Left>", lazy.layout.shuffle_left(), lazy.layout.swap_left()),
-    ("M-S-<Down>", lazy.layout.shuffle_down(), lazy.layout.section_down()),
-    ("M-S-<Up>", lazy.layout.shuffle_up(), lazy.layout.section_up()),
+    ("M-S-<Left>",  lazy.layout.shuffle_left(), lazy.layout.swap_left()),
+    ("M-S-<Down>",  lazy.layout.shuffle_down(), lazy.layout.section_down()),
+    ("M-S-<Up>",    lazy.layout.shuffle_up(), lazy.layout.section_up()),
     ("M-S-<Right>", lazy.layout.shuffle_right(), lazy.layout.swap_right()),
 
     ("M-S-h", lazy.layout.shuffle_left(), lazy.layout.swap_left()),
@@ -216,9 +226,9 @@ keys = [EzKey(k[0], *k[1:]) for k in [
     ("M-S-l", lazy.layout.shuffle_right(), lazy.layout.swap_right()),
 
     # Grow/shrink the main the focused window
-    ("M-C-<Left>", lazy.layout.grow_left(), lazy.layout.shrink()),
-    ("M-C-<Down>", lazy.layout.grow_down()),
-    ("M-C-<Up>", lazy.layout.grow_up()),
+    ("M-C-<Left>",  lazy.layout.grow_left(), lazy.layout.shrink()),
+    ("M-C-<Down>",  lazy.layout.grow_down()),
+    ("M-C-<Up>",    lazy.layout.grow_up()),
     ("M-C-<Right>", lazy.layout.grow_right(), lazy.layout.grow()),
 
     ("M-C-h", lazy.layout.grow_left(), lazy.layout.shrink()),
@@ -226,94 +236,101 @@ keys = [EzKey(k[0], *k[1:]) for k in [
     ("M-C-k", lazy.layout.grow_up()),
     ("M-C-l", lazy.layout.grow_right(), lazy.layout.grow()),
 
-    ("M-<bracketleft>", lazy.layout.decrease_nmaster()),
+    ("M-<bracketleft>",  lazy.layout.decrease_nmaster()),
     ("M-<bracketright>", lazy.layout.increase_nmaster()),
 
     # TODO meta alt
-    ##Switch focus between two screens
-    ("M-A-h", lazy.screen.prev_group()),
-    ("M-A-l", lazy.screen.next_group()),
-    ("M-A-S-<Left>", lazy.screen.prev_group()),
+    ## Switch focus between two screens
+    ("M-A-h",         lazy.screen.prev_group()),
+    ("M-A-l",         lazy.screen.next_group()),
+    ("M-A-S-<Left>",  lazy.screen.prev_group()),
     ("M-A-S-<Right>", lazy.screen.next_group()),
-    #("M-A-<Left>", lazy.to_screen(1)),
+    # ("M-A-<Left>", lazy.to_screen(1)),
     # ("M-A-<Left>", lazy.prev_screen()),
     # ("M-A-<Right>", lazy.next_screen()),
-    ("M-A-1", lazy.to_screen(screen_order[0])),
-    ("M-A-2", lazy.to_screen(screen_order[1])),
-    ("M-A-3", lazy.to_screen(screen_order[2])),
-    ("M-A-<Left>", lazy.to_screen(screen_order[2])),
-    ("M-A-<Down>", lazy.to_screen(screen_order[1])),
-    ("M-A-<Up>", lazy.to_screen(screen_order[1])),
-    ("M-A-<Right>", lazy.to_screen(screen_order[0])),
-    ("M-A-j", lazy.prev_screen()),
-    ("M-A-k", lazy.next_screen()),
-    ##Move the focused group to one of the screens and follow it
-    #("M-S-<bracketleft>", switch_screens(0), lazy.to_screen(0)),
-    #("M-S-<bracketright>", switch_screens(1), lazy.to_screen(1)),
+    ("M-A-1",         lazy.to_screen(screen_order[0])),
+    ("M-A-2",         lazy.to_screen(screen_order[1])),
+    ("M-A-3",         lazy.to_screen(screen_order[2])),
+    ("M-A-<Left>",    lazy.to_screen(screen_order[2])),
+    ("M-A-<Down>",    lazy.to_screen(screen_order[1])),
+    ("M-A-<Up>",      lazy.to_screen(screen_order[1])),
+    ("M-A-<Right>",   lazy.to_screen(screen_order[0])),
+    ("M-A-j",         lazy.prev_screen()),
+    ("M-A-k",         lazy.next_screen()),
+    ## Move the focused group to one of the screens and follow it
+    # ("M-S-<bracketleft>", switch_screens(0), lazy.to_screen(0)),
+    # ("M-S-<bracketright>", switch_screens(1), lazy.to_screen(1)),
 
     # Layouts
-    ("M-<backslash>", lazy.next_layout()),
+    ("M-<backslash>",   lazy.next_layout()),
     ("M-S-<backslash>", lazy.prev_layout()),
-    ("M-r", lazy.layout.rotate(), lazy.layout.flip(), lazy.layout.spaw_column_left(), lazy.layout.spaw_column_right()),
-    #("M-S-r", lazy.layout.flip()),
-    ("M-<space>", lazy.layout.toggle_split()),
-    #("M-f", lazy.prev_layout()),
-    #("M-f", lazy.prev_layout()),
+    ("M-r",             lazy.layout.rotate(), lazy.layout.flip(), lazy.layout.spaw_column_left(), lazy.layout.spaw_column_right()),
+    # ("M-S-r", lazy.layout.flip()),
+    ("M-<space>",       lazy.layout.toggle_split()),
+    # ("M-f", lazy.prev_layout()),
+    # ("M-f", lazy.prev_layout()),
 
     # Applications
-    ("M-<Return>", lazy.spawn(terminal)),
+    # Terms
+    ("M-<Return>",   lazy.spawn(terminal)),
     ("M-S-<Return>", lazy.group['scratchpad'].dropdown_toggle("term")),
-    ("M-e", lazy.spawn(filemanager)),
-    ("M-S-e", lazy.spawn(filemanager_gui)),
-    ("M-w", lazy.spawn(mybrowser)),
-    ("M-S-w", lazy.spawn(altbrowser)),
-    ("<Print>", lazy.spawn("flameshot gui")),
-    ("S-<Print>", lazy.spawn("peek")),
-    ("M-v", lazy.spawn(editor)),
-    ("M-S-v", lazy.spawn(editor_gui)),
-    ("M-p", lazy.spawn("gpick")),
-    ("M-d", lazy.spawn(osc_draw + " --toggle")),
-    ("M-A-d", lazy.spawn(osc_draw + " --redo")),
-    ("M-C-d", lazy.spawn(osc_draw + " --undo")),
-    ("M-S-d", lazy.spawn(osc_draw + " --clear")),
+    # FM
+    ("M-e",          lazy.spawn(filemanager)),
+    ("M-S-e",        lazy.spawn(filemanager_gui)),
+    # Web
+    ("M-w",          lazy.spawn(mybrowser)),
+    ("M-S-w",        lazy.spawn(altbrowser)),
+    ("M-S-s",        lazy.spawn("steam-runtime")),
+    # Screen
+    ("<Print>",      lazy.spawn("flameshot gui")),
+    ("S-<Print>",    lazy.spawn("peek")),
+    # Editor
+    ("M-v",          lazy.spawn(editor)),
+    ("M-S-v",        lazy.spawn(editor_gui)),
+    ("M-p",          lazy.spawn("gpick")),
+    # Draw
+    ("M-d",          lazy.spawn(osc_draw + " --toggle")),
+    ("M-A-d",        lazy.spawn(osc_draw + " --redo")),
+    ("M-C-d",        lazy.spawn(osc_draw + " --undo")),
+    ("M-S-d",        lazy.spawn(osc_draw + " --clear")),
 
-    ("M-t", lazy.spawn(process_explr)),
-    ("M-A-t", lazy.spawn("/bin/bash -c '" + tabletscript +"'")),
-    ("M-S-t", lazy.spawn("/bin/bash -c '" + touchsscript +"'")),
+    ("M-t",   lazy.spawn(process_explr)),
+    ("M-A-t", lazy.spawn("/bin/bash -c '" + tabletscript + "'")),
+    ("M-S-t", lazy.spawn("/bin/bash -c '" + touchsscript + "'")),
 
     # Rofi
-    ("M-<grave>", lazy.spawn(rofi_launcher)),
+    ("M-<grave>",   lazy.spawn(rofi_launcher)),
     ("M-S-<grave>", lazy.spawn(rofi_run)),
     ("M-C-<grave>", lazy.spawn(rofi_websearch)),
     ("M-A-<grave>", lazy.spawn(rofi_powermenu)),
-    ("M-<Tab>", lazy.spawn(rofi_windowcd)),
-    ("M-S-<Tab>", lazy.spawn(rofi_window)),
-
+    ("M-<Tab>",     lazy.spawn(rofi_windowcd)),
+    ("M-S-<Tab>",  lazy.spawn(rofi_window)),
 
     # Check keys
-    ("M-<slash>", getwmclass),
+    ("M-<slash>",   getwmclass),
     ("M-S-<slash>", getwmtitle),
 
     # Windows
-    ("M-f", lazy.window.toggle_floating()),
-    ("M-q", lazy.window.kill()),
-    ("M-A-r", lazy.reload_config()),
-    ("M-A-C-r", lazy.restart()),
-    ("M-A-C-q", lazy.shutdown()),
-    ("M-<Page_Down>", lazy.spawn("Qminimize -m")),
+    ("M-f",             lazy.window.toggle_floating()),
+    ("M-q",             lazy.window.kill()),
+    ("M-A-r",           lazy.reload_config()),
+    ("M-A-C-r",         lazy.restart()),
+    ("M-A-C-q",         lazy.shutdown()),
+    ("M-<Page_Down>",   lazy.spawn("Qminimize -m")),
     ("M-S-<Page_Down>", lazy.spawn("Qminimize -u")),
-    ("M-<Page_Up>", lazy.window.toggle_fullscreen()),
-    ("M-S-<Page_Up>", lazy.layout.maximize()),
-    # Shut down qtile.
+    ("M-<Page_Up>",     lazy.window.toggle_fullscreen()),
+    ("M-S-<Page_Up>",   lazy.layout.maximize()),
+
+    # Other
     ("M-n", lazy.layout.normalize()),
     ("M-s", lazy.spawn(spawnshortcuts)),
 
     # Change the volume if your keyboard has special volume keys.
     ("<XF86AudioRaiseVolume>", increase_vol),
     ("<XF86AudioLowerVolume>", decrease_vol),
-    ("<XF86AudioMute>", mute_vol),
-    ("<XF86AudioPlay>", lazy.spawn("playerctl play-pause")),
-    ("<XF86AudioPause>", lazy.spawn("playerctl play-pause")),
+    ("<XF86AudioMute>",        mute_vol),
+    ("<XF86AudioPlay>",        lazy.spawn("playerctl play-pause")),
+    ("<XF86AudioPause>",       lazy.spawn("playerctl play-pause")),
 ]]
 
 
@@ -363,7 +380,7 @@ for _ix, group in enumerate(groups[:9]):
     keys.extend([EzKey(k[0], *k[1:]) for k in [
         # M-ix = switch to that group
         ("M-%d" % ix, lazy.group[group.name].toscreen()),
-        #("M-%d" % ix, focus_or_switch(group.name)),
+        # ("M-%d" % ix, focus_or_switch(group.name)),
         # M-S-ix = switch to & move focused window to that group
         ("M-S-%d" % ix, lazy.window.togroup(group.name)),
     ]])
@@ -381,11 +398,11 @@ mouse = [
 #                                WIDGET HELPERS                                #
 # ---------------------------------------------------------------------------- #
 
-def get_uptime():
-    seconds = uptime()
-    m, s = divmod(seconds, 60)
-    h, m = divmod(m, 60)
-    return "{:02}:{:02}".format(int(h), int(m))
+# def get_uptime():
+#     seconds = uptime()
+#     m, s = divmod(seconds, 60)
+#     h, m = divmod(m, 60)
+#     return "{:02}:{:02}".format(int(h), int(m))
 
 def get_doomsday():
     return subprocess.run([dotfiles + "/bin/doomsday-clock", "-s"], capture_output = True, text = True).stdout[:-1]
@@ -404,10 +421,10 @@ def get_doomsday():
 #     }
 
 layout_theme = {
-    "border_width": 2,
-    "border_focus": "#c58265",
-    "border_normal": "#2d3542",
-    "border_focus_stack": "#c89265",
+    "border_width":        2,
+    "border_focus":        "#c58265",
+    "border_normal":       "#2d3542",
+    "border_focus_stack":  "#c89265",
     "border_normal_stack": "#7d634c"
     }
 
@@ -417,15 +434,15 @@ layouts = [
     layout.Tile(**layout_theme, margin=6),
     layout.VerticalTile(**layout_theme, margin=6),
     # layout.MonadTall(**layout_theme, align=layout.MonadTall._right, margin=12),
-    #layout.Floating(**layout_theme),
+    # layout.Floating(**layout_theme),
     # layout.Spiral(**layout_theme, margin=6),
     layout.Max(),
     # Try more layouts by unleashing below layouts.
-    #layout.Stack(num_stacks=2, **layout_theme),
+    # layout.Stack(num_stacks=2, **layout_theme),
     # layout.Bsp(**layout_theme, margin=6),
     # layout.Matrix(**layout_theme, margin=6),
     # layout.RatioTile(),
-    #layout.TreeTab(),
+    # layout.TreeTab(),
     # layout.Zoomy(),
 ]
 
@@ -433,10 +450,9 @@ layouts = [
 #                                 WIDGET CONFIG                                #
 # ---------------------------------------------------------------------------- #
 
-bar_opacity = "bb";
-# bar_color = "#202020" + bar_opacity;
-bar_color = "#282828" + bar_opacity;
-icon_font = "Material Design Icons"
+bar_opacity = "bb"
+bar_color =   "#282828" + bar_opacity
+icon_font =   "Material Design Icons"
 
 # colors = {
 #     "main": "#e27100",
@@ -445,21 +461,21 @@ icon_font = "Material Design Icons"
 #     }
 
 colors = {
-    "main": "#d65d0e",
+    "main":   "#d65d0e",
     "accent": "#ebdbb2",
-    "off": "#665c54",
+    "off":    "#665c54",
     }
 
 widget_defaults = {
-    "font": "Cascadia Mono PL",
-    "fontsize": 13,
-    "padding": 3,
+    "font":       "Cascadia Mono PL",
+    "fontsize":   13,
+    "padding":    3,
     "foreground": colors["accent"]
 }
 
 sep_def = {
     "linewidth": 1,
-    "padding": 6
+    "padding":   6
     }
 
 spacer_def = {
@@ -468,14 +484,15 @@ spacer_def = {
 
 fa_def = {
     "foreground": colors["main"],
-    "padding": 0,
-    "font": icon_font,
-    "fontsize": 36,
+    "padding":    0,
+    "font":       icon_font,
+    # "fontsize":   36,
+    "fontsize":   31,
     }
 
 widget_volume = widget.PulseVolume(
     step = 5,
-    fmt = "{}",
+    fmt =  "{}",
     **widget_defaults
     )
 
@@ -549,13 +566,13 @@ def init_widgets():
         widget.TextBox( **fa_def, text = icons["volume"] ),
         widget_volume,
 
-        widget.Spacer(**spacer_def),
-        widget.TextBox( **fa_def, text = icons["uptime"] ),
-        widget.GenPollText(
-            **widget_defaults,
-            func = get_uptime,
-            update_interval = 60
-            ),
+        # widget.Spacer(**spacer_def),
+        # widget.TextBox( **fa_def, text = icons["uptime"] ),
+        # widget.GenPollText(
+        #     **widget_defaults,
+        #     func = get_uptime,
+        #     update_interval = 60
+        #     ),
 
         # widget.Spacer(**spacer_def),
         # widget.TextBox( **fa_def, text = icons["doomsday"] ),
@@ -660,8 +677,8 @@ def init_widgets_part():
         widget.WidgetBox(
             **fa_def,
             close_button_location='right',
-            text_closed='󰘔', # mdi-application-outline
-            text_open='󰶮', # mdi-application-import
+            text_closed=icons["systray_closed"],
+            text_open=icons["systray_opened"],
             widgets = [
                 widget.CurrentLayoutIcon(
                     **fa_def,
@@ -806,3 +823,4 @@ def autostart():
 #     set_screen_groups()
 #     if c.name == "Desktop — Plasma":
 #         c.cmd_kill()
+

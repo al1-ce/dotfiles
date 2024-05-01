@@ -63,7 +63,7 @@ int main(string[] args) {
         case "srcinfo": return genSrcInfo();
         case "test": return testPkg();
         case "init": return initPkg();
-        default: break;
+        default: assistant("Unknown command");
     }
 
     return 0;
@@ -82,7 +82,7 @@ int buildPkg() {
         return 0;
     }
     assistant("Making package");
-    string args = optForce ? "-f" : "";
+    string args = optForce ? "-sf" : "-s";
     auto _out = wait(spawnProcess(["makepkg", args]));
     return _out;
 }
