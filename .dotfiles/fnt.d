@@ -271,9 +271,11 @@ string[] downloadFontGoogle(string repo, string fname) {
 
     foreach (f; res) {
         string url = FONTS_GOOGLE ~ "/" ~ repo ~ "/" ~ fname ~ "/" ~ f;
-        string ftmp = (fontTemp ~ f);
+        string ftmp = fixPath(fontTemp ~ "/downloaded_fonts/google-" ~ fname ~ "/" ~ f);
+        string ftph = fixPath(fontTemp ~ "/downloaded_fonts/google-" ~ fname ~ "/");
+        if (!exists(ftph)) mkdirRecurse(ftph);
         if (!exists(ftmp)) {
-            wait(spawnShell(`curl -g -s "` ~ url ~ `" -o "` ~ ftmp ~ `"`));
+            wait(spawnShell(format(`curl -g -s "%s" -o "%s"`, url, ftmp)));
         }
         _out ~= ftmp;
     }
@@ -336,10 +338,11 @@ string[] downloadFontDebian(string font) {
 
     auto art = executeShell(format(`ar t "%s" | grep '^data\.tar'`, cachedName));
     executeShell(format(`ar x "%s" --output="%s" "%s"`, cachedName, fontTemp, art.output[0..$-1]));
-    string tmpDebFont = fixPath(fontTemp ~ "downloaded_fonts/");
-    if (!exists(fixPath(fontTemp ~ "fonts/"))) mkdirRecurse(tmpDebFont);
-    else rmdirRecurse(tmpDebFont);
-    spawnShell(format(`tar xf "%s%s" -C "%s"`, fontTemp, art.output[0..$-1], tmpDebFont));
+    string tmpDebFont = fixPath(fontTemp ~ "downloaded_fonts/" ~ font ~ "/");
+    if (!exists(tmpDebFont)) {
+        mkdirRecurse(tmpDebFont);
+    }
+    wait(spawnShell(format(`tar xf "%s%s" -C "%s"`, fontTemp, art.output[0..$-1], tmpDebFont)));
     string tmpDwnFont = fixPath(tmpDebFont ~ "/usr/share/fonts/truetype/" ~ fname ~ "/");
     string[] fnts = listdir(tmpDwnFont);
     foreach (fnt; fnts) {
@@ -352,9 +355,10 @@ string[] downloadFontDebian(string font) {
 
 string[] getGoogleFontsUrl(string repo, string font) {
     string[] tmp;
-    auto res = executeShell(`curl -s "` ~ FONTS_GOOGLE ~ `/` ~ repo ~ `/` ~ font ~ `/"`);
+    // auto res = executeShell(`curl -s "` ~ FONTS_GOOGLE ~ `/` ~ repo ~ `/` ~ font ~ `/"`);
+    auto res = executeShell(format(`curl -s "%s/%s/%s/"`, FONTS_GOOGLE, repo, font));
     if (res.status != 0) {
-        assistant("Failed to retrieve google ofl index");
+        assistant("Failed to retrieve google " ~ repo ~ " index");
         writeln(res.output);
         exit(0);
     }
