@@ -12,7 +12,8 @@ import std.getopt: getopt, Option, config;
 import std.stdio: writeln, write, File, readln;
 import std.array: split, replace, split, join, array;
 import std.process: wait, spawnProcess, execute, spawnShell, executeShell;
-import std.file: tempDir, exists, remove, mkdirRecurse, rmdirRecurse; // tempDir
+import std.file: tempDir, exists, remove, mkdirRecurse, rmdirRecurse, isFile; // tempDir
+import std.path: baseName;
 import std.algorithm.searching: countUntil, startsWith, canFind, endsWith;
 import std.algorithm.iteration: filter;
 import std.algorithm.sorting: sort;
@@ -46,7 +47,6 @@ string fontPackage = "";
 string fontGoogleCache = "";
 
 string previewText = "";
-string previewFile = "";
 
 int main(string[] args) {
     bool optVersion = false;
@@ -55,7 +55,6 @@ int main(string[] args) {
         config.bundling, config.passThrough, config.caseSensitive,
         "version", "print version", &optVersion,
         "text|t", "sets preview text", &previewText,
-        "file|f", "sets preview file", &previewFile,
     );
 
     Option[] commands = [
@@ -175,8 +174,9 @@ int removeFont(string[] args) {
 }
 
 int previewFont(string[] args) {
-    if (previewFile != "") {
-        previewFile = previewFile.fixPath();
+    string fontName = args.join();
+    if (exists(fontName) && isFile(fontName)) {
+        string previewFile = fontName.fixPath();
         if (!exists(previewFile)) {
             assistant("Failed to find font for preview");
             exit(0);
@@ -186,14 +186,13 @@ int previewFont(string[] args) {
         fin = fin.replace("$FONT", previewFile);
         string fpr = HB_VIEW;
         fpr = fpr.replace("$FONT", previewFile);
-        fpr = fpr.replace("$TEXT", previewText == "" ? previewFile : previewText);
+        fpr = fpr.replace("$TEXT", previewText == "" ? baseName(previewFile) : previewText);
         wait(spawnShell(fin));
         wait(spawnShell(fpr));
         return 0;
     }
 
     string[] fonts = getFontNames();
-    string fontName = args.join();
     string fontInstall = "";
 
     foreach (font; fonts) {

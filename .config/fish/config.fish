@@ -34,10 +34,10 @@ function __on_pwd_change --on-variable PWD --description 'Do rvm stuff'
     ls
 end
 
-function tere
-    set --local result (command tere $argv)
-    [ -n "$result" ] && cd -- "$result"
-end
+# function tere
+#     set --local result (command tere $argv)
+#     [ -n "$result" ] && cd -- "$result"
+# end
 
 # Maybe https://gist.github.com/britishtea/39ad478fa5180e1432a2
 
@@ -121,9 +121,9 @@ function setmode
     end
 end
 
-function git-ls
-    find . -maxdepth 1 -mindepth 1 -type d -exec sh -c "cd {} && git rev-parse --is-inside-work-tree > /dev/null && echo -n '\e[1m' && echo -n {} && echo -n '\e[0m \e[91m' &&  git status --porcelain | awk '/[MD?]+ /{c++} END {print \"M: \", c}' && rm -f statusShort && echo -n '\e[0m'" \;
-end
+# function git-ls
+#     find . -maxdepth 1 -mindepth 1 -type d -exec sh -c "cd {} && git rev-parse --is-inside-work-tree > /dev/null && echo -n '\e[1m' && echo -n {} && echo -n '\e[0m \e[91m' &&  git status --porcelain | awk '/[MD?]+ /{c++} END {print \"M: \", c}' && rm -f statusShort && echo -n '\e[0m'" \;
+# end
 
 # function ex
 #     if test -f $argv[1]

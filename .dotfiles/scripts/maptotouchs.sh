@@ -1,1 +1,1 @@
-xinput map-to-output "Melfas LGDisplay Incell Touch" DP-0
+xinput map-to-output "Melfas LGDisplay Incell Touch" HDMI-0

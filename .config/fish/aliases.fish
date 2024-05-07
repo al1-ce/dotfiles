@@ -88,6 +88,20 @@ alias setcursor '~/.dotfiles/scripts/setcursor.sh'
 
 alias ytmp3 "yt-dlp -f 'ba' -x --audio-format wav"
 alias feh "feh -Tdefault"
+# alias scrape "wget -r -p -l 10 -E -k -N -w 2 --random-wait"
+
+function scrape
+    if count $argv > /dev/null
+        echo -e "\e[1mWebsite \"$argv\" will now be scraped\e[0m"
+        echo -e "\e[2mThis will take a while since\e[0m"
+        echo -e "\e[2meach request will be made in\e[0m"
+        echo -e "\e[2mbetween 1 and 3 seconds\e[0m"
+        echo ""
+        wget -r -p -l 10 -E -k -N -w 2 --random-wait $argv
+    else
+        echo "Please supply website address"
+    end
+end
 
 # function sudo
 #     gum input --password | /usr/sbin/sudo -nS $argv 2>/dev/null
@@ -140,6 +154,8 @@ end
 alias ga "git add"
 alias gc "git commit"
 alias gp "git push"
+
+alias reuse "reuse --suppress-deprecation"
 
 # ----------------------------------- PROGS ---------------------------------- #
 alias wttr 'curl wttr.in/Moscow'
