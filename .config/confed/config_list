@@ -15,3 +15,5 @@ backup // /g/linuxrice/update-config.sh
 mpv // /home/al1-ce/.config/mpv/mpv.conf
 rice // /g/linuxrice/
 gromit // /home/al1-ce/.config/gromit-mpx.cfg
+awesome // /home/al1-ce/.config/awesome/rc.lua
+poly // /home/al1-ce/.config/polybar/config.ini

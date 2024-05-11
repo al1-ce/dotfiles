@@ -62,3 +62,5 @@ xinput map-to-output "Melfas LGDisplay Incell Touch" DP-0
 systemctl --user enable opentabletdriver --now
 
 exec qtile start
+# exec awesome
+

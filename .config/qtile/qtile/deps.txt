@@ -1,4 +1,0 @@
-uptime
-shutil
-psutil
-pyxdg

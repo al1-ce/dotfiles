@@ -2,15 +2,13 @@
 
 from libqtile import widget, qtile
 
-from icons import icons
+from icons import icons, images
 
 import apps as apps
 
 bar_margin = [5, 5, 2, 5]
 bar_opacity = "bb"
 bar_color =   "#282828" + bar_opacity
-
-icon_font =   "Material Design Icons"
 
 # colors = {
 #     "main": "#e27100",
@@ -22,172 +20,198 @@ colors = {
     "main":   "#d65d0e",
     "accent": "#ebdbb2",
     "off":    "#665c54",
-    }
+}
 
 widget_defaults = {
-    "font":       "Cascadia Mono PL",
-    "fontsize":   13,
-    "padding":    3,
+    "font":       "DinaRemaster",
+    "fontsize":   16,
+    "padding":    2,
+    # "font":       "Cascadia Mono PL",
+    # "fontsize":   13,
+    # "padding":    3,
     "foreground": colors["accent"]
 }
 
 sep_def = {
     "linewidth": 1,
     "padding":   6
-    }
+}
 
 spacer_def = {
     "length": 12
-    }
+}
+
+gr_def = {
+    "foreground": colors["main"],
+    "padding":    0,
+
+    "font":       "Cascadia Mono PL",
+    "fontsize":   16,
+}
 
 fa_def = {
     "foreground": colors["main"],
     "padding":    0,
-    "font":       icon_font,
-    # "fontsize":   36,
-    "fontsize":   31,
-    }
+
+    "font":       "Cascadia Mono PL",
+    # "font":       "Material Design Icons",
+    "fontsize":   30, # 36
+}
+
+im_def = {
+    "margin": 0,
+    "scale": False
+}
 
 widget_volume = widget.PulseVolume(
     step = 5,
     fmt =  "{}",
     **widget_defaults
-    )
+)
 
 # ---------------------------------------------------------------------------- #
 #                                MAIN SCREEN BAR                               #
 # ---------------------------------------------------------------------------- #
 
+widgets = {
+    "groups": (lambda: widget.GroupBox(
+        disable_drag = True,
+        rounded = False,
+        highlight_method = "block",
+        active = colors["main"],
+        inactive = colors["off"],
+        this_current_screen_border = "#504945" + bar_opacity,
+        other_current_screen_border = "#282828" + "22",
+        this_screen_border = "#504945" + bar_opacity,
+        other_screen_border = "#282828" + "22",
+        **gr_def
+    )),
+
+    "spacer": (lambda: widget.Spacer(**spacer_def)),
+
+    "window_name": (lambda: widget.WindowName(
+        **widget_defaults,
+        parse_text = lambda text: text.rsplit("— ", 1)[1]
+    )),
+
+    "update_text": (lambda: widget.CheckUpdates(
+        **widget_defaults,
+        # distro = "Arch",
+        custom_command = "yay -Qu",
+        custom_command_modify = lambda x: x - 1,
+        update_interval = 1800,
+        display_format = "{updates}",
+        no_update_string = " 0",
+        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(apps.term_exec + 'yay -Qu' + apps.term_wait)},
+        colour_have_updates = colors["accent"],
+        colour_no_updates = colors["off"],
+    )),
+
+    "disk_text": (lambda: widget.DF(
+        **widget_defaults,
+        format="{r:2.0f}%",
+        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(apps.terminal + ' btop')},
+        visible_on_warn = False
+    )),
+
+    "ram_text": (lambda: widget.Memory(
+        **widget_defaults,
+        format="{MemPercent:2.0f}%",
+        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(apps.terminal + ' btop')},
+    )),
+
+    "cpu_text": (lambda: widget.CPU(
+        **widget_defaults,
+        format="{load_percent:2.0f}%",
+        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(apps.terminal + ' btop')},
+    )),
+
+    "volume_text": (lambda: widget_volume),
+
+    "calendar_text": (lambda: widget.Clock(
+        **widget_defaults,
+        format="%d/%m",
+        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(apps.term_exec + 'ncal -yMb' + apps.term_wait)},
+    )),
+
+    "clock_text": (lambda: widget.Clock(
+        **widget_defaults,
+        format="%H:%M:%S",
+        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(apps.term_exec + 'ncal -yMb' + apps.term_wait)},
+    )),
+
+    "systray": (lambda: widget.WidgetBox(
+        **fa_def,
+        close_button_location='right',
+        text_closed = icons["systray_opened"],
+        text_open = icons["systray_closed"],
+        widgets = [
+            widget.Systray(**fa_def),
+            widget.Spacer(**spacer_def),
+            widget.CurrentLayoutIcon(**fa_def, custom_icon_paths = ["~/.config/qtile/icons/layouts/"]),
+            widget.Spacer(**spacer_def),
+        ]
+    )),
+
+    "screen": (lambda: widget.CurrentScreen(
+        **fa_def,
+        active_text = icons["screen_focus"],
+        inactive_text = icons["screen_nofocus"],
+        active_color = colors["main"],
+        inactive_color = colors["off"],
+    )),
+
+
+    "update_icon"  : (lambda: widget.Image( **im_def, filename = images["update"])),
+    "disk_icon"    : (lambda: widget.Image( **im_def, filename = images["disk"])),
+    "ram_icon"     : (lambda: widget.Image( **im_def, filename = images["ram"])),
+    "cpu_icon"     : (lambda: widget.Image( **im_def, filename = images["cpu"])),
+    "volume_icon"  : (lambda: widget.Image( **im_def, filename = images["volume"])),
+    "calendar_icon": (lambda: widget.Image( **im_def, filename = images["calendar"])),
+    "clock_icon"   : (lambda: widget.Image( **im_def, filename = images["clock"])),
+}
+
 def init_widgets():
     return [
-        widget.GroupBox(
-            disable_drag = True,
-            rounded = False,
-            highlight_method = "block",
-            active = colors["main"],
-            inactive = colors["off"],
-            # this_current_screen_border = "#404040" + bar_opacity,
-            # other_current_screen_border = "#202020" + "22",
-            # this_screen_border = "#404040" + bar_opacity,
-            # other_screen_border = "#202020" + "22",
-            this_current_screen_border = "#504945" + bar_opacity,
-            other_current_screen_border = "#282828" + "22",
-            this_screen_border = "#504945" + bar_opacity,
-            other_screen_border = "#282828" + "22",
-            **fa_def
-            ),
+        widgets["groups"](),
 
-        widget.WindowName(
-            **widget_defaults,
-            parse_text = lambda text: text.rsplit("— ", 1)[1]
-            ),
+        widgets["window_name"](),
 
-        widget.TextBox( **fa_def, text = icons["update"] ),
-        widget.CheckUpdates(
-            **widget_defaults,
-            # distro = "Arch",
-            custom_command = "yay -Qu",
-            custom_command_modify = lambda x: x - 1,
-            update_interval = 1800,
-            display_format = "{updates}",
-            no_update_string = " 0",
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(apps.term_exec + 'yay -Qu' + apps.term_wait)},
-            colour_have_updates = colors["accent"],
-            colour_no_updates = colors["off"],
-            ),
+        widgets["update_icon"](),
+        widgets["update_text"](),
 
-        widget.Spacer(**spacer_def),
-        widget.TextBox( **fa_def, text = icons["disk"] ),
-        widget.DF(
-            **widget_defaults,
-            format="{r:2.0f}%",
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(apps.terminal + ' btop')},
-            visible_on_warn = False
-            ),
+        widgets["spacer"](),
+        widgets["disk_icon"](),
+        widgets["disk_text"](),
 
-        widget.Spacer(**spacer_def),
-        widget.TextBox( **fa_def, text = icons["ram"] ),
-        widget.Memory(
-            format="{MemPercent:2.0f}%",
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(apps.terminal + ' btop')},
-            ),
+        widgets["spacer"](),
+        widgets["ram_icon"](),
+        widgets["ram_text"](),
 
-        widget.Spacer(**spacer_def),
-        widget.TextBox( **fa_def, text = icons["cpu"] ),
-        widget.CPU(
-            **widget_defaults,
-            format="{load_percent:2.0f}%",
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(apps.terminal + ' btop')},
-            ),
+        widgets["spacer"](),
+        widgets["cpu_icon"](),
+        widgets["cpu_text"](),
 
-        widget.Spacer(**spacer_def),
-        widget.TextBox( **fa_def, text = icons["volume"] ),
-        widget_volume,
+        widgets["spacer"](),
+        widgets["volume_icon"](),
+        widgets["volume_text"](),
 
-        # widget.Spacer(**spacer_def),
-        # widget.TextBox( **fa_def, text = icons["uptime"] ),
-        # widget.GenPollText(
-        #     **widget_defaults,
-        #     func = get_uptime,
-        #     update_interval = 60
-        #     ),
+        widgets["spacer"](),
+        widgets["calendar_icon"](),
+        widgets["calendar_text"](),
 
-        # widget.Spacer(**spacer_def),
-        # widget.TextBox( **fa_def, text = icons["doomsday"] ),
-        # widget.GenPollText(
-        #     **widget_defaults,
-        #     func = get_doomsday,
-        #     update_interval = 60 * 60 * 6
-        #     ),
+        widgets["spacer"](),
+        widgets["clock_icon"](),
+        widgets["clock_text"](),
 
-        widget.Spacer(**spacer_def),
-        widget.TextBox( **fa_def, text = icons["calendar"] ),
-        widget.Clock(
-            **widget_defaults,
-            format="%d/%m",
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(apps.term_exec + 'ncal -yMb' + apps.term_wait)},
-            ),
+        widgets["spacer"](),
+        widgets["systray"](),
 
-        widget.Spacer(**spacer_def),
-        widget.TextBox( **fa_def, text = icons["clock"] ),
-        widget.Clock(
-            **widget_defaults,
-            format="%H:%M:%S",
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(apps.term_exec + 'ncal -yMb' + apps.term_wait)},
-            ),
+        widgets["spacer"](),
+        widgets["screen"](),
 
-        widget.Spacer(**spacer_def),
-
-        widget.WidgetBox(
-            **fa_def,
-            close_button_location='right',
-            text_closed='󰘔', # mdi-application-outline
-            text_open='󰶮', # mdi-application-import
-            widgets = [
-                # widget.KeyboardLayout(
-                #     **widget_defaults,
-                #     ),
-                widget.Systray(
-                    **fa_def,
-                    ),
-                widget.Spacer(**spacer_def),
-                widget.CurrentLayoutIcon(
-                    **fa_def,
-                    ),
-                widget.Spacer(**spacer_def),
-            ]
-        ),
-
-        widget.Spacer(**spacer_def),
-        widget.CurrentScreen(
-            **fa_def,
-            active_text = icons["screen_focus"],
-            inactive_text = icons["screen_nofocus"],
-            active_color = colors["main"],
-            inactive_color = colors["off"],
-            ),
-        widget.Spacer(**spacer_def),
-        ]
+        widgets["spacer"](),
+    ]
 
 
 # ---------------------------------------------------------------------------- #
@@ -196,64 +220,21 @@ def init_widgets():
 
 def init_widgets_part():
     return [
-        widget.GroupBox(
-            disable_drag = True,
-            rounded = False,
-            highlight_method = "block",
-            active = colors["main"],
-            inactive = colors["off"],
-            this_current_screen_border = "#504945" + bar_opacity,
-            other_current_screen_border = "#282828" + "22",
-            this_screen_border = "#504945" + bar_opacity,
-            other_screen_border = "#282828" + "22",
-            **fa_def
-            ),
+        widgets["groups"](),
+        widgets["window_name"](),
 
-        widget.WindowName(
-            **widget_defaults,
-            parse_text = lambda text: text.rsplit("— ", 1)[1]
-            ),
+        widgets["calendar_icon"](),
+        widgets["calendar_text"](),
 
-        widget.Spacer(**spacer_def),
-        widget.TextBox( **fa_def, text = icons["calendar"] ),
-        widget.Clock(
-            **widget_defaults,
-            format="%d/%m",
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(apps.term_exec + 'ncal -yMb' + apps.term_wait)},
-            ),
+        widgets["spacer"](),
+        widgets["clock_icon"](),
+        widgets["clock_text"](),
 
-        widget.Spacer(**spacer_def),
-        widget.TextBox( **fa_def, text = icons["clock"] ),
-        widget.Clock(
-            **widget_defaults,
-            format="%H:%M:%S",
-            mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(apps.term_exec + 'ncal -yMb' + apps.term_wait)},
-            ),
+        widgets["spacer"](),
+        widgets["screen"](),
 
-        widget.Spacer(**spacer_def),
+        widgets["spacer"](),
 
-        widget.WidgetBox(
-            **fa_def,
-            close_button_location='right',
-            text_closed=icons["systray_closed"],
-            text_open=icons["systray_opened"],
-            widgets = [
-                widget.CurrentLayoutIcon(
-                    **fa_def,
-                ),
-                widget.Spacer(**spacer_def),
-            ]
-        ),
-
-        widget.Spacer(**spacer_def),
-        widget.CurrentScreen(
-            **fa_def,
-            active_text = icons["screen_focus"],
-            inactive_text = icons["screen_nofocus"],
-            active_color = colors["main"],
-            inactive_color = colors["off"],
-            ),
-        widget.Spacer(**spacer_def),
-        ]
+    ]
 
 

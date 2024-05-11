@@ -293,6 +293,9 @@ settings:
         Y: prompt-accept --save yes
         n: prompt-accept no
         y: prompt-accept yes
+  content.autoplay:
+    'https://youtube.com/*': false
+    'https://www.youtube.com/*': false
   content.geolocation:
     https://www.google.com: false
     https://www.speedtest.net: false

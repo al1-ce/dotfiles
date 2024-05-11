@@ -1,7 +1,7 @@
 # pylint disable=all
 
 from apps import *
-from groups import *
+from groups import groups as def_groups
 from keymap import *
 from layouts import *
 from screens import *
@@ -11,6 +11,8 @@ from typing import List
 # ---------------------------------------------------------------------------- #
 #                               ADDITIONAL CONFIG                              #
 # ---------------------------------------------------------------------------- #
+
+groups = def_groups
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
@@ -35,12 +37,14 @@ auto_minimize = True
 #
 # We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
 # java that happens to be on java's whitelist.
-wmname = "LG3D"
+# wmname = "LG3D"
+
+from libqtile.scripts.main import VERSION
+wmname = f"Qtile {VERSION}"
 
 # ---------------------------------------------------------------------------- #
 #                                     HOOKS                                    #
 # ---------------------------------------------------------------------------- #
-
 
 # @hook.subscribe.client_new
 # def func(c):

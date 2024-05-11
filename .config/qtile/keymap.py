@@ -93,7 +93,7 @@ keys = [EzKey(k[0], *k[1:]) for k in [
     # Applications
     # Terms
     ("M-<Return>",   lazy.spawn(apps.terminal)),
-    ("M-S-<Return>", lazy.group['scratchpad'].dropdown_toggle("term")),
+    ("M-S-<Return>", lazy.group['scratch'].dropdown_toggle("term")),
     # FM
     ("M-e",          lazy.spawn(apps.filemanager)),
     ("M-S-e",        lazy.spawn(apps.filemanager_gui)),
@@ -193,7 +193,7 @@ keys += [
 ]
 
 # .: Jump between groups and also throw windows to groups :. #
-for _ix, group in enumerate(groups[:9]):
+for _ix, group in enumerate(groups[:10]):
     # Index from 1-0 instead of 0-9
     ix = 0 if _ix == 9 else _ix + 1
 

@@ -33,6 +33,7 @@ c.url.searchengines = {
     'D': 'https://code.dlang.org/search?q={}',
     'a': 'https://wiki.archlinux.org/index.php?search={}',
     'gh': 'https://github.com/search?q={}',
+    'repo': 'https://github.com/{}',
     'y': 'https://www.youtube.com/results?search_query={}',
     'yt': 'https://www.youtube.com/results?search_query={}',
     'tg': 'https://web.telegram.org/k/#?null={}',

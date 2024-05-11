@@ -77,6 +77,7 @@ alias calendar 'ncal -yMb'
 alias doomsday '~/.dotfiles/bin/doomsday-clock'
 alias v nvim
 alias e "nvim (gum file)"
+alias awesome-check "Xephyr :5 & sleep 1 ; DISPLAY=:5 awesome"
 
 alias tb taskbook
 
@@ -84,7 +85,11 @@ alias yd yandex-disk
 
 alias music musikcube
 
-alias setcursor '~/.dotfiles/scripts/setcursor.sh'
+function detach
+    $argv & disown
+end
+
+# alias setcursor '~/.dotfiles/scripts/setcursor.sh'
 
 alias ytmp3 "yt-dlp -f 'ba' -x --audio-format wav"
 alias feh "feh -Tdefault"
@@ -126,30 +131,30 @@ alias web 'links -g'
 alias webt 'links'
 
 # ------------------------------------ GIT ----------------------------------- #
-function backup
-    git add .
-    if count $argv > /dev/null
-        git commit -m $argv
-    else
-        git commit -m "Updated: $(date +'%Y-%m-%d %H:%M:%S')"
-    end
-    git push origin master
-end
+# function backup
+#     git add .
+#     if count $argv > /dev/null
+#         git commit -m $argv
+#     else
+#         git commit -m "Updated: $(date +'%Y-%m-%d %H:%M:%S')"
+#     end
+#     git push origin master
+# end
 
-function branch
-    git branch 2> /dev/null | fzf | sed "s/.* //" | awk "{print $argv[1]}" | xargs git checkout
-end
+# function branch
+#     git branch 2> /dev/null | fzf | sed "s/.* //" | awk "{print $argv[1]}" | xargs git checkout
+# end
 
-function git-poll
-    for f in $(find . -maxdepth 1 -type d)
-        if test -d $f/.git
-            set git_poll_output $(git -C $f status --porcelain)
-            if test -n "$git_poll_output"
-                printf "\e[4m%-20s %-4s\e[0m\n" $(echo "$f" | cut -c 3-) "$(git -C $f status --porcelain | wc -l)"
-            end
-        end
-    end
-end
+# function git-poll
+#     for f in $(find . -maxdepth 1 -type d)
+#         if test -d $f/.git
+#             set git_poll_output $(git -C $f status --porcelain)
+#             if test -n "$git_poll_output"
+#                 printf "\e[4m%-20s %-4s\e[0m\n" $(echo "$f" | cut -c 3-) "$(git -C $f status --porcelain | wc -l)"
+#             end
+#         end
+#     end
+# end
 
 alias ga "git add"
 alias gc "git commit"

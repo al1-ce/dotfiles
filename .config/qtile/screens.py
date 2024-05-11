@@ -15,31 +15,28 @@ screens = [
     Screen( # center
         top = bar.Bar(widgets = init_widgets(), size = 24, margin = bar_margin, background = bar_color, ),
         # wallpaper=home + '/.config/qtile/wallpapers/center.png', # girl in center
-        wallpaper=home + '/.config/qtile/wallpapers/left.png', # none
+        wallpaper=home + '/.config/qtile/wallpapers/darker.png', # left.png none
         wallpaper_mode='stretch', ),
     Screen( # right
         top = bar.Bar(widgets = init_widgets_part(), size = 24, margin = bar_margin, background = bar_color, ),
-        wallpaper=home + '/.config/qtile/wallpapers/gray_5.png', # girl on right
+        wallpaper=home + '/.config/qtile/wallpapers/darker.png', # gray_5.png girl on right
         wallpaper_mode='stretch', ),
     Screen( # left
         top = bar.Bar(widgets = init_widgets_part(), size = 24, margin = bar_margin, background = bar_color, ),
-        wallpaper=home + '/.config/qtile/wallpapers/left.png', # none
+        wallpaper=home + '/.config/qtile/wallpapers/darker.png', # left.png none
         wallpaper_mode='fill', ),
 ]
 
 # @hook.subscribe.startup_complete
 def set_screen_groups():
-    # WWW SYS DEV
     # left center right = 1 0 2
-    screens[0].cmd_toggle_group("SYS") # center
-    # screens[1].cmd_toggle_group("WWW") # left
-    screens[1].cmd_toggle_group("DEV") # right
+    screens[0].toggle_group("1") # center
+    screens[1].toggle_group("2") # right
 
 @hook.subscribe.startup_once
 def autostart():
-    screens[0].cmd_toggle_group("SYS") # center
-    # screens[1].cmd_toggle_group("WWW") # left
-    screens[1].cmd_toggle_group("DEV") # right
+    screens[0].toggle_group("1") # center
+    screens[1].toggle_group("2") # right
 
     # subprocess.Popen([home + '/.config/qtile/autostart.sh'])
     # set_screen_groups()

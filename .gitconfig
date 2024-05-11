@@ -1,6 +1,7 @@
 [user]
-	email = al1-ce@list.ru
+	email = al1-ce@null.net
 	name = al1-ce
+    signingKey = /home/al1-ce/.ssh/id_rsa.pub
 [init]
 	defaultBranch = master
 	; templatedir = /home/al1-ce/.git-templates
@@ -58,3 +59,23 @@
     line-numbers-right-style = blue
 [push]
 	autoSetupRemote = true
+[gpg]
+	format = ssh
+[commit]
+	gpgSign = true
+[column]
+	ui = auto
+[maintenance]
+	repo = /g/sily
+	repo = /g/sily-docs
+	repo = /g/clib
+	repo = /g/faux
+[alias]
+	branches = !/home/al1-ce/.dotfiles/scripts/git_scripts/git_branches.sh
+	poll = !/home/al1-ce/.dotfiles/scripts/git_scripts/git_poll
+    backup = !/home/al1-ce/.dotfiles/scripts/git_scripts/git_backup.sh
+	fpush = push --force-with-lease
+; [filter "test"]
+;   ; uses smudge command on pull and clean on commit
+; 	smudge = test_smudge
+; 	clean = test_clean

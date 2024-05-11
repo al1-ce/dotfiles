@@ -15,11 +15,12 @@ from libqtile.config import Match
 #     }
 
 layout_theme = {
-    "border_width":        2,
-    "border_focus":        "#c58265",
-    "border_normal":       "#2d3542",
-    "border_focus_stack":  "#c89265",
-    "border_normal_stack": "#7d634c"
+    "border_width":        1,
+    # "border_width":        2,
+    "border_focus":        "#4e3f39",
+    "border_normal":       "#262626",
+    "border_focus_stack":  "#58493c",
+    "border_normal_stack": "#413b37"
     }
 
 layouts = [
@@ -41,6 +42,12 @@ layouts = [
 ]
 
 floating_layout = layout.Floating(
+    border_width = 1,
+    # border_width = 2,
+    border_focus = "#273230",
+    # border_focus = "#65c5b2",
+    border_normal = "#2d3542",
+
     float_rules=[
         # xprop WM_CLASS
         # Run the utility of `xprop` to see the wm class and name of an X client.
@@ -81,5 +88,5 @@ def disable_floating(window):
 
     if any(window.match(rule) for rule in rules):
         window.togroup(qtile.current_group.name)
-        window.cmd_disable_floating()
+        window.disable_floating()
 

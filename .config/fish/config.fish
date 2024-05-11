@@ -71,6 +71,7 @@ fish_add_path -Ppg ~/.local/share/bin
 fish_add_path -Ppg ~/.appimages
 fish_add_path -Ppg ~/.dotnet/
 fish_add_path -Ppg ~/.dotfiles/bin
+fish_add_path -Ppg ~/.dotfiles/scripts
 fish_add_path -Ppg /home/linuxbrew/.linuxbrew/bin
 
 set CARGO_HOME ~/.cargo/

@@ -10,6 +10,7 @@ custom:
     installed: -Qs
     find: -F
     sync: -Sy
+    info: -Qi
 alias:
     i: install
     s: search
