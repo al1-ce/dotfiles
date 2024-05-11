@@ -1,0 +1,196 @@
+live_config_reload = true
+
+[bell]
+duration = 0
+
+[colors]
+draw_bold_text_with_bright_colors = false
+
+[colors.bright]
+black = "#928374"
+blue = "#83a598"
+cyan = "#8ec07c"
+green = "#b8bb26"
+magenta = "#d3869b"
+red = "#fb4934"
+white = "#ebdbb2"
+yellow = "#fabd2f"
+
+[colors.cursor]
+cursor = "#928374"
+text = "CellBackground"
+
+[colors.hints.end]
+background = "CellBackground"
+foreground = "CellForeground"
+
+[colors.hints.start]
+background = "#d79921"
+foreground = "#282828"
+
+[colors.normal]
+black = "#282828"
+blue = "#458588"
+cyan = "#689d6a"
+green = "#98971a"
+magenta = "#b16286"
+red = "#cc241d"
+white = "#a89984"
+yellow = "#d79921"
+
+[colors.primary]
+background = "#282828"
+foreground = "#fbf1c7"
+
+[colors.search.focused_match]
+background = "#d79921"
+foreground = "#282828"
+
+[colors.search.matches]
+background = "CellForeground"
+foreground = "CellBackground"
+
+[colors.selection]
+background = "CellForeground"
+text = "CellBackground"
+
+[colors.vi_mode_cursor]
+cursor = "#928374"
+text = "CellBackground"
+
+[cursor]
+blink_timeout = 0
+unfocused_hollow = true
+vi_mode_style = "Block"
+
+[cursor.style]
+blinking = "On"
+shape = "Beam"
+
+[env]
+TERM = "alacritty"
+
+[font]
+builtin_box_drawing = true
+size = 11.0
+
+[font.bold]
+family = "Cascadia Mono PL"
+style = "Bold"
+
+[font.bold_italic]
+family = "Cascadia Mono PL"
+style = "Bold Italic"
+
+[font.glyph_offset]
+x = 0
+y = 0
+
+[font.italic]
+family = "Cascadia Mono PL"
+style = "Italic"
+
+[font.normal]
+family = "Cascadia Mono PL"
+style = "Regular"
+
+[font.offset]
+x = 0
+y = 0
+
+[[keyboard.bindings]]
+action = "None"
+key = "Paste"
+
+[[keyboard.bindings]]
+action = "None"
+key = "Copy"
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Shift|Control"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Shift|Control"
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "Insert"
+mods = "Shift|Control"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "Insert"
+mods = "Shift|Control"
+
+[[keyboard.bindings]]
+action = "ScrollPageUp"
+key = "PageUp"
+mode = "~Alt"
+
+[[keyboard.bindings]]
+action = "ScrollPageDown"
+key = "PageDown"
+mode = "~Alt"
+
+# [[keyboard.bindings]]
+# chars = "\u001B`"
+# key = "Grave"
+# mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B\\"
+key = 53
+mods = "Shift|Control"
+
+[[keyboard.bindings]]
+chars = "\u001F"
+key = "Slash"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B\u007F"
+key = "Back"
+mods = "Alt"
+
+[[keyboard.bindings]]
+chars = "\u001B\u007F"
+key = "Back"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001Bi"
+key = "I"
+mods = "Control"
+
+[mouse]
+hide_when_typing = false
+
+[[mouse.bindings]]
+action = "ExpandSelection"
+mouse = "Right"
+
+[[mouse.bindings]]
+action = "ExpandSelection"
+mods = "Control"
+mouse = "Right"
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mode = "~Vi"
+mouse = "Middle"
+
+[selection]
+save_to_clipboard = false
+semantic_escape_chars = ",│`|:\"' ()[]{}<>\t"
+
+[window]
+dynamic_title = true
+opacity = 0.95
+
+[window.padding]
+x = 4
+y = 4
