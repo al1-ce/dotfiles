@@ -78,6 +78,7 @@ alias doomsday '~/.dotfiles/bin/doomsday-clock'
 alias v nvim
 alias e "nvim (gum file)"
 alias awesome-check "Xephyr :5 & sleep 1 ; DISPLAY=:5 awesome"
+alias ls-fonts 'fc-list  --format="%{family[0]} %{style[0]}\n" | sort | uniq | fzf'
 
 alias tb taskbook
 

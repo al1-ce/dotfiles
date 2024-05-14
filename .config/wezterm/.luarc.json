@@ -1,0 +1,25 @@
+{
+    "$schema": "https://raw.githubusercontent.com/sumneko/vscode-lua/master/setting/schema.json",
+    "description": "Awesomewm setting of luals",
+    "diagnostics": {
+        "enable": true,
+        "globals-comment": [
+            "awesome",
+            "awful",
+            "client",
+            "screen",
+            "tag",
+            "root"
+        ]
+    },
+    "workspace": {
+        "library": [
+            "~/.config/nvim/def/lua/types/wezterm"
+        ],
+        "maxPreload": 2000,
+        "preloadFileSize": 1000
+    },
+    "telemetry.enable": false,
+    "diagnostics.disable": [
+    ]
+}

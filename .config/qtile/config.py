@@ -39,16 +39,7 @@ auto_minimize = True
 # java that happens to be on java's whitelist.
 # wmname = "LG3D"
 
-from libqtile.scripts.main import VERSION
-wmname = f"Qtile {VERSION}"
-
-# ---------------------------------------------------------------------------- #
-#                                     HOOKS                                    #
-# ---------------------------------------------------------------------------- #
-
-# @hook.subscribe.client_new
-# def func(c):
-#     set_screen_groups()
-#     if c.name == "Desktop — Plasma":
-#         c.cmd_kill()
+# from libqtile.scripts.main import VERSION
+# wmname = f"Qtile {VERSION}"
+wmname = "Qtile"
 

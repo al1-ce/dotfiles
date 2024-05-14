@@ -11,11 +11,11 @@
 	directory = /g/confed
 	directory = /g/aur/confed
 [core]
-    pager = delta
+    ; pager = delta
 	filemode = false
 
-[interactive]
-    diffFilter = delta --color-only --features=interactive
+; [interactive]
+;     diffFilter = delta --color-only --features=interactive
 
 [delta]
     navigate = true

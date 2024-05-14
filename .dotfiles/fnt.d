@@ -36,6 +36,7 @@ const string FONTS_GOOGLE = "https://sid.ethz.ch/debian/google-fonts/fonts-maste
 const string FONTS_INDEX = "https://deb.debian.org/debian/dists/sid/main/binary-all/Packages.xz";
 const string FONTS_MIRROR = "https://deb.debian.org/debian";
 
+// in case of no kitty replace kitty icat --align=left with wezterm imgcat
 const string HB_VIEW = "hb-view \"$FONT\" --text \"$TEXT\" --background=#282828 --foreground=#ebdbb2 -O svg | rsvg-convert | convert -trim -resize '25%' - - | kitty icat --align=left";
 const string FN_INFO = "otfinfo -i \"$FONT\" | head -6";
 

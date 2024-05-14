@@ -11,21 +11,26 @@ targetPath "bin/"
 module app;
 
 import std.getopt: getopt, Option, config;
-import std.stdio: writeln, write, File, readln;
 import std.array: split, replace;
 import std.process: wait, spawnProcess, executeShell, spawnShell;
 import std.range: array;
 import std.algorithm: filter, startsWith, canFind;
-import std.string: fromStringz;
-import std.file: readText, isFile, exists, FileException;
+import std.string: fromStringz, toStringz;
+import std.file: readText, isFile, exists, FileException, tempDir;
 import std.path: absolutePath, buildNormalizedPath, expandTilde;
+import std.datetime;
 
-import core.stdc.stdlib: getenv;
-import core.sys.posix.unistd: getuid;
+import core.stdc.stdlib: getenv, exit, EXIT_FAILURE, EXIT_SUCCESS;
+import core.sys.posix.unistd: getuid, fork, pid_t, setsid, chdir;
 
-string MOUNT_POINT = "/mnt/floppy";
-string AUTOEXEC_NAME = "autoexec.sh";
-string SUDO_COMMAND = "sudo -u '#USER' XDG_RUNTIME_DIR=/run/user/USER";
+static import std.stdio;
+
+const string MOUNT_POINT = "/mnt/floppy";
+const string AUTORUN_NAME = "autorun.sh";
+const string AUTOCLOSE_NAME = "autoclose.sh";
+const string AUTOCLOSE_TEMP_NAME = "sily-floppy-watch-autoclose.sh";
+const string SUDO_COMMAND = "sudo -u '#USER' XDG_RUNTIME_DIR=/run/user/USER";
+const string TMP_LOGNAME = "floppy-watch.log";
 
 struct Device {
     bool empty = true;
@@ -43,6 +48,14 @@ struct Device {
 }
 
 Device floppy;
+string autocloseCommand = "";
+std.stdio.File log;
+
+void writeln(T...)(T args) {
+    string time = Clock.currTime().toSimpleString();
+    log.writeln(time, args);
+    log.flush();
+}
 
 // ["sda"]
 // ["sdb", "vfat", "FAT12", "1807-1664"]
@@ -59,9 +72,26 @@ Device floppy;
 
 void main() {
     if (getuid() != 0) {
-        writeln("Please run program as SU to allow it to mount floppy drives");
+        std.stdio.writeln("Please run program as SU to allow it to mount floppy drives");
         return;
     }
+
+    _daemon();
+}
+
+void _daemon() {
+    pid_t pid;
+    pid_t sid;
+
+    pid = fork();
+    if (pid < 0) exit(EXIT_FAILURE);
+    if (pid > 0) exit(EXIT_SUCCESS);
+    sid = setsid();
+    if (sid < 0) exit(EXIT_FAILURE);
+    if ((chdir("/".toStringz)) < 0) exit(EXIT_FAILURE);
+
+    string logPath = fixPath(tempDir() ~ TMP_LOGNAME);
+    log = std.stdio.File(logPath, "w+");
 
     while (true) {
         // Get list of devices
@@ -96,13 +126,19 @@ void main() {
                 floppy = dev;
                 if (floppy.mounted) break;
                 mountFloppy(floppy);
-                writeln("Autoexec:");
-                string autoexec = tryReadAutoexec(floppy);
-                writeln(autoexec);
-                if (autoexec != "") {
-                    string su = getUserSudo() ~ ' ' ~ fixPath(MOUNT_POINT ~ '/' ~ AUTOEXEC_NAME);
+                writeln("Autorun:");
+                string autorun = tryReadAutorun(floppy);
+                writeln(autorun);
+                writeln("Autoclose:");
+                string autoclose = tryReadAutoclose(floppy);
+                writeln(autoclose);
+                if (autorun != "") {
+                    string su = getUserSudo() ~ ' ' ~ fixPath(MOUNT_POINT ~ '/' ~ AUTORUN_NAME);
                     writeln(su);
                     spawnShell(su);
+                }
+                if (autoclose != "") {
+                    makeAutocloseCopy(floppy);
                 }
                 break;
             }
@@ -118,6 +154,8 @@ void main() {
         bool floppyEjected = floppy.fstype == "";
         bool shouldUnmount = floppyInvalid || floppyEjected;
         if (shouldUnmount && !floppy.empty) {
+            if (autocloseCommand != "") spawnShell(autocloseCommand);
+            autocloseCommand = "";
             unmountFloppy(floppy);
             sleep(1000);
             continue;
@@ -125,16 +163,43 @@ void main() {
 
         sleep(1000);
     }
+
+    scope (exit) {
+        log.close();
+    }
+
+    exit(EXIT_SUCCESS);
 }
 
-string tryReadAutoexec(Device dev) {
+string tryReadAutorun(Device dev) {
     if (!dev.mounted) return "";
-    string path = fixPath(MOUNT_POINT ~ '/' ~ AUTOEXEC_NAME);
+    string path = fixPath(MOUNT_POINT ~ '/' ~ AUTORUN_NAME);
     if (path.exists && path.isFile) {
         string contents = readFile(path);
         return contents;
     }
     return "";
+}
+
+string tryReadAutoclose(Device dev) {
+    if (!dev.mounted) return "";
+    string path = fixPath(MOUNT_POINT ~ '/' ~ AUTOCLOSE_NAME);
+    if (path.exists && path.isFile) {
+        string contents = readFile(path);
+        return contents;
+    }
+    return "";
+}
+
+void makeAutocloseCopy(Device dev) {
+    if (!dev.mounted) return;
+    string path = fixPath(MOUNT_POINT ~ '/' ~ AUTOCLOSE_NAME);
+    if (path.exists && path.isFile) {
+        string tempPath = fixPath(tempDir() ~ AUTOCLOSE_TEMP_NAME);
+        wait(spawnShell("cp -f '" ~ path ~ "' '" ~ tempPath ~ "'"));
+        string su = getUserSudo() ~ " " ~ tempPath;
+        autocloseCommand = su;
+    }
 }
 
 string getUserSudo() {
@@ -192,7 +257,7 @@ void unmountFloppy(ref Device dev) {
             writeln("Successfully unmounted floppy drive");
             dev = Device();
         } else {
-            writeln("There was error when unmounting floppy drive");
+            writeln("There was error when unmounting floppy drive. Will attempt again");
         }
     } else {
         dev = Device();
@@ -229,8 +294,8 @@ string fixPath(string path) {
 
 void writeFile(string path, string content) {
     string file = path.fixPath();
-    File f;
-    f = File(file, "w");
+    std.stdio.File f;
+    f = std.stdio.File(file, "w");
     f.write(content);
     f.close();
 }

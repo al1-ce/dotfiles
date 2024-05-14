@@ -8,7 +8,7 @@ dunst // /home/al1-ce/.config/dunst/dunstrc
 ranger // /home/al1-ce/.config/ranger/rc.conf
 telegram // /home/al1-ce/.config/tg/conf.py
 pkm // /home/al1-ce/.config/pkm/conf.yaml
-alacritty // /home/al1-ce/.config/alacritty/alacritty.yml
+alacritty // /home/al1-ce/.config/alacritty/alacritty.toml
 picom // /home/al1-ce/.config/picom/picom.conf
 qute // /home/al1-ce/.config/qutebrowser/config.py
 backup // /g/linuxrice/update-config.sh
@@ -17,3 +17,4 @@ rice // /g/linuxrice/
 gromit // /home/al1-ce/.config/gromit-mpx.cfg
 awesome // /home/al1-ce/.config/awesome/rc.lua
 poly // /home/al1-ce/.config/polybar/config.ini
+wezterm // /home/al1-ce/.config/wezterm/wezterm.lua

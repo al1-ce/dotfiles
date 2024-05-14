@@ -14,10 +14,14 @@ terminal_exec   = terminal
 term_exec       = terminal + " -x bash -c \""
 term_wait       = " && read -p '' -n1 -s\""
 term_end        = "\""
-if (is_tool("kitty")):
-    terminal      = "kitty"
-    terminal_exec = "kitty"
-    term_exec     = terminal + " bash -c \""
+# if (is_tool("kitty")):
+#     terminal      = "kitty"
+#     terminal_exec = "kitty"
+#     term_exec     = terminal_exec + " bash -c \""
+if (is_tool("wezterm")):
+    terminal      = "wezterm"
+    terminal_exec = "wezterm -e"
+    term_exec     = terminal_exec + " bash -c \""
 
 home            = os.path.expanduser('~')
 dotfiles        = home + "/.dotfiles"

@@ -27,17 +27,10 @@ screens = [
         wallpaper_mode='fill', ),
 ]
 
-# @hook.subscribe.startup_complete
-def set_screen_groups():
-    # left center right = 1 0 2
-    screens[0].toggle_group("1") # center
-    screens[1].toggle_group("2") # right
-
 @hook.subscribe.startup_once
 def autostart():
-    screens[0].toggle_group("1") # center
-    screens[1].toggle_group("2") # right
+    screens[0].toggle_group("R") # center
+    screens[1].toggle_group("S") # right
 
     # subprocess.Popen([home + '/.config/qtile/autostart.sh'])
-    # set_screen_groups()
 

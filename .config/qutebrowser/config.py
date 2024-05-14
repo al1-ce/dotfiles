@@ -38,6 +38,7 @@ c.url.searchengines = {
     'yt': 'https://www.youtube.com/results?search_query={}',
     'tg': 'https://web.telegram.org/k/#?null={}',
     'ym': 'https://music.yandex.ru/home?null={}',
+    'arch': 'https://wiki.archlinux.org/index.php?search={}'
 }
 
 c.url.start_pages = ['https://al1-ce.github.io/homepage/']

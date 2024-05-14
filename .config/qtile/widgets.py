@@ -91,7 +91,7 @@ widgets = {
 
     "window_name": (lambda: widget.WindowName(
         **widget_defaults,
-        parse_text = lambda text: text.rsplit("— ", 1)[1]
+        parse_text = lambda text: text.rsplit("— ", 1)[1] if text.find("— ") != -1 else text
     )),
 
     "update_text": (lambda: widget.CheckUpdates(

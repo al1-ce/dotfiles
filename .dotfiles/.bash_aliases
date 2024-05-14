@@ -219,6 +219,6 @@ export NAP_THEME=gruvbox
 #     echo "/_/ |_\__/_//_/\__/\____/___/  "
 # }
 
-alias cls="clear && ~/.dotfiles/fetch"
+alias cls="clear && ~/.dotfiles/bin/fetch"
 
 cls
