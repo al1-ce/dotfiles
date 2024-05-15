@@ -1,7 +1,12 @@
 # pylint disable=all
 
+import subprocess
+import os
+
+from libqtile import hook
+
 from apps import *
-from groups import groups as def_groups
+from groups import *
 from keymap import *
 from layouts import *
 from screens import *
@@ -11,8 +16,6 @@ from typing import List
 # ---------------------------------------------------------------------------- #
 #                               ADDITIONAL CONFIG                              #
 # ---------------------------------------------------------------------------- #
-
-groups = def_groups
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
@@ -42,4 +45,10 @@ auto_minimize = True
 # from libqtile.scripts.main import VERSION
 # wmname = f"Qtile {VERSION}"
 wmname = "Qtile"
+
+@hook.subscribe.startup_once
+def autostart():
+    # subprocess.Popen(home + "/.config/qtile/autostart.sh", env = os.environ)
+    screens[0].toggle_group(group_names[1]) # center
+    screens[1].toggle_group(group_names[2]) # right
 

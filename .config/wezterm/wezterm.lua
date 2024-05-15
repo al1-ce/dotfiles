@@ -4,6 +4,7 @@ local config = wezterm.config_builder()
 local font = require("user.fonts").dina_remaster
 
 -- FONTS
+-- config.font = wezterm.font_with_fallback({font.regular, "CozetteHiDpi", "Noto Sans CJK JP"})
 config.font = wezterm.font_with_fallback({font.regular, "Hack Regular", "Noto Sans CJK JP"})
 config.font_rules = font.rules
 config.font_size = font.size

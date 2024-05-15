@@ -17,15 +17,15 @@ bar_color =   "#282828" + bar_opacity
 #     }
 
 colors = {
-    "main":   "#d65d0e",
+    "main":   "#fe8019",
     "accent": "#ebdbb2",
-    "off":    "#665c54",
+    "off":    "#928374",
 }
 
 widget_defaults = {
     "font":       "DinaRemaster",
     "fontsize":   16,
-    "padding":    2,
+    "padding":    3,
     # "font":       "Cascadia Mono PL",
     # "fontsize":   13,
     # "padding":    3,
@@ -43,19 +43,20 @@ spacer_def = {
 
 gr_def = {
     "foreground": colors["main"],
-    "padding":    0,
+    "padding":    4,
 
-    "font":       "Cascadia Mono PL",
-    "fontsize":   16,
+    "font":       "CozetteHiDpi",
+    # "font":       "Cascadia Mono PL",
+    "fontsize":   31,
 }
 
 fa_def = {
     "foreground": colors["main"],
-    "padding":    0,
+    "padding":    3,
 
-    "font":       "Cascadia Mono PL",
+    "font":       "CozetteHiDpi",
     # "font":       "Material Design Icons",
-    "fontsize":   30, # 36
+    "fontsize":   31, # 36
 }
 
 im_def = {
@@ -66,6 +67,8 @@ im_def = {
 widget_volume = widget.PulseVolume(
     step = 5,
     fmt =  "{}",
+    mute_format = "muted",
+    mute_foreground = colors["off"],
     **widget_defaults
 )
 
@@ -77,13 +80,16 @@ widgets = {
     "groups": (lambda: widget.GroupBox(
         disable_drag = True,
         rounded = False,
-        highlight_method = "block",
+        use_mouse_wheel = False,
+        highlight_method = "line",
         active = colors["main"],
         inactive = colors["off"],
-        this_current_screen_border = "#504945" + bar_opacity,
-        other_current_screen_border = "#282828" + "22",
-        this_screen_border = "#504945" + bar_opacity,
-        other_screen_border = "#282828" + "22",
+        borderwidth = 2,
+        this_current_screen_border = "#504945" + "bb",
+        other_current_screen_border = "#ff00ff" + "00",
+        this_screen_border = "#504945" + "66",
+        other_screen_border = "#ff00ff" + "00",
+        highlight_color = ["#ff00ff00", "#00ffff00"],
         **gr_def
     )),
 
@@ -92,6 +98,13 @@ widgets = {
     "window_name": (lambda: widget.WindowName(
         **widget_defaults,
         parse_text = lambda text: text.rsplit("— ", 1)[1] if text.find("— ") != -1 else text
+    )),
+
+    "lastfm_text": (lambda: widget.GenPollCommand(
+        **widget_defaults,
+        cmd = apps.home + "/.dotfiles/scripts/lastfm.sh",
+        update_interval = 5,
+        fmt = "{}",
     )),
 
     "update_text": (lambda: widget.CheckUpdates(
@@ -110,6 +123,8 @@ widgets = {
     "disk_text": (lambda: widget.DF(
         **widget_defaults,
         format="{r:2.0f}%",
+        partition = "/",
+        measure = "M",
         mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(apps.terminal + ' btop')},
         visible_on_warn = False
     )),
@@ -142,7 +157,7 @@ widgets = {
 
     "systray": (lambda: widget.WidgetBox(
         **fa_def,
-        close_button_location='right',
+        close_button_location='left',
         text_closed = icons["systray_opened"],
         text_open = icons["systray_closed"],
         widgets = [
@@ -162,13 +177,22 @@ widgets = {
     )),
 
 
-    "update_icon"  : (lambda: widget.Image( **im_def, filename = images["update"])),
-    "disk_icon"    : (lambda: widget.Image( **im_def, filename = images["disk"])),
-    "ram_icon"     : (lambda: widget.Image( **im_def, filename = images["ram"])),
-    "cpu_icon"     : (lambda: widget.Image( **im_def, filename = images["cpu"])),
-    "volume_icon"  : (lambda: widget.Image( **im_def, filename = images["volume"])),
-    "calendar_icon": (lambda: widget.Image( **im_def, filename = images["calendar"])),
-    "clock_icon"   : (lambda: widget.Image( **im_def, filename = images["clock"])),
+    # "update_icon"  : (lambda: widget.Image( **im_def, filename = images["update"])),
+    # "disk_icon"    : (lambda: widget.Image( **im_def, filename = images["disk"])),
+    # "ram_icon"     : (lambda: widget.Image( **im_def, filename = images["ram"])),
+    # "cpu_icon"     : (lambda: widget.Image( **im_def, filename = images["cpu"])),
+    # "volume_icon"  : (lambda: widget.Image( **im_def, filename = images["volume"])),
+    # "calendar_icon": (lambda: widget.Image( **im_def, filename = images["calendar"])),
+    # "clock_icon"   : (lambda: widget.Image( **im_def, filename = images["clock"])),
+
+    "lastfm_icon"  : (lambda: widget.TextBox( **fa_def, text = icons["music"])),
+    "update_icon"  : (lambda: widget.TextBox( **fa_def, text = icons["update"])),
+    "disk_icon"    : (lambda: widget.TextBox( **fa_def, text = icons["disk"])),
+    "ram_icon"     : (lambda: widget.TextBox( **fa_def, text = icons["ram"])),
+    "cpu_icon"     : (lambda: widget.TextBox( **fa_def, text = icons["cpu"])),
+    "volume_icon"  : (lambda: widget.TextBox( **fa_def, text = icons["volume"])),
+    "calendar_icon": (lambda: widget.TextBox( **fa_def, text = icons["calendar"])),
+    "clock_icon"   : (lambda: widget.TextBox( **fa_def, text = icons["clock"])),
 }
 
 def init_widgets():
@@ -177,6 +201,10 @@ def init_widgets():
 
         widgets["window_name"](),
 
+        widgets["lastfm_icon"](),
+        widgets["lastfm_text"](),
+
+        widgets["spacer"](),
         widgets["update_icon"](),
         widgets["update_text"](),
 

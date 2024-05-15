@@ -64,6 +64,7 @@ gromit-mpx &
 xinput map-to-output "Melfas LGDisplay Incell Touch" DP-0
 systemctl --user enable opentabletdriver --now
 
+# (cd ~/.config/polybar && rerun "~/.config/polybar/launch.sh") &
+
 exec qtile start
-# exec awesome
 

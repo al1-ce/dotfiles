@@ -13,10 +13,14 @@ killall -q polybar
 while pgrep -u $UID -x polybar > /dev/null; do sleep 1; done
 
 if type "xrandr" > /dev/null; then
-  for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-    MONITOR=$m polybar --reload mainbar-qtile  -c ~/.config/polybar/config.ini &
-  done
+    for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
+        if [ $m = "DP-2" ]; then
+            MONITOR=$m polybar --reload main -c ~/.config/polybar/config.ini & disown
+        else
+            MONITOR=$m polybar --reload side -c ~/.config/polybar/config.ini & disown
+        fi
+    done
 else
-polybar --reload mainbar-qtile  -c ~/.config/polybar/config.ini &
+    polybar --reload mainbar-qtile  -c ~/.config/polybar/config.ini & disown
 fi
 

@@ -5,6 +5,11 @@
 # *.[oa]
 # *~
 
+# Sensitive
+.config/codestats.lua
+.config/polybar/scripts/now_playing/data/data.json
+.dotfiles/scripts/data/data.json
+
 # Exclude all that is unholy
 **/__pycache__/
 **/cache/

@@ -6,6 +6,8 @@ function execute() {
     eval "$@"
 }
 
+pwd
+
 execute "$@"
 
 inotifywait --quiet --recursive --monitor --event modify --format "%w%f" . \

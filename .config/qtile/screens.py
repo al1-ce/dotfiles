@@ -1,10 +1,11 @@
 # Screens or monitors
 
-from libqtile import bar, hook
+from libqtile import bar
 from libqtile.config import Screen
 
 from apps import home
 from widgets import init_widgets, init_widgets_part, bar_color, bar_margin
+from groups import group_names
 
 screen_order    = [1, 0, 2]
 
@@ -26,11 +27,4 @@ screens = [
         wallpaper=home + '/.config/qtile/wallpapers/darker.png', # left.png none
         wallpaper_mode='fill', ),
 ]
-
-@hook.subscribe.startup_once
-def autostart():
-    screens[0].toggle_group("R") # center
-    screens[1].toggle_group("S") # right
-
-    # subprocess.Popen([home + '/.config/qtile/autostart.sh'])
 

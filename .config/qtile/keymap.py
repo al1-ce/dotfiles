@@ -6,7 +6,7 @@ from libqtile.lazy import lazy
 
 import apps as apps
 import functions as funcs
-from groups import groups, scratch_name
+from groups import groups, group_names
 from screens import screen_order
 
 mod = "mod4"
@@ -93,7 +93,7 @@ keys = [EzKey(k[0], *k[1:]) for k in [
     # Applications
     # Terms
     ("M-<Return>",   lazy.spawn(apps.terminal)),
-    ("M-S-<Return>", lazy.group[scratch_name].dropdown_toggle("quake")),
+    ("M-S-<Return>", lazy.group[group_names[10]].dropdown_toggle("quake")),
     # FM
     ("M-e",          lazy.spawn(apps.filemanager)),
     ("M-S-e",        lazy.spawn(apps.filemanager_gui)),
