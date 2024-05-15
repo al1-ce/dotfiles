@@ -1,0 +1,44 @@
+# name: SpaceGray
+# author: dexpota
+# license: MIT
+# upstream: https://github.com/dexpota/kitty-themes/
+# blurb: SpaceGray
+
+[colors]
+ansi = [
+  "#15171c", #Black
+  "#b14956", # Red
+  "#91b377", # Green
+  "#c6725a", # Yellow
+  "#7b8fa4", # Blue
+  "#a5779e", # Purple
+  "#7fcccb", # Cyan
+  "#b2b8c2", # White
+]
+brights = [
+  "#545454", # Black
+  "#ec5f67", # Red
+  "#88e985", # Green
+  "#fdc253", # Yellow
+  "#5485c0", # Blue
+  "#bf83c0", # Purple
+  "#58c2c0", # Cyan
+  "#ffffff", # White
+]
+foreground = "#c8c5bc"
+background = "#212121"
+
+cursor_bg = "#212121"
+cursor_border = "#bbbbbb"
+cursor_fg = "#bbbbbb"
+selection_bg = "#262e35"
+selection_fg = "#ffffff"
+
+[colors.indexed]
+
+[metadata]
+aliases = ["SpaceGray Dull"]
+name = "SpaceGrayDull"
+origin_url = "https://github.com/dexpota/kitty-themes/"
+wezterm_version = "Always"
+

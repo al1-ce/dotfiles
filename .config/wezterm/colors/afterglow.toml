@@ -1,0 +1,44 @@
+# name: Afterglow
+# author: dexpota
+# license: MIT
+# upstream: https://github.com/dexpota/kitty-themes/
+# blurb: Afterglow
+
+[colors]
+ansi = [
+  "#151515", #Black
+  "#ac4142", # Red
+  "#7e8d50", # Green
+  "#e5b566", # Yellow
+  "#6c99ba", # Blue
+  "#9e4e85", # Purple
+  "#7dd5cf", # Cyan
+  "#d0d0d0", # White
+]
+brights = [
+  "#505050", # Black
+  "#ac4142", # Red
+  "#7e8d50", # Green
+  "#e5b566", # Yellow
+  "#6c99ba", # Blue
+  "#9e4e85", # Purple
+  "#7dd5cf", # Cyan
+  "#d0d0d0", # White
+]
+foreground = "#d0d0d0"
+background = "#202020"
+
+cursor_bg = "#202020"
+cursor_border = "#d0d0d0"
+cursor_fg = "#d0d0d0"
+selection_bg = "#303030"
+selection_fg = "#d0d0d0"
+
+[colors.indexed]
+
+[metadata]
+aliases = ["Afterglow"]
+name = "Afterglow"
+origin_url = "https://github.com/dexpota/kitty-themes/"
+wezterm_version = "Always"
+

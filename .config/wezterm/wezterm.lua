@@ -17,6 +17,7 @@ config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 local theme = require("user.theme").init("GruvboxDark")
 config.color_scheme = theme.color_scheme()
 config.colors = theme.colors()
+-- config.color_scheme_dirs = { "~/.config/wezterm/colors" }
 
 -- CURSOR AND TEXT BLINK
 config.default_cursor_style = 'BlinkingBar'

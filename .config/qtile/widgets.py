@@ -8,7 +8,7 @@ import apps as apps
 
 bar_margin = [5, 5, 2, 5]
 bar_opacity = "bb"
-bar_color =   "#282828" + bar_opacity
+bar_color =   "#282828"
 
 # colors = {
 #     "main": "#e27100",
@@ -85,11 +85,11 @@ widgets = {
         active = colors["main"],
         inactive = colors["off"],
         borderwidth = 2,
-        this_current_screen_border = "#504945" + "bb",
-        other_current_screen_border = "#ff00ff" + "00",
-        this_screen_border = "#504945" + "66",
-        other_screen_border = "#ff00ff" + "00",
-        highlight_color = ["#ff00ff00", "#00ffff00"],
+        this_current_screen_border = "#504945",
+        other_current_screen_border = bar_color,
+        this_screen_border = "#3f3a38",
+        other_screen_border = bar_color,
+        highlight_color = [bar_color, bar_color],
         **gr_def
     )),
 
