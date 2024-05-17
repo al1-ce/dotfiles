@@ -1,25 +1,5 @@
 #!/bin/fish
 
-# if stats is-login
-    # if test -z "$DISPLAY" -a "$XDG_VTNR" = 1
-        # exec startx -- -keeptty
-    # end
-# end
-
-function fish_prompt
-    # set_color $fish_color_cwd
-    # echo -n (prompt_pwd)
-    # set_color normal
-    # echo -n ' > '
-    # powerline-shell --shell bare $status
-end
-
-function fish_right_prompt -d "Write out the right prompt"
-    # set_color brblack
-    # date '+%H:%M:%S'
-    # set_color normal
-end
-
 function __on_pwd_change --on-variable PWD --description 'Do rvm stuff'
     status --is-command-substitution; and return
     # Uncomment for instant fetch
@@ -33,19 +13,6 @@ function __on_pwd_change --on-variable PWD --description 'Do rvm stuff'
     # Uncomment for instant LS
     ls
 end
-
-# function tere
-#     set --local result (command tere $argv)
-#     [ -n "$result" ] && cd -- "$result"
-# end
-
-# Maybe https://gist.github.com/britishtea/39ad478fa5180e1432a2
-
-# If ~/.inputrc doesn't exist yet: First include the original /etc/inputrc
-# so it won't get overriden
-# if test -e ~/.inputrc
-#     echo '$include /etc/inputrc' > ~/.inputrc
-# end
 
 # Add shell-option to ~/.inputrc to enable case-insensitive tab completion
 echo '$include /etc/inputrc' > ~/.inputrc
@@ -73,31 +40,33 @@ fish_add_path -Ppg ~/.dotnet/
 fish_add_path -Ppg ~/.dotfiles/bin
 fish_add_path -Ppg ~/.dotfiles/scripts
 fish_add_path -Ppg /home/linuxbrew/.linuxbrew/bin
+fish_add_path -Ppg ~/.go/bin
 
-set CARGO_HOME ~/.cargo/
-set RUSTUP_HOME ~/.rustup/
-set GOPATH ~/.go/
-set RUBY_GEMS ~/.local/share/gem/ruby/3.0.0/
-set RUBY_ROOT /usr/lib/ruby/gems/3.0.0
+set -xg CARGO_HOME ~/.cargo/
+set -xg RUSTUP_HOME ~/.rustup/
+set -xg GOPATH ~/.go/
+set -xg RUBY_GEMS ~/.local/share/gem/ruby/3.0.0/
+set -xg RUBY_ROOT /usr/lib/ruby/gems/3.0.0
 
-set SHELL /bin/fish
+set -xg SHELL /bin/fish
 
 fish_add_path -Ppg $RUBY_GEMS
 fish_add_path -Ppg $RUBY_ROOT
 
 # OTHER
 set fish_greeting
-set -g -x TERM "xterm-256color"
-set -g -x EDITOR nvim
-set HOMEBREW_NO_ENV_HINTS true
-set HAS_ALLOW_UNSAFE y
-set -g -x RANGER_LOAD_DEFAULT_RC false
-set -g -x FILE_PICKER_CMD ranger
-set -g -x DXVK_ASYNC 1
-set -g -x WEBKIT_DISABLE_COMPOSITING_MODE 1
+set -xg TERM "xterm-256color"
+set -xg EDITOR nvim
+set -xg HOMEBREW_NO_ENV_HINTS true
+set -xg HAS_ALLOW_UNSAFE y
+set -xg RANGER_LOAD_DEFAULT_RC false
+set -xg FILE_PICKER_CMD ranger
+set -xg DXVK_ASYNC 1
+set -xg WEBKIT_DISABLE_COMPOSITING_MODE 1
+set -xg NAP_THEME gruvbox
 
-set MANPAGER "sh -c 'col -bx | bat --tabs 4 --color always --paging always -l man -p'"
-set DELTA_PAGER "less -+X" # less -RF
+set -xg MANPAGER "sh -c 'col -bx | bat --tabs 4 --color always --paging always -l man -p'"
+set -xg DELTA_PAGER "less -+X" # less -RF
 
 set fish_color_normal brwhite
 set fish_color_autosuggestion brblack
@@ -108,7 +77,6 @@ set fish_color_param brwhite
 set fish_color_quote brgreen
 set fish_color_redirection brcyan
 set fish_color_end brcyan
-
 
 function setmode
     if count $argv > /dev/null
@@ -122,31 +90,12 @@ function setmode
     end
 end
 
-# function git-ls
-#     find . -maxdepth 1 -mindepth 1 -type d -exec sh -c "cd {} && git rev-parse --is-inside-work-tree > /dev/null && echo -n '\e[1m' && echo -n {} && echo -n '\e[0m \e[91m' &&  git status --porcelain | awk '/[MD?]+ /{c++} END {print \"M: \", c}' && rm -f statusShort && echo -n '\e[0m'" \;
-# end
-
-# function ex
-#     if test -f $argv[1]
-#         switch "$argv[1]"
-#             case   '*.tar.bz2'    tar xjf $1
-#             case   "*.tar.gz"    tar xzf $1
-#             case   "*.bz2"       bunzip2 $1
-#             case   "*.rar"       unrar x $1
-#             case   "*.gz"        gunzip $1
-#             case   "*.tar"       tar xf $1
-#             case   "*.tbz2"      tar xjf $1
-#             case   "*.tgz"       tar xzf $1
-#             case   "*.zip"       unzip $1
-#             case   "*.Z"         uncompress $1
-#             case   "*.7z"        7z x $1
-#             case   '*'           echo "'$1' cannot be extracted via ex()"
-#         end
-#     else
-#         echo "'$1' is not a valid file"
-#     end
-# end
-# funcsave setmode
+function fish_should_add_history
+    for cmd in ls fg bg ranger-cd
+       string match -qr "^$cmd" -- $argv; and return 1
+    end
+    return 0
+end
 
 alias srcrc "source ~/.config/fish/config.fish"
 
@@ -159,6 +108,28 @@ bind \e\[3\;5~ kill-word
 bind \e\[1\;3P ''
 bind \e\[1\;5A ''
 bind \e\[1\;5B ''
+
+# ~/.config/fish/functions/ranger.fish
+
+function ranger-cd
+	set tempfile (mktemp -t tmp.XXXXXX)
+	command ranger --choosedir=$tempfile $argv
+	set return_value $status
+
+	if test -s $tempfile
+		set ranger_pwd (cat $tempfile)
+		if test -n $ranger_pwd -a -d $ranger_pwd
+			cd -- $ranger_pwd
+        else
+            echo $ranger_pwd "is not a directory"
+        end
+	end
+
+	command rm -f -- $tempfile
+	return $return_value
+end
+
+bind \cs "commandline ranger-cd; commandline -f execute"
 
 # bind \b backward-kill-word
 

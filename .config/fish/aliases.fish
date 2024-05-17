@@ -43,13 +43,13 @@ alias ln "ln -i"
 
 alias fs "cd -"
 
-alias dcat "/usr/bin/cat"
+# alias dcat "/usr/bin/cat"
 
-alias dcat /usr/bin/cat
+# alias dcat /usr/bin/cat
 # bat
-alias bat "bat --tabs 4 --color always --paging always --theme gruvbox-dark"
+# alias bat "bat --tabs 4 --color always --paging always --theme gruvbox-dark"
 # copy-cat
-alias cat "bat --plain"
+alias bat "bat --plain"
 
 alias line "hr ─"
 
@@ -92,7 +92,7 @@ end
 
 # alias setcursor '~/.dotfiles/scripts/setcursor.sh'
 
-alias ytmp3 "yt-dlp -f 'ba' -x --audio-format wav"
+alias ytmp3 "yt-dlp -f 'ba' -x --audio-format mp3"
 alias feh "feh -Tdefault"
 # alias scrape "wget -r -p -l 10 -E -k -N -w 2 --random-wait"
 
@@ -109,11 +109,6 @@ function scrape
     end
 end
 
-# function sudo
-#     gum input --password | /usr/sbin/sudo -nS $argv 2>/dev/null
-# end
-
-alias jspp jsppext
 alias pub "dart pub"
 
 # ---------------------------------- WEB CLI --------------------------------- #
@@ -126,40 +121,6 @@ function search
         echo 'Please supply search terms'
     end
 end
-
-# yewtube
-alias web 'links -g'
-alias webt 'links'
-
-# ------------------------------------ GIT ----------------------------------- #
-# function backup
-#     git add .
-#     if count $argv > /dev/null
-#         git commit -m $argv
-#     else
-#         git commit -m "Updated: $(date +'%Y-%m-%d %H:%M:%S')"
-#     end
-#     git push origin master
-# end
-
-# function branch
-#     git branch 2> /dev/null | fzf | sed "s/.* //" | awk "{print $argv[1]}" | xargs git checkout
-# end
-
-# function git-poll
-#     for f in $(find . -maxdepth 1 -type d)
-#         if test -d $f/.git
-#             set git_poll_output $(git -C $f status --porcelain)
-#             if test -n "$git_poll_output"
-#                 printf "\e[4m%-20s %-4s\e[0m\n" $(echo "$f" | cut -c 3-) "$(git -C $f status --porcelain | wc -l)"
-#             end
-#         end
-#     end
-# end
-
-alias ga "git add"
-alias gc "git commit"
-alias gp "git push"
 
 alias reuse "reuse --suppress-deprecation"
 
@@ -176,22 +137,6 @@ alias pacman-time 'sudo ntpd -qg && sudo hwclock -w'
 alias pacman-clean 'pacman -Qtdq | sudo pacman -Rns -'
 
 alias qtile-restart 'qtile cmd-obj -o cmd -f restart'
-
-# function godot
-#     cd ~/Godot
-#     ./Godot_* &
-#     cd ~
-# end
-#
-# function godot-quiet
-#     set WD $PWD
-#     cd ~/Godot
-#     nohup ./Godot_* &
-#     cd $WD
-# end
-
-#jp2a --colors --color-depth=8 --chars=" .,:;!-~=+÷*JS?#%@AX" --width="${PV_WIDTH}" "${FILE_PATH}" && exit 4
-#jp2a --colors --color-depth=8 --chars=" ░▒▓█" --width="${PV_WIDTH}" "${FILE_PATH}" && exit 4
 
 # ---------------------------------- Telnet ---------------------------------- #
 alias mapscii 'telnet mapscii.me'
@@ -218,8 +163,6 @@ end
 #                               ENV CUSTOMISATION                              #
 # ---------------------------------------------------------------------------- #
 
-set NAP_THEME gruvbox
-
 # ---------------------------------------------------------------------------- #
 #                                STARTUP SCRIPT                                #
 # ---------------------------------------------------------------------------- #
@@ -241,5 +184,30 @@ if status --is-interactive
 
     ~/.dotfiles/bin/fetch
 
-    # cls
+    set -l fish_version (fish -v)
+    [ $fish_version != "fish, version 3.7.1" ] && figlet "FIX BLOCK HISTORY THING"
+
+    function __starship_prompt_builder --on-event fish_prompt
+        set -xg JOB_COUNT (jobs | wc -l)
+        if jobs | grep -q nvim
+            set -xg STARSHIP_SHOW_NVIM true
+        else
+            set -xg STARSHIP_SHOW_NVIM false
+        end
+
+        if begin; [ $STARSHIP_SHOW_NVIM = false ] ;and [ $JOB_COUNT -gt 0 ] ;end ;or begin; [ $STARSHIP_SHOW_NVIM = true ] ;and [ $JOB_COUNT -gt 1 ] ;end
+            set -xg STARSHIP_SHOW_JOBS true
+        else
+            set -xg STARSHIP_SHOW_JOBS false
+        end
+    end
+
+    function __delete_history --on-event fish_postexec
+        string match -qr '^fg' -- $argv
+        and history delete --exact --case-sensitive -- (string trim -r $argv)
+        string match -qr '^bg' -- $argv
+        and history delete --exact --case-sensitive -- (string trim -r $argv)
+        string match -qr '^ranger-cd' -- $argv
+        and history delete --exact --case-sensitive -- (string trim -r $argv)
+    end
 end

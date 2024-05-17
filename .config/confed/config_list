@@ -3,7 +3,6 @@ kitty // /home/al1-ce/.config/kitty/kitty.conf
 fish // /home/al1-ce/.config/fish/config.fish
 qtile // /home/al1-ce/.config/qtile/config.py
 remind // /home/al1-ce/.dotfiles/remind
-/home/al1-ce/.config/dunst/dunstrc // 
 dunst // /home/al1-ce/.config/dunst/dunstrc
 ranger // /home/al1-ce/.config/ranger/rc.conf
 telegram // /home/al1-ce/.config/tg/conf.py
@@ -18,3 +17,4 @@ gromit // /home/al1-ce/.config/gromit-mpx.cfg
 awesome // /home/al1-ce/.config/awesome/rc.lua
 poly // /home/al1-ce/.config/polybar/config.ini
 wezterm // /home/al1-ce/.config/wezterm/wezterm.lua
+starship // /home/al1-ce/.config/starship.toml

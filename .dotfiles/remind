@@ -11,6 +11,7 @@ yadm add -u             adds modified files to yadm
 gdp-dashboard           gnu debugger tui
 tmate                   share the terminal
 taskbook                task manager
+make -j$(nproc)         multiprocess make
 
 #  UNIX -------------------------------------------------- #
 hr                      horisontal ruler

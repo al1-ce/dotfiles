@@ -76,7 +76,7 @@ floppy/
 .fonts/
 # .gitconfig
 .gnupg/
-go/
+.go/
 .gradle/
 .icons/
 .imwheelrc

@@ -10,13 +10,28 @@ command_timeout = 1500
 
 # POWERLINE CONTENTS
 
-format = """$character$directory"""
+format = """$character${custom.nvim}${custom.jobs}$directory"""
 right_format = """$all"""
 
 [cmd_duration]
 disabled = true
 min_time = 0
 format = ' [$duration]($style) '
+
+[jobs]
+disabled = true
+
+[custom.jobs]
+symbol = '@'
+style = 'bold underline red'
+format = '[$symbol($output)]($style) '
+when = '[ $STARSHIP_SHOW_JOBS = true ]'
+command = 'echo $JOB_COUNT'
+
+[custom.nvim]
+when = '[ $STARSHIP_SHOW_NVIM = true ]'
+style = "bold underline red"
+format = "[nvim]($style) "
 
 # CHARACTER FORMAT
 
@@ -34,15 +49,16 @@ error_symbol = '[△](bright-white)'
 
 [git_branch]
 # truncation_length = 3
-truncation_symbol = '…'
+truncation_symbol = '...'
+symbol = ''
 # ignore_branches = ['master', 'main']
 
 # ⚙ ◆ ▼ ▽
 [git_status]
 disabled = false
-conflicted = "◈"
-ahead = "⇡"
-behind = "⇣"
+conflicted = "c"
+ahead = "^"
+behind = "v"
 up_to_date = ""
 untracked = ""
 stashed = ""
@@ -95,6 +111,9 @@ format = "via [Go]($style) "
 
 [docker_context]
 format = "via [Docker]($style) "
+
+[cmake]
+format = "via [CMake]($style) "
 
 [custom.gitclean]
 when = """git rev-parse --show-toplevel && test "$(git status -s)" = """""
