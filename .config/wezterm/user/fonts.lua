@@ -163,6 +163,28 @@ local M = {
             },
         }
     },
+
+    cozette_hidpi = {
+        regular = {family = 'CozetteHiDpi', weight = 'Medium', style = 'Normal', italic = false},
+        size = 12,
+        brighten = true,
+        cell_width = 1.0,
+        line_height = 1.0,
+        rules = {
+            {
+                intensity = "Bold", italic = false,
+                font = wezterm.font({family = 'CozetteHiDpi', weight = 'Medium', style = 'Normal', italic = false})
+            },
+            {
+                intensity = "Normal", italic = true,
+                font = wezterm.font({family = 'CozetteHiDpi', weight = 'Medium', style = 'Normal', italic = false})
+            },
+            {
+                intensity = "Bold", italic = true,
+                font = wezterm.font({family = 'CozetteHiDpi', weight = 'Medium', style = 'Normal', italic = false})
+            },
+        }
+    },
 }
 
 return M

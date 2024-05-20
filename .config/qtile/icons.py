@@ -40,8 +40,9 @@ icons = {
     "volume":    "墳", # mdi-volume-high
     "muted":     "ﱝ",
     "calendar":  "", # mdi-calendar-month
-    "clock":     "◷", # mdi-clock-time-five-outline
+    "clock":     "", # mdi-clock-time-five-outline
     "music":     "",
+    "mic":       "",
 
     # "screen_focus":   "󰍹", # mdi-monitor
     # "screen_nofocus": "󰶐", # mdi-monitor-off

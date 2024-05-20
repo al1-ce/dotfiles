@@ -16,20 +16,20 @@ import std.process: wait, spawnProcess, executeShell, spawnShell;
 import std.range: array;
 import std.algorithm: filter, startsWith, canFind;
 import std.string: fromStringz, toStringz;
-import std.file: readText, isFile, exists, FileException, tempDir;
+import std.file: readText, isFile, exists, FileException, tempDir, getAttributes, setAttributes;
 import std.path: absolutePath, buildNormalizedPath, expandTilde;
 import std.datetime;
+import std.conv: octal;
 
 import core.stdc.stdlib: getenv, exit, EXIT_FAILURE, EXIT_SUCCESS;
 import core.sys.posix.unistd: getuid, fork, pid_t, setsid, chdir;
 
 static import std.stdio;
 
-const string MOUNT_POINT = "/mnt/floppy";
+const string MOUNT_POINT = "/media/floppy";
 const string AUTORUN_NAME = "autorun.sh";
 const string AUTOCLOSE_NAME = "autoclose.sh";
 const string AUTOCLOSE_TEMP_NAME = "sily-floppy-watch-autoclose.sh";
-const string SUDO_COMMAND = "sudo -u '#USER' XDG_RUNTIME_DIR=/run/user/USER";
 const string TMP_LOGNAME = "floppy-watch.log";
 
 struct Device {
@@ -48,12 +48,12 @@ struct Device {
 }
 
 Device floppy;
-string autocloseCommand = "";
+string autocloseFile = "";
 std.stdio.File log;
 
 void writeln(T...)(T args) {
     string time = Clock.currTime().toSimpleString();
-    log.writeln(time, args);
+    log.writeln(time, " ", args);
     log.flush();
 }
 
@@ -71,24 +71,20 @@ void writeln(T...)(T args) {
 // ["sdb", "vfat", "FAT12", "CLARION\\x205", "13F2-3E4D", "1.4M", "0%", "/mnt/floppy"]
 
 void main() {
-    if (getuid() != 0) {
-        std.stdio.writeln("Please run program as SU to allow it to mount floppy drives");
-        return;
-    }
-
     _daemon();
 }
 
 void _daemon() {
-    pid_t pid;
-    pid_t sid;
-
-    pid = fork();
-    if (pid < 0) exit(EXIT_FAILURE);
-    if (pid > 0) exit(EXIT_SUCCESS);
-    sid = setsid();
-    if (sid < 0) exit(EXIT_FAILURE);
-    if ((chdir("/".toStringz)) < 0) exit(EXIT_FAILURE);
+    // // Uncomment to deamonize
+    // pid_t pid;
+    // pid_t sid;
+    //
+    // pid = fork();
+    // if (pid < 0) exit(EXIT_FAILURE);
+    // if (pid > 0) exit(EXIT_SUCCESS);
+    // sid = setsid();
+    // if (sid < 0) exit(EXIT_FAILURE);
+    // if ((chdir("/".toStringz)) < 0) exit(EXIT_FAILURE);
 
     string logPath = fixPath(tempDir() ~ TMP_LOGNAME);
     log = std.stdio.File(logPath, "w+");
@@ -133,9 +129,9 @@ void _daemon() {
                 string autoclose = tryReadAutoclose(floppy);
                 writeln(autoclose);
                 if (autorun != "") {
-                    string su = getUserSudo() ~ ' ' ~ fixPath(MOUNT_POINT ~ '/' ~ AUTORUN_NAME);
-                    writeln(su);
-                    spawnShell(su);
+                    string arpath = fixPath(MOUNT_POINT ~ '/' ~ AUTORUN_NAME);
+                    writeln(arpath);
+                    spawnShell(arpath);
                 }
                 if (autoclose != "") {
                     makeAutocloseCopy(floppy);
@@ -154,8 +150,8 @@ void _daemon() {
         bool floppyEjected = floppy.fstype == "";
         bool shouldUnmount = floppyInvalid || floppyEjected;
         if (shouldUnmount && !floppy.empty) {
-            if (autocloseCommand != "") spawnShell(autocloseCommand);
-            autocloseCommand = "";
+            if (autocloseFile != "" && exists(autocloseFile)) spawnShell(autocloseFile);
+            autocloseFile = "";
             unmountFloppy(floppy);
             sleep(1000);
             continue;
@@ -197,46 +193,16 @@ void makeAutocloseCopy(Device dev) {
     if (path.exists && path.isFile) {
         string tempPath = fixPath(tempDir() ~ AUTOCLOSE_TEMP_NAME);
         wait(spawnShell("cp -f '" ~ path ~ "' '" ~ tempPath ~ "'"));
-        string su = getUserSudo() ~ " " ~ tempPath;
-        autocloseCommand = su;
+        tempPath.setAttributes(tempPath.getAttributes | octal!700);
+        autocloseFile = tempPath;
     }
-}
-
-string getUserSudo() {
-    import std.datetime;
-    auto r = executeShell("lslogins -Lue --time-format=iso");
-    if (r.status != 0) return "";
-    string[] lines = r.output[0..$-1].split('\n');
-    string uid = "";
-    DateTime time = DateTime.fromSimpleString("1970-Jan-01 00:00:00");
-    foreach (line; lines) {
-        string[] inf = line.split(' ');
-        string tmp = "";
-        string ll = "";
-
-        foreach (i; inf) {
-            if (i.startsWith("UID")) tmp = i.split('=')[1][1..$-1];
-            if (tmp == "0") continue;
-            if (i.startsWith("LAST-LOGIN")) ll = i.split('=')[1][1..$-1];
-        }
-        if (ll == "") continue;
-        if (tmp == "") continue;
-        DateTime t = DateTime.fromISOExtString(ll.split('+')[0]);
-
-        if (time < t) {
-            uid = tmp;
-            time = t;
-        }
-    }
-
-    if (uid == "") return "";
-    return SUDO_COMMAND.replace("USER", uid);
 }
 
 void mountFloppy(ref Device dev) {
     writeln("Mounting");
-    writeln("mount -t " ~ dev.fstype ~ " -o rw,users,umask=000,exec /dev/" ~ dev.name ~ " " ~ MOUNT_POINT);
-    auto r = executeShell("mount -t " ~ dev.fstype ~ " -o rw,users,umask=000,exec /dev/" ~ dev.name ~ " " ~ MOUNT_POINT);
+    string mountCommand = "udevil mount -t " ~ dev.fstype ~ " -o rw,users,umask=000,exec,noatime /dev/" ~ dev.name ~ " " ~ MOUNT_POINT;
+    writeln(mountCommand);
+    auto r = executeShell(mountCommand);
     if (r.status == 0) {
         writeln("Successfully mounted floppy drive to " ~ MOUNT_POINT);
         if (r.output.canFind("read-only")) {
@@ -251,8 +217,8 @@ void mountFloppy(ref Device dev) {
 void unmountFloppy(ref Device dev) {
     writeln("Failed to find device. Unmounting");
     if (dev.mounted) {
-        writeln("umount -l /dev/" ~ dev.name);
-        auto r = executeShell("umount -l /dev/" ~ dev.name);
+        writeln("udevil umount -l /dev/" ~ dev.name);
+        auto r = executeShell("udevil umount -l /dev/" ~ dev.name);
         if (r.status == 0) {
             writeln("Successfully unmounted floppy drive");
             dev = Device();

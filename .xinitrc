@@ -44,6 +44,12 @@ fi
 # xterm -geometry 80x20+494-0 &
 # exec xterm -geometry 80x66+0+0 -name login
 
+# # TODO: put in other place
+# xinput create-master "Touh"
+# xinput reattach "Melfas LGDisplay Incell Touch" "Touch pointer"
+# xinput map-to-output "Melfas LGDisplay Incell Touch" DP-0
+# systemctl --user enable opentabletdriver --now
+
 numlockx &
 xsettingsd &
 dunst &
@@ -59,10 +65,6 @@ unclutter --timeout 2147483647 --hide-on-touch -b &
 start-pulseaudio-x11 &
 companion &
 gromit-mpx &
-# xinput create-master "Touh"
-# xinput reattach "Melfas LGDisplay Incell Touch" "Touch pointer"
-xinput map-to-output "Melfas LGDisplay Incell Touch" DP-0
-systemctl --user enable opentabletdriver --now
 
 # (cd ~/.config/polybar && rerun "~/.config/polybar/launch.sh") &
 

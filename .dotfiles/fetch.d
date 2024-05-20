@@ -27,10 +27,10 @@ import sily.array: repeat;
 string atheosString = `
       ___   __  __         ____  _____
      /   | / /_/ /_  ___  / __ \/ ___/
-    / /| |/ __/ __ \/ _ \/ / / /\__ \ 
-   / ___ / /_/ / / /  __/ /_/ /___/ / 
-  /_/  |_\__/_/ /_/\___/\____//____/  
-`[1..$-2];
+    / /| |/ __/ __ \/ _ \/ / / /\__ \
+   / ___ / /_/ / / /  __/ /_/ /___/ /
+  /_/  |_\__/_/ /_/\___/\____//____/
+`[1..$-1];
 
 struct FileSys {
     string name;
@@ -73,7 +73,7 @@ void main() {
     // fwrite(FG.ltred, FM.bold);
     // sily.logger.center(atheosString.to!dstring);
     // fwrite(FR.reset);
-    // 
+    //
     // writeln();
     //
     // int width = 51;
@@ -96,7 +96,7 @@ void main() {
     writeln("  Uptime  : ", uptime);
     writeln("  Packages: ", pkgins);
     // writeln("  Services: ", services);
-    
+
     // --------
     // writeln();
     // writeln("  Status?");
@@ -117,7 +117,7 @@ void main() {
     //     string fsfill = "[";
     //     if (fs.perc <= 50) fsfill ~= "\033[92m"; else
     //     if (fs.perc <= 75) fsfill ~= "\033[93m"; else
-    //     if (fs.perc <= 100) fsfill ~= "\033[91m"; 
+    //     if (fs.perc <= 100) fsfill ~= "\033[91m";
     //     fsfill ~= '='.repeat(usd);
     //     fsfill ~= "\033[90m";
     //     fsfill ~= '='.repeat(len - usd);
@@ -134,7 +134,7 @@ void main() {
         write("  [");
         if (fs.perc <= 50) write("\033[92m"); else
         if (fs.perc <= 75) write("\033[93m"); else
-        if (fs.perc <= 100) write("\033[91m"); 
+        if (fs.perc <= 100) write("\033[91m");
         write('='.repeat(usd));
         write("\033[90m");
         write('='.repeat(len - usd));
@@ -142,7 +142,7 @@ void main() {
     }
 
     writeln();
-    
+
     // writeln("Last login: ", lastLogin);
     // writeln();
 }

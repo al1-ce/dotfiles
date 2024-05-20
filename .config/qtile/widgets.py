@@ -107,6 +107,13 @@ widgets = {
         fmt = "{}",
     )),
 
+    "mic_text": (lambda: widget.GenPollCommand(
+        **widget_defaults,
+        cmd = apps.home + "/.dotfiles/scripts/mic_check.sh",
+        update_interval = 5, # In seconds
+        fmt = "{}"
+    )),
+
     "update_text": (lambda: widget.CheckUpdates(
         **widget_defaults,
         # distro = "Arch",
@@ -193,6 +200,7 @@ widgets = {
     "volume_icon"  : (lambda: widget.TextBox( **fa_def, text = icons["volume"])),
     "calendar_icon": (lambda: widget.TextBox( **fa_def, text = icons["calendar"])),
     "clock_icon"   : (lambda: widget.TextBox( **fa_def, text = icons["clock"])),
+    "mic_icon"     : (lambda: widget.TextBox( **fa_def, text = icons["mic"])),
 }
 
 def init_widgets():
@@ -203,6 +211,10 @@ def init_widgets():
 
         widgets["lastfm_icon"](),
         widgets["lastfm_text"](),
+
+        widgets["spacer"](),
+        widgets["mic_icon"](),
+        widgets["mic_text"](),
 
         widgets["spacer"](),
         widgets["update_icon"](),

@@ -82,9 +82,8 @@ alias ls-fonts 'fc-list  --format="%{family[0]} %{style[0]}\n" | sort | uniq | f
 
 alias tb taskbook
 
-alias yd yandex-disk
-
 alias music musikcube
+alias fman "fman --theme gruvbox --icons none"
 
 function detach
     $argv & disown
@@ -92,7 +91,7 @@ end
 
 # alias setcursor '~/.dotfiles/scripts/setcursor.sh'
 
-alias ytmp3 "yt-dlp -f 'ba' -x --audio-format mp3"
+# alias ytmp3 "yt-dlp -f 'ba' --embed-metadata --embed-thumbnail -x --audio-format mp3"
 alias feh "feh -Tdefault"
 # alias scrape "wget -r -p -l 10 -E -k -N -w 2 --random-wait"
 
@@ -110,6 +109,7 @@ function scrape
 end
 
 alias pub "dart pub"
+alias make-ls "grep : Makefile | awk -F: '/^[^.]/ {print $1;}'"
 
 # ---------------------------------- WEB CLI --------------------------------- #
 alias google='googler -l en -g en -x -c en'

@@ -97,6 +97,7 @@ keys = [EzKey(k[0], *k[1:]) for k in [
     # FM
     ("M-e",          lazy.spawn(apps.filemanager)),
     ("M-S-e",        lazy.spawn(apps.filemanager_gui)),
+    ("M-m",          lazy.spawn(apps.music_player)),
     # Web
     ("M-w",          lazy.spawn(apps.mybrowser)),
     ("M-S-w",        lazy.spawn(apps.altbrowser)),

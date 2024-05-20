@@ -34,6 +34,7 @@ editor          = terminal_exec + " nvim"
 editor_gui      = "code"
 process_explr   = terminal_exec + " btop"
 osc_draw        = "gromit-mpx"
+music_player    = terminal_exec + " musikcube"
 
 rofi_launcher   = home + "/.config/rofi/launchers/type-4/launcher.sh"     # Run apps (.desktop)
 rofi_powermenu  = home + "/.config/rofi/powermenu/type-1/powermenu.sh"    # Power menu
