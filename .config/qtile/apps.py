@@ -23,18 +23,23 @@ if (is_tool("wezterm")):
     terminal_exec = "wezterm -e"
     term_exec     = terminal_exec + " bash -c \""
 
+# Makes qtile win the resizing race
+def unrace_exec(cmd):
+    # 0.2 seems to be smallest value to allow stuff to resize correctly
+    return terminal_exec + " -- sh -c 'sleep 0.2 && " + cmd + "'"
+
 home            = os.path.expanduser('~')
 dotfiles        = home + "/.dotfiles"
 altbrowser      = "vivaldi-stable"
 mybrowser       = "qutebrowser"
 spawnshortcuts  = "qutebrowser --target private-window -R " + dotfiles + "/.shortcuts.html"
-filemanager     = terminal_exec + " ranger"
+filemanager     = unrace_exec("ranger")
 filemanager_gui = "nemo"
-editor          = terminal_exec + " nvim"
+editor          = unrace_exec("nvim")
 editor_gui      = "code"
-process_explr   = terminal_exec + " btop"
+process_explr   = unrace_exec("btop")
 osc_draw        = "gromit-mpx"
-music_player    = terminal_exec + " musikcube"
+music_player    = unrace_exec("musikcube")
 
 rofi_launcher   = home + "/.config/rofi/launchers/type-4/launcher.sh"     # Run apps (.desktop)
 rofi_powermenu  = home + "/.config/rofi/powermenu/type-1/powermenu.sh"    # Power menu

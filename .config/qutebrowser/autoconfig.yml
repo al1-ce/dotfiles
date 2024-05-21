@@ -310,7 +310,7 @@ settings:
   content.register_protocol_handler:
     https://mail.yandex.ru?mailto=%25s: false
   input.mouse.rocker_gestures:
-    global: false
+    global: true
   qt.force_platform:
     global: xcb
   qt.force_software_rendering:
