@@ -59,6 +59,7 @@
     line-numbers-right-style = blue
 [push]
 	autoSetupRemote = true
+    recurseSubmodules = on-demand
 [gpg]
 	format = ssh
 [commit]
@@ -75,6 +76,7 @@
 	poll = !/home/al1-ce/.dotfiles/scripts/git_scripts/git_poll
     backup = !/home/al1-ce/.dotfiles/scripts/git_scripts/git_backup.sh
 	fpush = push --force-with-lease
+    pullsubmodules = submodule update --recursive
 ; [filter "test"]
 ;   ; uses smudge command on pull and clean on commit
 ; 	smudge = test_smudge

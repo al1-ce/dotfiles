@@ -65,8 +65,8 @@ set -xg DXVK_ASYNC 1
 set -xg WEBKIT_DISABLE_COMPOSITING_MODE 1
 set -xg NAP_THEME gruvbox
 
-set -xg MANPAGER "sh -c 'col -bx | bat --tabs 4 --color always --paging always -l man -p'"
-set -xg DELTA_PAGER "less -+X" # less -RF
+# set -xg MANPAGER "sh -c 'col -bx | bat --tabs 4 --color always --paging always -l man -p'"
+# set -xg DELTA_PAGER "less -+X" # less -RF
 
 set fish_color_normal brwhite
 set fish_color_autosuggestion brblack

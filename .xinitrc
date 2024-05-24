@@ -60,11 +60,12 @@ blueman-applet &
 blueman-tray &
 yandex-disk start &
 yandex-disk-indicator &
+lxpolkit &
 # streamdeck --no-ui &
 unclutter --timeout 2147483647 --hide-on-touch -b &
-start-pulseaudio-x11 &
+# start-pulseaudio-x11 &
 companion &
-gromit-mpx &
+nohup gromit-mpx > /tmp/gromit-mpx.log &
 
 # (cd ~/.config/polybar && rerun "~/.config/polybar/launch.sh") &
 

@@ -41,12 +41,17 @@ process_explr   = unrace_exec("btop")
 osc_draw        = "gromit-mpx"
 music_player    = unrace_exec("musikcube")
 
-rofi_launcher   = home + "/.config/rofi/launchers/type-4/launcher.sh"     # Run apps (.desktop)
+rofi_launcher   = "rofi -show drun"     # Run apps (.desktop)
+rofi_run        = "rofi -show run" # Run bin
+rofi_window     = "rofi -show window" # All screens
+rofi_windowcd   = "rofi -show windowcd" # Current screen
+# rofi_launcher   = home + "/.config/rofi/launchers/type-4/launcher.sh"     # Run apps (.desktop)
 rofi_powermenu  = home + "/.config/rofi/powermenu/type-1/powermenu.sh"    # Power menu
-rofi_run        = home + "/.config/rofi/launchers/type-4/launcher-run.sh" # Run bin
-rofi_window     = home + "/.config/rofi/launchers/type-4/launcher-win.sh" # All screens
-rofi_windowcd   = home + "/.config/rofi/launchers/type-4/launcher-wcd.sh" # Current screen
+# rofi_run        = home + "/.config/rofi/launchers/type-4/launcher-run.sh" # Run bin
+# rofi_window     = home + "/.config/rofi/launchers/type-4/launcher-win.sh" # All screens
+# rofi_windowcd   = home + "/.config/rofi/launchers/type-4/launcher-wcd.sh" # Current screen
 rofi_websearch  = home + "/.config/rofi/applets/rofi-search.sh"
+rofi_pass       = home + "/.dotfiles/bin/pass-rofi-gui"
 
 # rofi_launcher = "rofi -show drun" # Run apps (.desktop)
 # rofi_power_menu = "rofi -show power-menu -modi \"power-menu:rofi-power-menu --no-symbols\"" # Power menu

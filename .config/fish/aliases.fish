@@ -89,6 +89,12 @@ function detach
     $argv & disown
 end
 
+function silent
+    set -l tfile "$(mktemp)"
+    echo "Redirecting output to '$tfile'"
+    nohup $argv > $tfile &
+end
+
 # alias setcursor '~/.dotfiles/scripts/setcursor.sh'
 
 # alias ytmp3 "yt-dlp -f 'ba' --embed-metadata --embed-thumbnail -x --audio-format mp3"

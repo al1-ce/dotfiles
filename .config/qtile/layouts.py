@@ -26,8 +26,8 @@ layout_theme = {
 layouts = [
     # layout.MonadWide(**layout_theme, align=layout.MonadTall._left, margin=12),
     layout.Columns(**layout_theme, margin=6),
-    layout.Tile(**layout_theme, margin=6),
-    layout.VerticalTile(**layout_theme, margin=6),
+    layout.Tile(**layout_theme, margin=6, shift_windows = True),
+    # layout.VerticalTile(**layout_theme, margin=6),
     # layout.MonadTall(**layout_theme, align=layout.MonadTall._right, margin=12),
     # layout.Floating(**layout_theme),
     # layout.Spiral(**layout_theme, margin=6),

@@ -1,0 +1,195 @@
+/* ==========================================================================
+   Rofi color theme
+
+   File: term.rasi
+   Desc: Terminal theme for rofi
+   Author: al1-ce <al1-ce@null.net>
+   Source: none
+   Modified: tbd
+   ========================================================================== */
+
+* {
+    /* Theme settings */
+    highlight: bold italic;
+    scrollbar: true;
+    font: "DinaRemaster 12";
+
+    term-dark-bg0-soft:     #32302f;
+    term-dark-bg1:          #3c3836;
+    term-dark-bg3:          #665c54;
+    term-dark-fg0:          #fbf1c7;
+    term-dark-fg1:          #ebdbb2;
+    term-dark-red-dark:     #cc241d;
+    term-dark-red-light:    #fb4934;
+    term-dark-yellow-dark:  #d79921;
+    term-dark-yellow-light: #fabd2f;
+    term-dark-gray:         #a89984;
+
+    term-background: #32302f;
+    term-foreground: #ebdbb2;
+    term-activefore: #fbf1c7;
+    term-inactivefg: #a89984;
+
+    /* Theme colors */
+    background:                  @term-background;
+    background-color:            @term-background;
+    foreground:                  @term-foreground;
+    border-color:                @term-background;
+    separatorcolor:              @term-background;
+    scrollbar-handle:            @term-background;
+
+    normal-background:           @term-background;
+    normal-foreground:           @term-inactivefg;
+    alternate-normal-background: @term-background;
+    alternate-normal-foreground: @term-inactivefg;
+    selected-normal-background:  @term-background;
+    selected-normal-foreground:  @term-activefore;
+
+    active-background:           @term-background;
+    active-foreground:           @term-activefore;
+    alternate-active-background: @term-background;
+    alternate-active-foreground: @term-activefore;
+    selected-active-background:  @term-background;
+    selected-active-foreground:  @term-activefore;
+
+    urgent-background:           @term-background;
+    urgent-foreground:           @term-foreground;
+    alternate-urgent-background: @term-background;
+    alternate-urgent-foreground: @term-foreground;
+    selected-urgent-background:  @term-background;
+    selected-urgent-foreground:  @term-foreground;
+}
+
+configuration {
+    show-icons: false;
+}
+
+window {
+    background-color: @background;
+    border:           0;
+    padding:          8;
+    width:            600;
+    transparency:     "real";
+}
+
+mainbox {
+    border:  0;
+    padding: 0;
+}
+
+message {
+    border:       0;
+    border-color: @separatorcolor;
+    padding:      1;
+}
+
+textbox {
+    highlight:  @highlight;
+    text-color: @foreground;
+}
+
+listview {
+    // border:       2 solid 0 0;
+    border:       0;
+    padding:      2 0 0;
+    border-color: @separatorcolor;
+    spacing:      2;
+    scrollbar:    @scrollbar;
+}
+
+element {
+    border:  0;
+    padding: 2;
+}
+
+element.normal.normal {
+    background-color: @normal-background;
+    text-color:       @normal-foreground;
+}
+
+element.normal.urgent {
+    background-color: @urgent-background;
+    text-color:       @urgent-foreground;
+}
+
+element.normal.active {
+    background-color: @active-background;
+    text-color:       @active-foreground;
+}
+
+element.selected.normal {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+
+element.selected.urgent {
+    background-color: @selected-urgent-background;
+    text-color:       @selected-urgent-foreground;
+}
+
+element.selected.active {
+    background-color: @selected-active-background;
+    text-color:       @selected-active-foreground;
+}
+
+element.alternate.normal {
+    background-color: @alternate-normal-background;
+    text-color:       @alternate-normal-foreground;
+}
+
+element.alternate.urgent {
+    background-color: @alternate-urgent-background;
+    text-color:       @alternate-urgent-foreground;
+}
+
+element.alternate.active {
+    background-color: @alternate-active-background;
+    text-color:       @alternate-active-foreground;
+}
+
+scrollbar {
+    width:        4;
+    border:       0;
+    handle-color: @scrollbar-handle;
+    handle-width: 8;
+    padding:      0;
+}
+
+mode-switcher {
+    border:       2 0 0;
+    border-color: @separatorcolor;
+}
+
+inputbar {
+    spacing:    0;
+    text-color: @normal-foreground;
+    padding:    2;
+    children:   [ prompt, textbox-prompt-sep, entry, case-indicator ];
+}
+
+case-indicator,
+entry,
+prompt,
+button {
+    spacing:    0;
+    text-color: @selected-normal-foreground;
+}
+
+button.selected {
+    background-color: @selected-normal-background;
+    text-color:       @selected-normal-foreground;
+}
+
+textbox-prompt-sep {
+    expand:     false;
+    str:        ":";
+    text-color: @selected-normal-foreground;
+    margin:     0 0.3em 0 0;
+}
+
+element-text, element-icon {
+    background-color: inherit;
+    text-color:       inherit;
+}
+
+

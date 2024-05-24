@@ -94,7 +94,7 @@ int main(string[] args) {
     }
 
     writeFile(PATH_THEME, "[icon theme]\nInherits=" ~ cursorName);
-    writeFile(PATH_GTK, "[Settings]\ngtk-cursor-theme-name=" ~ cursorName ~ "\ngtk-cursor-theme-size: " ~ cursorSize.to!string);
+    writeFile(PATH_GTK, "[Settings]\ngtk-cursor-theme-name=" ~ cursorName ~ "\ngtk-cursor-theme-size=" ~ cursorSize.to!string);
     writeFile(PATH_XRESOURCES, "Xcursor.theme: " ~ cursorName ~ "\nXcursor.size: " ~ cursorSize.to!string);
 
     wait(spawnProcess([

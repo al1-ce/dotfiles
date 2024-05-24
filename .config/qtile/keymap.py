@@ -116,16 +116,17 @@ keys = [EzKey(k[0], *k[1:]) for k in [
     ("M-S-d",        lazy.spawn(apps.osc_draw + " --clear")),
 
     ("M-t",   lazy.spawn(apps.process_explr)),
-    ("M-A-t", lazy.spawn("/bin/bash -c '" + apps.tabletscript + "'")),
-    ("M-S-t", lazy.spawn("/bin/bash -c '" + apps.touchsscript + "'")),
+    # ("M-A-t", lazy.spawn("/bin/bash -c '" + apps.tabletscript + "'")),
+    # ("M-S-t", lazy.spawn("/bin/bash -c '" + apps.touchsscript + "'")),
 
     # Rofi
     ("M-<grave>",   lazy.spawn(apps.rofi_launcher)),
     ("M-S-<grave>", lazy.spawn(apps.rofi_run)),
     ("M-C-<grave>", lazy.spawn(apps.rofi_websearch)),
     ("M-A-<grave>", lazy.spawn(apps.rofi_powermenu)),
+    ("M-A-p",       lazy.spawn(apps.rofi_pass)),
     ("M-<Tab>",     lazy.spawn(apps.rofi_windowcd)),
-    ("M-S-<Tab>",  lazy.spawn(apps.rofi_window)),
+    ("M-S-<Tab>",   lazy.spawn(apps.rofi_window)),
 
     # Check keys
     ("M-<slash>",   funcs.getwmclass),

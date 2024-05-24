@@ -30,7 +30,7 @@ import sily.uri: parseURI, URI;
 import sily.curl: get;
 import dini;
 
-const string YT_DLP = "yt-dlp -q --progress --no-warnings -f 'ba' --embed-metadata --embed-thumbnail -x --audio-format mp3 https://www.youtube.com/watch?v={VID_ID} -o '{ARTIST} - {TITLE}.temp.mp3'";
+const string YT_DLP = `yt-dlp -q --progress --no-warnings -f 'ba' --embed-metadata --embed-thumbnail -x --audio-format mp3 https://www.youtube.com/watch?v={VID_ID} -o "{ARTIST} - {TITLE}.temp.mp3"`;
 const string LASTFM_TRACK_TAGS = "http://ws.audioscrobbler.com/2.0/?method=track.getInfo&api_key={KEY}&artist={ARTIST}&track={TITLE}&format=json";
 const string LASTFM_ARTIST_TAGS = "http://ws.audioscrobbler.com/2.0/?method=artist.getTopTags&api_key={KEY}&artist={ARTIST}&format=json";
 const string YT_INFO = "https://www.googleapis.com/youtube/v3/videos?part=snippet&id={ID}&key={KEY}";
@@ -97,6 +97,7 @@ int main(string[] args) {
 
     if (song.title != "" && song.artist != "") {
         writeln("Found song:");
+        song.title = song.title.replace(song.artist ~ " - ", "");
         writeln("Artist - '", song.artist, "'");
         writeln("Title  - '", song.title, "'");
         if (prompt("Do you want to change title or artist?", false)) {
@@ -148,16 +149,16 @@ int main(string[] args) {
 
     string dlpCommand = YT_DLP
         .replace("{VID_ID}", getVideoID(args[0]))
-        .replace("{ARTIST}", song.artist)
-        .replace("{TITLE}", song.title);
+        .replace("{ARTIST}", song.artist.replace('\'', "\\'"))
+        .replace("{TITLE}", song.title.replace('\'', "\\'"));
 
     string metaCommand = META_CMD
         .replace("{FILEIN}", song.artist ~ " - " ~ song.title ~ ".temp.mp3")
         .replace("{FILEOUT}", song.artist ~ " - " ~ song.title ~ ".mp3")
-        .replace("{TITLE}", song.title)
-        .replace("{ARTIST}", song.artist)
-        .replace("{GENRE}", song.genre)
-        .replace("{ALBUM}", song.album);
+        .replace("{TITLE}", song.title.replace('\'', "\\'"))
+        .replace("{ARTIST}", song.artist.replace('\'', "\\'"))
+        .replace("{GENRE}", song.genre.replace('\'', "\\'"))
+        .replace("{ALBUM}", song.album.replace('\'', "\\'"));
 
     writeln("Downloading song");
     int dlpStat = wait(spawnShell(dlpCommand));
