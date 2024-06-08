@@ -24,7 +24,9 @@ c.aliases = {
     'g': 'open',
     'rund': 'open http://run.dlang.io/',
     'discord': 'open https://discord.com/channels/@me',
-    'ym': 'https://music.yandex.ru/home',
+    'ym': 'open https://music.yandex.ru/home',
+    'mk': 'open https://market.yandex.ru',
+    'bashfmt': 'open https://misc.flogisoft.com/bash/tip_colors_and_formatting',
 }
 
 c.url.default_page = 'https://al1-ce.github.io/homepage/'
@@ -41,6 +43,7 @@ eng_repo = 'https://github.com/{}'
 eng_yt = 'https://www.youtube.com/results?search_query={}'
 eng_music = 'https://music.yandex.ru/home?null={}'
 eng_dlang = 'https://google.com/search?domains=dlang.org&q={}+site:dlang.org/phobos&udm=14'
+eng_mk = 'https://market.yandex.ru/?q={}'
 
 c.url.searchengines = {
     'DEFAULT': eng_duck,
@@ -56,6 +59,7 @@ c.url.searchengines = {
     'y': eng_yt,
     'yt': eng_yt,
     'ym': eng_music,
+    'mk': eng_mk,
 }
 
 c.url.start_pages = ['https://al1-ce.github.io/homepage/']

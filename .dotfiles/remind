@@ -1,8 +1,8 @@
-#  SYSTEM ------------------------------------------------ #
+#  SYSTEM                                                  #
 btop                    system monitor
 gtop                    top but graph
 
-# DEV ---------------------------------------------------- #
+# DEV                                                      #
 git-extras              git but more
 git-stats               git graphs
 gum                     make scripts fancy
@@ -10,10 +10,14 @@ lnav                    log navigator
 yadm add -u             adds modified files to yadm
 gdp-dashboard           gnu debugger tui
 tmate                   share the terminal
+lt                      localtunnel http without dns
 taskbook                task manager
 make -j$(nproc)         multiprocess make
+tangler                 extract code from md
+doctoc                  generate table of contents
+csvlens                 less for csv
 
-#  UNIX -------------------------------------------------- #
+#  UNIX                                                    #
 hr                      horisontal ruler
 tail -f file            monitor file changes
 watch                   track command output
@@ -23,15 +27,16 @@ cod                     completion daemon
 tere                    quick cd/ls
 tuifi                   tui fm
 calcurse                curses calendar
+ouch                    compress archives
 
-# PACMAN ------------------------------------------------- #
+# PACMAN                                                   #
 yay                     aur package manager
 pacseek                 tty ncurses aur helper
 mpm                     universal install script
 pkm                     package manager manager (or pkg)
 fnt                     font manager
 
-# WEB ---------------------------------------------------- #
+# WEB                                                      #
 isitup                  is website up
 ddgr                    google stuff
 howdoi                  howdoi howdoi
@@ -40,7 +45,7 @@ so                      stack overflow
 buku                    bookmark manager
 neomutt                 you've got mail
 
-# MEDIA -------------------------------------------------- #
+# MEDIA                                                    #
 musikcube               audio player
 pxv/tai/catimg          ascii generators
 pastel                  nice color display
@@ -50,13 +55,15 @@ curseradio              cli radio
 playerctl               cli media control
 ani-cli                 cli anime
 streamlink              cli video pipe
+frogmouth               pretty markdown viewer
+mdp                     markdown presentation
 
-# SOCIAL ------------------------------------------------- #
+# SOCIAL                                                   #
 weechat                 irc chat
 twitch-tui              twitch chat in cli
 newsboat                rss reader
 
-# IRL ---------------------------------------------------- #
+# IRL                                                      #
 wttr                    weather forecast
 ansiweather             weather forecast
 mapscii                 maps

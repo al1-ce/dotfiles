@@ -69,6 +69,7 @@ documents/
 downloads/
 .drepl_history
 .dub/
+.eclipse/
 .factorio/
 .fehbg
 floppy/
@@ -77,6 +78,7 @@ floppy/
 # .gitconfig
 .gnupg/
 .go/
+go/
 .gradle/
 .icons/
 .imwheelrc
@@ -112,6 +114,7 @@ floppy/
 .viminfo
 .vscode/
 .vscode-powertools/
+.vscode-server/
 VulkanSDK/
 .wget-hsts
 # .Xauthority

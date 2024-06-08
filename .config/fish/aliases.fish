@@ -85,6 +85,15 @@ alias tb taskbook
 alias music musikcube
 alias fman "fman --theme gruvbox --icons none"
 
+function yadm-add
+    yadm add -u
+    yadm add ~/.local/share/nvim/templates -f
+    yadm add ~/.local/share/qutebrowser/greasemonkey -f
+    yadm add ~/.dotfiles
+    yadm add ~/.config/wezterm
+    yadm add ~/.config/qtile
+end
+
 function detach
     $argv & disown
 end
@@ -128,11 +137,35 @@ function search
     end
 end
 
+function remetamp3
+    set -l filein $argv
+
+    read -P "Title: " title
+    read -P "Artist: " artist
+    read -P "Album artist: " album_artist
+    read -P "Album: " album
+    read -P "Year: " year
+    read -P "Track: " track
+    read -P "Genre: " genre
+    read -P "Comment: " comment
+
+    ffmpeg -loglevel panic -i $filein \
+        -metadata title=$title \
+        -metadata artist=$artist \
+        -metadata album_artist=$album_artist \
+        -metadata album=$album \
+        -metadata year=$year \
+        -metadata track=$track \
+        -metadata genre=$genre \
+        -metadata comment=$comment \
+        -c:a copy "$track. $artist - $title - out.mp3"
+end
+
 alias reuse "reuse --suppress-deprecation"
 
 # ----------------------------------- PROGS ---------------------------------- #
 alias wttr 'curl wttr.in/Moscow'
-alias remind 'cat ~/.dotfiles/remind'
+# alias remind 'cat ~/.dotfiles/remind'
 alias clock 'tty-clock -s -c -C 7'
 alias cmatrix 'cmatrix -C yellow'
 alias nms 'nms -a'
@@ -173,6 +206,8 @@ end
 #                                STARTUP SCRIPT                                #
 # ---------------------------------------------------------------------------- #
 
+alias j=jobs
+
 # alias cls=bash-startup-func
 #
 # bash-startup-func() {
@@ -210,6 +245,8 @@ if status --is-interactive
 
     function __delete_history --on-event fish_postexec
         string match -qr '^fg' -- $argv
+        and history delete --exact --case-sensitive -- (string trim -r $argv)
+        string match -qr '^j' -- $argv
         and history delete --exact --case-sensitive -- (string trim -r $argv)
         string match -qr '^bg' -- $argv
         and history delete --exact --case-sensitive -- (string trim -r $argv)

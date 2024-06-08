@@ -14,7 +14,7 @@
     },
     "workspace": {
         "library": [
-            "~/.config/nvim/def/lua/types/wezterm"
+            "~/.dotfiles/nvdefs/lua/wezterm"
         ],
         "maxPreload": 2000,
         "preloadFileSize": 1000

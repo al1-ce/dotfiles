@@ -64,6 +64,8 @@ set -xg FILE_PICKER_CMD ranger
 set -xg DXVK_ASYNC 1
 set -xg WEBKIT_DISABLE_COMPOSITING_MODE 1
 set -xg NAP_THEME gruvbox
+set -xg INVDIR "$HOME/.local/share/inventory"
+set -xg STARSHIP_LOG "error"
 
 # set -xg MANPAGER "sh -c 'col -bx | bat --tabs 4 --color always --paging always -l man -p'"
 # set -xg DELTA_PAGER "less -+X" # less -RF

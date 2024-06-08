@@ -1,37 +1,19 @@
-#!/usr/bin/env dub
 /+ dub.sdl:
 name "setcursor"
 targetType "executable"
 targetPath "bin/"
-// dependency "depname" version="~>1.0.0"
+dependency "sily" version="~>5.0.2"
 +/
 
 import std.stdio: writeln, write, File, readln;
 import std.array: join;
-import std.path: absolutePath, buildNormalizedPath, expandTilde;
 import std.algorithm: canFind;
 import std.process: wait, spawnProcess;
-import std.conv: to;
-import std.file: readText, isFile, exists, FileException;
+import std.conv: to, text;
+import std.file: isFile, exists, FileException;
 
-string fixPath(string path) {
-    return path.expandTilde.buildNormalizedPath.absolutePath;
-}
-
-void writeFile(string path, string content) {
-    string file = path.fixPath();
-    File f;
-    f = File(file, "w");
-    f.write(content);
-    f.close();
-}
-
-string readFile(string path) {
-    string file = path.fixPath();
-    if (!file.exists) return "";
-    if (!file.isFile) return "";
-    return readText(file);
-}
+import sily.file;
+import sily.path;
 
 const string PATH_THEME = "~/.icons/default/index.theme";
 const string PATH_GTK = "~/.config/gtk-3.0/settings.ini";
@@ -39,7 +21,8 @@ const string PATH_XRESOURCES = "~/.Xresources";
 const int[] CURSOR_SIZES = [16, 20, 22, 24, 28, 32, 40, 48, 56, 64, 72, 80, 88, 96];
 
 int main(string[] args) {
-    if (args.canFind("-h") || args.canFind("--help") || args.length == 1) {
+
+    if (args.canFind("-h") || args.canFind("--help") || args.canFind("help") || args.length == 1) {
         writeln("Usage: setcursor CursorName - sets cursor to CursorName");
         writeln("       setcursor current    - prints current cursor settings");
         writeln("       setcursor list       - lists cursors installed in /usr/share/");
@@ -48,6 +31,7 @@ int main(string[] args) {
         writeln("       setcursor Breeze_Light");
         return 0;
     }
+
     string cursorName = args[1..$].join();
 
     if (cursorName == "current") {
@@ -82,30 +66,21 @@ int main(string[] args) {
         return 0;
     }
 
-    if (!prompt("Set cursor to \"" ~ cursorName ~ "\"?", false)) {
+    if (!prompt(i"Set cursor to \"$(cursorName)\"?".text, false)) {
         writeln("Aborting.");
         return 0;
     }
 
     int cursorSize = prompt("Cursor size, default - 32: ", 32);
+
     if (!CURSOR_SIZES.canFind(cursorSize)) {
         writeln("Unknown cursor size. Using default size of 32");
         cursorSize = 32;
     }
 
-    writeFile(PATH_THEME, "[icon theme]\nInherits=" ~ cursorName);
-    writeFile(PATH_GTK, "[Settings]\ngtk-cursor-theme-name=" ~ cursorName ~ "\ngtk-cursor-theme-size=" ~ cursorSize.to!string);
-    writeFile(PATH_XRESOURCES, "Xcursor.theme: " ~ cursorName ~ "\nXcursor.size: " ~ cursorSize.to!string);
-
-    wait(spawnProcess([
-        "xfconf-query",
-        "--channel",
-        "xsettings",
-        "--property",
-        "/Gtk/CursorThemeName",
-        "--set",
-        cursorName
-    ]));
+    writeFile(PATH_THEME, i"[icon theme]\nInherits=$(cursorName)".text);
+    writeFile(PATH_GTK, i"[Settings]\ngtk-cursor-theme-name=$(cursorName)\ngtk-cursor-theme-size=$(cursorSize.to!string)".text);
+    writeFile(PATH_XRESOURCES, i"Xcursor.theme: $(cursorName)\nXcursor.size: $(cursorSize.to!string)".text);
 
     if (prompt("Restart?", true)) {
         writeln("Restarting");
@@ -122,6 +97,14 @@ int main(string[] args) {
     }
 
     return 0;
+}
+
+void writeFile(string path, string content) {
+    string file = path.buildAbsolutePath();
+    File f;
+    f = File(file, "w");
+    f.write(content);
+    f.close();
 }
 
 bool prompt(string msg, bool p_default) {
@@ -152,48 +135,5 @@ int prompt(string msg, int p_default) {
     if (answer.isNumeric) return parse!int(answer);
     writeln("Please type a number");
     return prompt(msg, p_default);
-}
-
-import std.path : absolutePath, buildNormalizedPath, expandTilde, relativePath;
-
-/**
-Normalises path, expands tilde and builds absolute path
-Params:
-  path = Path
-Returns:
- */
-string buildAbsolutePath(string p) {
-    return p.expandTilde.absolutePath.buildNormalizedPath;
-}
-
-/**
-Normalises path, expands tilde and builds relative path
-Params:
-  path = Path
-Returns:
- */
-string buildRelativePath(string p) {
-    return p.expandTilde.relativePath.buildNormalizedPath;
-}
-
-/**
-Returns array of files/dirs from path
-Params:
-  path = Path to dir
-Returns:
- */
-string[] listdir(string path, bool listDirs = true, bool listFiles = true) {
-    import std.algorithm;
-    import std.array;
-    import std.file;
-    import std.path;
-
-    path = buildAbsolutePath(path);
-    if (!exists(path) || !isDir(path)) return [];
-
-    return std.file.dirEntries(path, SpanMode.shallow)
-        .filter!(a => listFiles ? true : a.isFile || listDirs ? true : a.isDir)
-        .map!((return a) => baseName(a.name))
-        .array;
 }
 

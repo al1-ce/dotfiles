@@ -1,7 +1,6 @@
 managers:
 pacman: /usr/bin/pacman
 custom:
-    updupg: -Syu
     stats: -Ps
     pkgbuild: -Gp
     vote: -Wv
@@ -9,7 +8,7 @@ custom:
     sysupdate: pacman -Syu
     installed: -Qs
     find: -F
-    sync: -Sy
+    sync: -Syy
     info: -Qi
 alias:
     i: install

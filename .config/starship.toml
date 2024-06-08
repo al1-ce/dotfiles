@@ -27,11 +27,20 @@ style = 'bold underline red'
 format = '[$symbol($output)]($style) '
 when = '[ $STARSHIP_SHOW_JOBS = true ]'
 command = 'echo $JOB_COUNT'
+ignore_timeout = true
 
 [custom.nvim]
 when = '[ $STARSHIP_SHOW_NVIM = true ]'
 style = "bold underline red"
 format = "[nvim]($style) "
+ignore_timeout = true
+
+[username]
+format = "[$user]($style)@"
+
+[hostname]
+ssh_symbol = ""
+format = "[$ssh_symbol$hostname]($style) "
 
 # CHARACTER FORMAT
 

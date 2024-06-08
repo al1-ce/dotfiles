@@ -19,3 +19,5 @@ poly // /home/al1-ce/.config/polybar/config.ini
 wezterm // /home/al1-ce/.config/wezterm/wezterm.lua
 starship // /home/al1-ce/.config/starship.toml
 greasemonkey // /home/al1-ce/.local/share/qutebrowser/greasemonkey
+yadm // .local/share/yadm/repo.git/info/exclude
+vt // /home/al1-ce/.local/share/nvim/templates

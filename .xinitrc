@@ -50,6 +50,8 @@ fi
 # xinput map-to-output "Melfas LGDisplay Incell Touch" DP-0
 # systemctl --user enable opentabletdriver --now
 
+# ~/.screenlayout/main.sh
+
 numlockx &
 xsettingsd &
 dunst &
