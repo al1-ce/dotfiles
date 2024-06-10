@@ -21,3 +21,5 @@ starship // /home/al1-ce/.config/starship.toml
 greasemonkey // /home/al1-ce/.local/share/qutebrowser/greasemonkey
 yadm // .local/share/yadm/repo.git/info/exclude
 vt // /home/al1-ce/.local/share/nvim/templates
+zk // /home/al1-ce/zk/.zk/config.toml
+zellij // /home/al1-ce/.config/zellij/config.kdl

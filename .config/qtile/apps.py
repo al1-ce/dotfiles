@@ -9,19 +9,23 @@ def is_tool(name):
     from shutil import which
     return which(name) is not None
 
+shell = "fish"
+
 terminal        = guess_terminal()
 terminal_exec   = terminal
-term_exec       = terminal + " -x bash -c \""
+term_exec       = terminal + " -x " + shell + " -c \""
 term_wait       = " && read -p '' -n1 -s\""
 term_end        = "\""
-# if (is_tool("kitty")):
-#     terminal      = "kitty"
-#     terminal_exec = "kitty"
-#     term_exec     = terminal_exec + " bash -c \""
+
+if (is_tool("kitty")):
+    terminal      = "kitty"
+    terminal_exec = "kitty"
+    term_exec     = terminal_exec + " " + shell + " -c \""
+
 if (is_tool("wezterm")):
     terminal      = "wezterm"
     terminal_exec = "wezterm -e"
-    term_exec     = terminal_exec + " bash -c \""
+    term_exec     = terminal_exec + " " + shell + " -c \""
 
 # Makes qtile win the resizing race
 def unrace_exec(cmd):

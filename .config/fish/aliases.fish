@@ -38,7 +38,8 @@ alias nrm 'tput rmcup'
 alias mv "mv -i"
 alias cp "cp -i"
 # rm -I gonna ask after 3 files. rm -i always asks
-alias rm "rm -I"
+# alias rm "rm -I"
+alias rm "trash"
 alias ln "ln -i"
 
 alias fs "cd -"
@@ -128,6 +129,7 @@ alias make-ls "grep : Makefile | awk -F: '/^[^.]/ {print $1;}'"
 
 # ---------------------------------- WEB CLI --------------------------------- #
 alias google='googler -l en -g en -x -c en'
+alias s 's --provider=duckduckgo'
 
 function search
     if count $argv > /dev/null
@@ -206,7 +208,7 @@ end
 #                                STARTUP SCRIPT                                #
 # ---------------------------------------------------------------------------- #
 
-alias j=jobs
+alias j jobs
 
 # alias cls=bash-startup-func
 #
@@ -220,7 +222,6 @@ alias j=jobs
 #     echo "/_/ |_\__/_//_/\__/\____/___/  "
 # }
 if status --is-interactive
-    cod init $fish_pid fish | source
     alias cls "clear && ~/.dotfiles/bin/fetch"
 
     ~/.dotfiles/bin/fetch
@@ -229,6 +230,7 @@ if status --is-interactive
     [ $fish_version != "fish, version 3.7.1" ] && figlet "FIX BLOCK HISTORY THING"
 
     function __starship_prompt_builder --on-event fish_prompt
+        # hr "─"
         set -xg JOB_COUNT (jobs | wc -l)
         if jobs | grep -q nvim
             set -xg STARSHIP_SHOW_NVIM true
@@ -244,13 +246,17 @@ if status --is-interactive
     end
 
     function __delete_history --on-event fish_postexec
-        string match -qr '^fg' -- $argv
+        string match -qr '^fg$' -- $argv
         and history delete --exact --case-sensitive -- (string trim -r $argv)
-        string match -qr '^j' -- $argv
+        string match -qr '^j$' -- $argv
         and history delete --exact --case-sensitive -- (string trim -r $argv)
-        string match -qr '^bg' -- $argv
+        string match -qr '^jobs$' -- $argv
         and history delete --exact --case-sensitive -- (string trim -r $argv)
-        string match -qr '^ranger-cd' -- $argv
+        string match -qr '^bg$' -- $argv
+        and history delete --exact --case-sensitive -- (string trim -r $argv)
+        string match -qr '^ranger-cd$' -- $argv
+        and history delete --exact --case-sensitive -- (string trim -r $argv)
+        string match -qr '^s ' -- $argv
         and history delete --exact --case-sensitive -- (string trim -r $argv)
     end
 end
