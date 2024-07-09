@@ -1,8 +1,8 @@
 # XScreenSaver Preferences File
-# Written by xscreensaver-settings 6.08 for al1-ce on Thu Oct 26 13:23:51 2023.
+# Written by xscreensaver-settings 6.08 for al1-ce on Wed Jun 19 21:39:04 2024.
 # https://www.jwz.org/xscreensaver/
 
-timeout:	0:15:00
+timeout:	0:20:00
 cycle:		0:10:00
 lock:		False
 lockTimeout:	0:00:00
@@ -37,7 +37,7 @@ textFile:
 textProgram:	fortune
 textURL:	https://en.wikipedia.org/w/index.php?title=Special:NewPages&feed=rss
 dialogTheme:	borderlessblack
-settingsGeom:	1926,30 -1,-1
+settingsGeom:	2301,198 -1,-1
 
 programs:								      \
 				maze --root				    \n\

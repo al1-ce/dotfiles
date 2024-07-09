@@ -65,6 +65,12 @@ alias bathelp='bat --plain --language=help'
 # alias alias-update='source ~/.dotfiles/.bash_aliases'
 # alias alias-edit='vim ~/.dotfiles/.bash_aliases'
 
+abbr !! --position anywhere --function last_history_item
+
+function last_history_item --description 'Last command for !! abbreviation'
+    echo $history[1]
+end
+
 # ---------------------------------------------------------------------------- #
 #                                     APPS                                     #
 # ---------------------------------------------------------------------------- #
@@ -85,6 +91,9 @@ alias tb taskbook
 
 alias music musikcube
 alias fman "fman --theme gruvbox --icons none"
+
+alias buckle-start 'buckle -f -c & disown'
+alias buckle-stop 'pkill buckle'
 
 function yadm-add
     yadm add -u

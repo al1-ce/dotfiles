@@ -75,8 +75,18 @@
 	branches = !/home/al1-ce/.dotfiles/scripts/git_scripts/git_branches.sh
 	poll = !/home/al1-ce/.dotfiles/scripts/git_scripts/git_poll
     backup = !/home/al1-ce/.dotfiles/scripts/git_scripts/git_backup.sh
+    ; repo: https://github.com/mlange-42/git-graph
+    graph = !/home/al1-ce/.cargo/bin/git-graph
+    side = !/bin/ydiff -s -w0 --wrap
 	fpush = push --force-with-lease
     pullsubmodules = submodule update --recursive
+    lg1 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all
+    lg2 = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''          %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+    lg = lg1
+    st = status -s
+    conf = config --global --edit
+    uncommit = reset HEAD
+    amend = commit --amend
 ; [filter "test"]
 ;   ; uses smudge command on pull and clean on commit
 ; 	smudge = test_smudge

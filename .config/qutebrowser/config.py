@@ -312,6 +312,7 @@ c.aliases.update({
     '_Download': 'fake-key --global |d',
     '_Hint': 'fake-key --global |h',
     '_Config': 'fake-key --global |c',
+    '_Yank': 'fake-key --global |y',
     # '_Menu': 'fake-key --global <Escape>',
 })
 
@@ -322,6 +323,7 @@ config.bind(';m', '_Marks')
 config.bind(';d', '_Download')
 config.bind(';h', '_Hint')
 config.bind(';c', '_Config')
+config.bind(';y', '_Yank')
 config.bind(';Q', 'quit')
 config.bind(';q', 'quit --save')
 config.bind(';w', 'save')
@@ -400,6 +402,8 @@ config.bind('|cJ', 'config-cycle -p -t -u *://{url:host}/* content.javascript.en
 config.bind('|cr', 'config-source')
 # config.bind('|c;', '_Menu')
 
+# Yank
+config.bind('|yl', 'yank url')
 
 # Bindings for normal mode
 config.bind("`", 'mode-enter jump_mark')

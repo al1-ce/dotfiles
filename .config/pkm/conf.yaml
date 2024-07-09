@@ -1,5 +1,5 @@
 managers:
-pacman: /usr/bin/pacman
+pacman: /bin/pacman
 custom:
     stats: -Ps
     pkgbuild: -Gp
@@ -10,6 +10,9 @@ custom:
     find: -F
     sync: -Syy
     info: -Qi
+    rinfo: -Si
+    unreq: -Qqt
+    mustdel: -Qqdt
 alias:
     i: install
     s: search

@@ -17,6 +17,7 @@ config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 local theme = require("user.theme").init("GruvboxDark")
 config.color_scheme = theme.color_scheme()
 config.colors = theme.colors()
+-- config.color_scheme = 'Laser'
 -- config.color_scheme_dirs = { "~/.config/wezterm/colors" }
 
 -- CURSOR AND TEXT BLINK
@@ -44,7 +45,7 @@ config.window_background_opacity = 0.95
 -- config.enable_tab_bar = false
 config.use_fancy_tab_bar = false
 config.hide_tab_bar_if_only_one_tab = true
-config.window_decorations = "RESIZE"
+config.window_decorations = require("utils.osspec")("RESIZE", "TITLE | RESIZE", "TITLE | RESIZE")
 config.window_padding = {
     left = 1,
     right = 1,
@@ -70,7 +71,7 @@ config.tiling_desktop_environments = {
 } -- FIXME: remove in next version
 
 -- MAPPINGS
-config.enable_kitty_keyboard = true
+config.enable_kitty_keyboard = false
 -- config.swap_backspace_and_delete = true
 config.hide_mouse_cursor_when_typing = false
 config.key_map_preference = "Mapped"

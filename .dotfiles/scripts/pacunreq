@@ -1,0 +1,20 @@
+#!/usr/bin/env -S npx jsh
+/// <reference path="/home/al1-ce/.dotfiles/nvdefs/js/jsh.d.ts" />
+/// https://github.com/bradymholt/jsh
+
+let paclines = $("yay -Qqt").split("\n");
+
+for (let i = 0; i < paclines.length; ++i) {
+    let line = paclines[i];
+    let info = $("yay -Qi " + line).split("\n");
+    for (let j = 0; j < info.length; ++j) {
+        if (info[j].startsWith("Name")) {
+            echo(info[j].split(": ")[1]);
+        }
+        if (info[j].startsWith("Description")) {
+            echo("    \x1b[2m" + info[j].split(": ")[1] + "\x1b[0m");
+        }
+    }
+    echo("");
+}
+

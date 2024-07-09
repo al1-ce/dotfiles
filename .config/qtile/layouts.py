@@ -58,6 +58,7 @@ floating_layout = layout.Floating(
         Match(wm_class="makebranch"),
         Match(wm_class="maketag"),
         Match(wm_class="ssh-askpass"),
+        Match(wm_class="feh"),
         Match(title="branchdialog"),
         Match(title="pinentry"),  # GPG key password entry
         # xfce
@@ -65,6 +66,7 @@ floating_layout = layout.Floating(
         # godot
         Match(wm_class="Godot_ProjectList"),
         Match(title="Load Errors"),
+        Match(title="Open With"),
         # steam
         Match(title=re.compile(r"Steam \- News.*")),
         # sideapps

@@ -16,6 +16,7 @@ make -j$(nproc)         multiprocess make
 tangler                 extract code from md
 doctoc                  generate table of contents
 csvlens                 less for csv
+gh-dash                 github dashboard
 
 #  UNIX                                                    #
 hr                      horisontal ruler
@@ -28,6 +29,8 @@ tere                    quick cd/ls
 tuifi                   tui fm
 calcurse                curses calendar
 ouch                    compress archives
+sshfs                   mount ssh as fs
+lsix                    ls but for images
 
 # PACMAN                                                   #
 yay                     aur package manager
@@ -35,6 +38,7 @@ pacseek                 tty ncurses aur helper
 mpm                     universal install script
 pkm                     package manager manager (or pkg)
 fnt                     font manager
+pacgraph                graph of packages
 
 # WEB                                                      #
 isitup                  is website up
@@ -55,13 +59,15 @@ curseradio              cli radio
 playerctl               cli media control
 ani-cli                 cli anime
 streamlink              cli video pipe
-frogmouth               pretty markdown viewer
+glow                    pretty markdown viewer
+mdcat                   markdown viewer with images
 mdp                     markdown presentation
 
 # SOCIAL                                                   #
 weechat                 irc chat
 twitch-tui              twitch chat in cli
 newsboat                rss reader
+gomuks                  matrix client
 
 # IRL                                                      #
 wttr                    weather forecast
