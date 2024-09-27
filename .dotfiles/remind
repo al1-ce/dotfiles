@@ -17,6 +17,8 @@ tangler                 extract code from md
 doctoc                  generate table of contents
 csvlens                 less for csv
 gh-dash                 github dashboard
+gl                      gitless (easy git)
+fq                      jq for binary formats (wader/fq)
 
 #  UNIX                                                    #
 hr                      horisontal ruler
@@ -31,6 +33,10 @@ calcurse                curses calendar
 ouch                    compress archives
 sshfs                   mount ssh as fs
 lsix                    ls but for images
+duf                     better df alternative
+dust                    better du alternative
+gpg-tui                 easy gpg (orhun/gpg-tui)
+ov                      alternative pager (noborus/ov)
 
 # PACMAN                                                   #
 yay                     aur package manager
@@ -68,6 +74,7 @@ weechat                 irc chat
 twitch-tui              twitch chat in cli
 newsboat                rss reader
 gomuks                  matrix client
+qrcp                    transfer files with QR
 
 # IRL                                                      #
 wttr                    weather forecast

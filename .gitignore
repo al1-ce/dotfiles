@@ -14,6 +14,8 @@
 **/__pycache__/
 **/cache/
 **/Cache/
+
+# Exclude useless configs
 .config/.isolated-storage
 .config/Code - OSS/
 .config/Code/
@@ -146,20 +148,10 @@
 
 
 # Home dir ignore
-# .Xauthority
-# .Xresources
-# .bash_profile
-# .bashrc
-# .config/
-# .dotfiles/
-# .gitconfig
-# .inputrc
-# .tmux.conf
-# .xinitrc
-# .xscreensaver
 .TrenchBroom/
 .bash_history
 .byobu/
+.bun/
 .cache/
 .calc_history
 .cargo/
@@ -228,6 +220,8 @@
 .xmake/
 .xorgxrdp.*
 .yarn/
+.vmodules/
+.templates/
 VulkanSDK/
 documents/
 downloads/

@@ -57,6 +57,8 @@ rofi_powermenu  = home + "/.config/rofi/powermenu/type-1/powermenu.sh"    # Powe
 rofi_websearch  = home + "/.config/rofi/applets/rofi-search.sh"
 rofi_pass       = home + "/.dotfiles/bin/pass-rofi-gui"
 
+screen_keyboard = "ls" # FIXME: put something that works
+
 # rofi_launcher = "rofi -show drun" # Run apps (.desktop)
 # rofi_power_menu = "rofi -show power-menu -modi \"power-menu:rofi-power-menu --no-symbols\"" # Power menu
 # rofi_run = "rofi -show run" # Run bin

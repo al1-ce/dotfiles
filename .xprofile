@@ -3,5 +3,7 @@
 xinput set-prop "pointer:Logitech G304" "libinput Accel Speed" -0.8
 xinput set-prop "pointer:Logitech G304" "libinput Accel Profile Enabled" 1 0 0
 
-
+# xset s 0 0
+# xset s off
+# TODO: move it somewhere where it'd work
 

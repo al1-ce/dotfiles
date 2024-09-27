@@ -2,15 +2,15 @@
 # Written by xscreensaver-settings 6.08 for al1-ce on Wed Jun 19 21:39:04 2024.
 # https://www.jwz.org/xscreensaver/
 
-timeout:	0:20:00
-cycle:		0:10:00
+timeout:	4:20:00
+cycle:		4:10:00
 lock:		False
 lockTimeout:	0:00:00
 passwdTimeout:	0:00:30
 visualID:	default
 installColormap:    True
 verbose:	False
-splash:		True
+splash:		False
 splashDuration:	0:00:05
 demoCommand:	xscreensaver-settings
 nice:		10

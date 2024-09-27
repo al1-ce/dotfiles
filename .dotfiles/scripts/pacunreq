@@ -1,8 +1,22 @@
-#!/usr/bin/env -S npx jsh
-/// <reference path="/home/al1-ce/.dotfiles/nvdefs/js/jsh.d.ts" />
+#!/usr/bin/env bun
+/// <reference path="/g/ts-defs/jsh.d.ts" />
+/// <reference path="/g/ts-defs/meow.d.ts" />
+/// <reference path="/g/ts-defs/chalk.d.ts" />
 /// https://github.com/bradymholt/jsh
+/// https://github.com/sindresorhus/meow
+/// https://github.com/klaudiosinani/qoa
+/// https://github.com/chalk/chalk
+
+import "jsh";
+import qoa from "qoa";
+import meow from "meow";
+import chalk from "chalk";
 
 let paclines = $("yay -Qqt").split("\n");
+
+async function test() {}
+
+await test();
 
 for (let i = 0; i < paclines.length; ++i) {
     let line = paclines[i];

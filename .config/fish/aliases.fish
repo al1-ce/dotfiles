@@ -82,7 +82,8 @@ alias gitfetch 'onefetch -d created -d last-change -d project -d url -d size --n
 alias gitshort 'gitfetch | tr "\n" " "'
 alias calendar 'ncal -yMb'
 alias doomsday '~/.dotfiles/bin/doomsday-clock'
-alias v nvim
+# alias v nvim
+alias nv nvim
 alias e "nvim (gum file)"
 alias awesome-check "Xephyr :5 & sleep 1 ; DISPLAY=:5 awesome"
 alias ls-fonts 'fc-list  --format="%{family[0]} %{style[0]}\n" | sort | uniq | fzf'
@@ -114,6 +115,20 @@ function silent
     nohup $argv > $tfile &
 end
 
+function clean-dir
+    /bin/rm -rf ".Trash-1000"
+    /bin/rm -rf "\$RECYCLE.BIN"
+    /bin/rm -rf "System Volume Information"
+    /bin/rm -rf "pagefile.sys"
+end
+
+function clean-dir-force
+    sudo /bin/rm -rf ".Trash-1000"
+    sudo /bin/rm -rf "\$RECYCLE.BIN"
+    sudo /bin/rm -rf "System Volume Information"
+    sudo /bin/rm -rf "pagefile.sys"
+end
+
 # alias setcursor '~/.dotfiles/scripts/setcursor.sh'
 
 # alias ytmp3 "yt-dlp -f 'ba' --embed-metadata --embed-thumbnail -x --audio-format mp3"
@@ -122,12 +137,14 @@ alias feh "feh -Tdefault"
 
 function scrape
     if count $argv > /dev/null
+        set -l ddir "$(echo $argv | sed -e 's/[^/]*\/\/\([^@]*@\)\?\([^:/]*\).*/\2/')-$(date +'%Y-%m-%d')"
         echo -e "\e[1mWebsite \"$argv\" will now be scraped\e[0m"
+        echo -e "\e[1mDownload dir is \"$ddir\"\e[0m"
         echo -e "\e[2mThis will take a while since\e[0m"
         echo -e "\e[2meach request will be made in\e[0m"
         echo -e "\e[2mbetween 1 and 3 seconds\e[0m"
         echo ""
-        wget -r -p -l 10 -E -k -N -w 2 --random-wait $argv
+        wget -r -p -l 10 -E -k -N -w 2 --random-wait $argv -P $ddir
     else
         echo "Please supply website address"
     end
@@ -218,6 +235,11 @@ end
 # ---------------------------------------------------------------------------- #
 
 alias j jobs
+
+function unalias
+    gum confirm "Do you want to unalias $argv?" --selected.background="208" && \
+    functions --erase $argv
+end
 
 # alias cls=bash-startup-func
 #
