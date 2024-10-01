@@ -18,7 +18,7 @@ copyEtcFile pacman.conf
 echo "Copying X config from $HOME"
 rm -rf ~/.dotfiles/rice/xconfig
 mkdir ~/.dotfiles/rice/xconfig
-cp ~/.xprofile ~/.dotfiles/rice/xconfig
-cp ~/.xexec ~/.dotfiles/rice/xconfig
+cp ~/.xprofile ~/.dotfiles/rice/xconfig/.xprofile
+cp ~/.xexec ~/.dotfiles/rice/xconfig/.xexec
 
 
