@@ -1,0 +1,4 @@
+# (cd ~/.config/polybar && rerun "~/.config/polybar/launch.sh") &
+
+exec qtile start
+
