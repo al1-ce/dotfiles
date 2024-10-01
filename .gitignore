@@ -149,6 +149,7 @@
 .config/yandex-music-player/
 .config/yd-tools/
 .config/ytmdl/
+.config/yandex-cloud/
 
 
 # Home dir ignore
@@ -224,6 +225,8 @@
 .xmake/
 .xorgxrdp.*
 .yarn/
+.yagpt-shell
+yagpt.log
 .vmodules/
 .templates/
 VulkanSDK/
