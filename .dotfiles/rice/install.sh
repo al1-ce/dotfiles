@@ -75,11 +75,11 @@ sudo systemctl enable bluetooth.service
 sudo systemctl enable dbus.service
 sudo systemctl enable greetd.service
 sudo systemctl enable polkit.service
-sudo systemctl enable touchegg.service
+# sudo systemctl enable touchegg.service
 sudo systemctl enable pipewire
 sudo systemctl enable pipewire-pulse
 sudo systemctl enable wireplumber
-sudo systemctl enable opentabletdriver
+# sudo systemctl enable opentabletdriver
 
 # echo-blue "## Copying scripts ##"
 #
@@ -92,7 +92,7 @@ git config --global init.defaultBranch master
 
 echo-blue "## Copying configuration files ##"
 
-yadm clone https://github.com/al1-ce/dotfiles.git
+# yadm clone https://github.com/al1-ce/dotfiles.git
 
 sudo cp -rT ~/.dotfiles/rice/etc/$1 /etc/$1
 

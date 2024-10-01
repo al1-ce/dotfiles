@@ -22,7 +22,7 @@ print_options()
 
 print_usage()
 {
-  print """
+  echo """
     USAGE:
       with <prefix>
 
@@ -43,7 +43,7 @@ case ${prefix[*]} in
   "-v"|"--version")
     print_version;;
   "-h"|"--help")
-    print_help;;
+    print_usage;;
   -*|--*)
     echo "Unrecognised option:" ${prefix[*]}
     print_options

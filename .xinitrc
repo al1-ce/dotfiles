@@ -34,34 +34,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-# twm &
-# xclock -geometry 50x50-1+1 &
-# xterm -geometry 80x50+494+51 &
-# xterm -geometry 80x20+494-0 &
-# exec xterm -geometry 80x66+0+0 -name login
-
-# # TODO: put in other place
-# xinput create-master "Touh"
-# xinput reattach "Melfas LGDisplay Incell Touch" "Touch pointer"
-# xinput map-to-output "Melfas LGDisplay Incell Touch" DP-0
-# systemctl --user enable opentabletdriver --now
-
-# ~/.screenlayout/main.sh
-
-numlockx &
-xsettingsd &
-dunst &
-picom &
-pasystray &
-powerkit &
-blueman-applet &
-blueman-tray &
-yandex-disk start &
-yandex-disk-indicator &
-lxpolkit &
-unclutter --timeout 2147483647 --hide-on-touch -b &
-# start-pulseaudio-x13 &
-
 # Make sure this is before the 'exec' command or it won't be sourced.
 [ -f /etc/xprofile ] && . /etc/xprofile
 [ -f ~/.xprofile ] && . ~/.xprofile
