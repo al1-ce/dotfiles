@@ -1,10 +1,14 @@
 #!/bin/fish
 
+function _has
+    command -v $argv 2>&1 >/dev/null && return 0 || return 1
+end
+
 function __on_pwd_change --on-variable PWD --description 'Do rvm stuff'
     status --is-command-substitution; and return
     # Uncomment for instant fetch
     if test -e .git
-        gitshort
+        _has onefetch && gitshort || git status
         echo -e "\n"
     else if test $PWD -ef $HOME
         # ~/.dotfiles/bin/fetch
@@ -113,27 +117,28 @@ bind \e\[1\;5A ''
 bind \e\[1\;5B ''
 
 # ~/.config/fish/functions/ranger.fish
+if _has ranger
+    function ranger-cd
+        set tempfile (mktemp -t tmp.XXXXXX)
+        command ranger --choosedir=$tempfile $argv
+        set return_value $status
 
-function ranger-cd
-	set tempfile (mktemp -t tmp.XXXXXX)
-	command ranger --choosedir=$tempfile $argv
-	set return_value $status
-
-	if test -s $tempfile
-		set ranger_pwd (cat $tempfile)
-		if test -n $ranger_pwd -a -d $ranger_pwd
-			cd -- $ranger_pwd
-        else
-            echo $ranger_pwd "is not a directory"
+        if test -s $tempfile
+            set ranger_pwd (cat $tempfile)
+            if test -n $ranger_pwd -a -d $ranger_pwd
+                cd -- $ranger_pwd
+            else
+                echo $ranger_pwd "is not a directory"
+            end
         end
-	end
 
-	command rm -f -- $tempfile
-	return $return_value
+        command rm -f -- $tempfile
+        return $return_value
+    end
+
+    bind \cs "commandline ranger-cd; commandline -f execute"
 end
-
-bind \cs "commandline ranger-cd; commandline -f execute"
 
 # bind \b backward-kill-word
 
-starship init fish | source
+_has starship && starship init fish | source

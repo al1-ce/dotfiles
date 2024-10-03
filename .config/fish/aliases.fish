@@ -1,21 +1,21 @@
 #!/bin/fish
 
 # alias ls    "eza   --color=auto"
-alias grep  "grep  --color=auto"
-alias fgrep "fgrep --color=auto"
-alias egrep "egrep --color=auto"
+_has grep  && alias grep  "grep  --color=auto"
+_has fgrep && alias fgrep "fgrep --color=auto"
+_has egrep && alias egrep "egrep --color=auto"
 
 # alias ll "ls -alF"
 # alias la "ls -A"
 # alias l  "ls -CF"
 
-alias ls "eza"
+_has eza && alias ls "eza"
 alias l  "ls -l"
 alias lf "ls -lF"
 alias la "ls -a"
 alias ll "ls -aghl"
 
-alias pkg "pkm"
+_has pkm && alias pkg "pkm"
 
 # alias logout "loginctl terminate-user $USER"
 alias clear "printf '\033c'"
@@ -32,14 +32,14 @@ alias ..... 'cd ../../../..'
 alias mkdir 'mkdir -pv'
 # alias srcrc 'source ~/.bashrc'
 alias cwd pwd
-alias alt 'tput smcup && tput clear'
-alias nrm 'tput rmcup'
+alias scratch 'tput smcup && tput clear'
+alias normal 'tput rmcup'
 
 alias mv "mv -i"
 alias cp "cp -i"
 # rm -I gonna ask after 3 files. rm -i always asks
 # alias rm "rm -I"
-alias rm "trash"
+_has trash && alias rm "trash"
 alias ln "ln -i"
 
 alias fs "cd -"
@@ -50,14 +50,14 @@ alias fs "cd -"
 # bat
 # alias bat "bat --tabs 4 --color always --paging always --theme gruvbox-dark"
 # copy-cat
-alias bat "bat --plain"
+_has bat && alias bat "bat --plain"
 
-alias line "hr ─"
+_has hr && alias line "hr ─"
 
-alias getcat "pxv -U https://cataas.com/cat -s fit"
+_has pxv && alias getcat "pxv -U https://cataas.com/cat -s fit"
 
 # help
-alias bathelp='bat --plain --language=help'
+_has bat && alias bathelp='bat --plain --language=help'
 # function help
 #     $argv --help 2>&1 | bathelp
 # end
@@ -76,33 +76,42 @@ end
 # ---------------------------------------------------------------------------- #
 
 # ------------------------------------ cli ----------------------------------- #
-alias neofetch 'neofetch --config ~/.dotfiles/.neofetch-themes/basic.conf'
-alias onefetch 'onefetch --true-color never --no-title -d authors -d churn -d lines-of-code -d commits --no-color-palette'
-alias gitfetch 'onefetch -d created -d last-change -d project -d url -d size --no-art -d languages -d contributors -d version -d license'
-alias gitshort 'gitfetch | tr "\n" " "'
-alias calendar 'ncal -yMb'
+_has neofetch && alias neofetch 'neofetch --config ~/.dotfiles/.neofetch-themes/basic.conf'
+if _has onefetch
+    alias onefetch 'onefetch --true-color never --no-title -d authors -d churn -d lines-of-code -d commits --no-color-palette'
+    alias gitfetch 'onefetch -d created -d last-change -d project -d url -d size --no-art -d languages -d contributors -d version -d license'
+    alias gitshort 'gitfetch | tr "\n" " "'
+end
+_has ncal && alias calendar 'ncal -yMb'
 alias doomsday '~/.dotfiles/bin/doomsday-clock'
-# alias v nvim
-alias nv nvim
-alias e "nvim (gum file)"
-alias awesome-check "Xephyr :5 & sleep 1 ; DISPLAY=:5 awesome"
+
+if _has nvim
+    # alias v nvim
+    alias nv nvim
+    alias e "nvim (gum file)"
+end
+# alias awesome-check "Xephyr :5 & sleep 1 ; DISPLAY=:5 awesome"
 alias ls-fonts 'fc-list  --format="%{family[0]} %{style[0]}\n" | sort | uniq | fzf'
 
-alias tb taskbook
+_has taskbook && alias tb taskbook
 
-alias music musikcube
-alias fman "fman --theme gruvbox --icons none"
+_has musikcube && alias music musikcube
+_has fman && alias fman "fman --theme gruvbox --icons none"
 
-alias buckle-start 'buckle -f -c & disown'
-alias buckle-stop 'pkill buckle'
+if _has buckle
+    alias buckle-start 'buckle -f & disown'
+    alias buckle-stop 'pkill buckle'
+end
 
-function yadm-add
-    yadm add -u
-    yadm add ~/.local/share/nvim/templates -f
-    yadm add ~/.local/share/qutebrowser/greasemonkey -f
-    yadm add ~/.dotfiles
-    yadm add ~/.config/wezterm
-    yadm add ~/.config/qtile
+if _has yadm
+    function yadm-add
+        yadm add -u
+        yadm add ~/.local/share/nvim/templates -f
+        yadm add ~/.local/share/qutebrowser/greasemonkey -f
+        yadm add ~/.dotfiles
+        yadm add ~/.config/wezterm
+        yadm add ~/.config/qtile
+    end
 end
 
 function detach
@@ -132,7 +141,7 @@ end
 # alias setcursor '~/.dotfiles/scripts/setcursor.sh'
 
 # alias ytmp3 "yt-dlp -f 'ba' --embed-metadata --embed-thumbnail -x --audio-format mp3"
-alias feh "feh -Tdefault"
+_has feh && alias feh "feh -Tdefault"
 # alias scrape "wget -r -p -l 10 -E -k -N -w 2 --random-wait"
 
 function scrape
@@ -150,20 +159,20 @@ function scrape
     end
 end
 
-alias pub "dart pub"
+_has dart && alias pub "dart pub"
 alias make-ls "grep : Makefile | awk -F: '/^[^.]/ {print $1;}'"
 
 # ---------------------------------- WEB CLI --------------------------------- #
-alias google='googler -l en -g en -x -c en'
-alias s 's --provider=duckduckgo'
-
-function search
-    if count $argv > /dev/null
-        google -j $(google --np -n 50 $argv | fzf | sed "s/\d*?\.\s*?//")
-    else
-        echo 'Please supply search terms'
-    end
-end
+# _has googler && alias googler'googler -l en -g en -x -c en'
+# _has s && alias s 's --provider=duckduckgo'
+#
+# function search
+#     if count $argv > /dev/null
+#         google -j $(google --np -n 50 $argv | fzf | sed "s/\d*?\.\s*?//")
+#     else
+#         echo 'Please supply search terms'
+#     end
+# end
 
 function remetamp3
     set -l filein $argv
@@ -189,27 +198,27 @@ function remetamp3
         -c:a copy "$track. $artist - $title - out.mp3"
 end
 
-alias reuse "reuse --suppress-deprecation"
+_has reuse && alias reuse "reuse --suppress-deprecation"
 
 # ----------------------------------- PROGS ---------------------------------- #
 alias wttr 'curl wttr.in/Moscow'
 # alias remind 'cat ~/.dotfiles/remind'
-alias clock 'tty-clock -s -c -C 7'
-alias cmatrix 'cmatrix -C yellow'
-alias nms 'nms -a'
+_has tty-clock && alias clock 'tty-clock -s -c -C 7'
+_has cmatrix && alias cmatrix 'cmatrix -C yellow'
+_has nms && alias nms 'nms -a'
 
 alias clearvswap 'echo "Removing nvim swap."; rm -rf ~/.local/state/nvim/swap'
 
 alias pacman-time 'sudo ntpd -qg && sudo hwclock -w'
 alias pacman-clean 'pacman -Qtdq | sudo pacman -Rns -'
 
-alias qtile-restart 'qtile cmd-obj -o cmd -f restart'
+_has qtile && alias qtile-restart 'qtile cmd-obj -o cmd -f restart'
 
 # ---------------------------------- Telnet ---------------------------------- #
-alias mapscii 'telnet mapscii.me'
+_has telnet && alias mapscii 'telnet mapscii.me'
 
 # ---------------------------------- SERVERS --------------------------------- #
-alias server-start 'python3 -m http.server 8080 --bind 127.0.0.1'
+# alias server-start 'python3 -m http.server 8080 --bind 127.0.0.1'
 # http-server
 
 function psearch
@@ -249,7 +258,7 @@ end
 #
 #     echo "   ___  __  __       ____  ____"
 #     echo "  / _ |/ /_/ /  ___ / __ \/ __/"
-#     echo " / __ / __/ _ \/ -_) /_/ /\ \  "
+#     echo " / __ / __/ _ \/ -_ /_/ /\ \  "
 #     echo "/_/ |_\__/_//_/\__/\____/___/  "
 # }
 if status --is-interactive

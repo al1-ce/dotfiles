@@ -8,6 +8,11 @@ echo-red () {
     echo -e "\e[31m\e[1m$1\e[0m"
 }
 
+fail () {
+    echo-red "$0: $*" >&2;
+    exit 1
+}
+
 if [ "$(id -u)" = 0 ]; then
     echo-red "## This script MUST NOT be run as root user since it makes changes ##"
     echo-red "## to the \$HOME directory of the \$USER executing this script.    ##"
@@ -32,33 +37,35 @@ done
 
 echo-blue "## Syncing repos ##"
 
-echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" | sudo tee -a /etc/pacman.conf > /dev/null
+# echo -e "[multilib]\nInclude = /etc/pacman.d/mirrorlist" | sudo tee -a /etc/pacman.conf > /dev/null
+sudo cp ~/.dotfiles/rice/etc/pacman.conf /etc/pacman.conf
 sudo pacman -Syu --noconfirm
 
 echo-blue "## Enabling AUR and installing PKM with YAY ##"
 
-sudo pacman -S --needed git base-devel --noconfirm
-git clone https://aur.archlinux.org/yay.git
-cd yay
+sudo pacman -S --needed git base-devel
+git clone https://aur.archlinux.org/yay-bin.git
+cd yay-bin
 makepkg -si
 cd ..
-rm -rf yay
+rm -rf yay-bin
+
+which yay && echo-blue "## Successfully installed yay ##" || fail "Failed to install yay" 
 
 echo-blue "## Configuring YAY for first use ##"
 
-yay -Y --gendb --nodiffmenu --noeditmenu --nouseask --nocleanmenu
-yay -Syu --devel --nodiffmenu --noeditmenu --nouseask --nocleanmenu
-yay -Y --devel --combinedupgrade --batchinstall --save --nodiffmenu --noeditmenu --nouseask --nocleanmenu
-sudo cp etcfiles/pacman.conf /etc/pacman.con
+yay -Y --gendb
+yay -Syu --devel
+yay -Y --devel --combinedupgrade --batchinstall --save
 
 echo-blue "## Installing official repo and aur packages from pkglist ##"
 
 sudo pacman -S --needed xorg
-yay -S --needed $(awk '!/^ *#/ && NF' pkglist.conf) --nodiffmenu --noeditmenu --nouseask --nocleanmenu
+yay -S --needed $(awk '!/^ *#/ && NF' ~/.dotfiles/rice/pkglist.conf)
 
-echo-blue "## Installing packages from other sources ##"
+# echo-blue "## Installing packages from other sources ##"
 
-python -m ensurepip
+# python -m ensurepip
 # pip install --user streamdeck_ui
 # pip install psutil
 # pip install ewmh
@@ -76,9 +83,9 @@ sudo systemctl enable dbus.service
 sudo systemctl enable greetd.service
 sudo systemctl enable polkit.service
 # sudo systemctl enable touchegg.service
-sudo systemctl enable pipewire
-sudo systemctl enable pipewire-pulse
-sudo systemctl enable wireplumber
+# sudo systemctl enable pipewire
+# sudo systemctl enable pipewire-pulse
+# sudo systemctl enable wireplumber
 # sudo systemctl enable opentabletdriver
 
 # echo-blue "## Copying scripts ##"
