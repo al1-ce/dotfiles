@@ -87,6 +87,8 @@
     conf = config --global --edit
     uncommit = reset HEAD
     amend = commit --amend
+    patch = apply --verbose
+    make-patch = format-patch
 ; [filter "test"]
 ;   ; uses smudge command on pull and clean on commit
 ; 	smudge = test_smudge

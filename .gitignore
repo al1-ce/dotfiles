@@ -20,11 +20,16 @@
 **/Cache/
 
 # Exclude useless configs
+/.config/cheat/cheatsheets/community/
 /.config/.isolated-storage
+/.config/balenaEtcher/
 /.config/Code - OSS/
 /.config/Code/
 /.config/DMusic
 /.config/EgoSoft/
+/.config/yay/
+/.config/Vial/
+/.config/lxqt/
 /.config/Epic
 /.config/Hardcode-Tray/
 /.config/LunarG
@@ -193,7 +198,7 @@
 /.minecraft/
 /.mypy_cache/
 /.newsboat/
-/.npmrc
+/.npm/
 /.nuget/
 /.nv/
 /.nvidia-settings-rc
@@ -227,6 +232,7 @@
 /.xorgxrdp.*
 /.yarn/
 /.yagpt-shell
+/.bash_logout
 /yagpt.log
 /.vmodules/
 /.templates/
@@ -238,4 +244,5 @@
 /go/
 /music/
 /zk/
-
+.node_*
+.node_*/

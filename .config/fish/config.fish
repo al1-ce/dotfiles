@@ -39,6 +39,7 @@ fish_add_path -Ppg ~/.cargo/bin
 fish_add_path -Ppg ~/.local/bin
 fish_add_path -Ppg ~/.local/scripts
 fish_add_path -Ppg ~/.local/share/bin
+fish_add_path -Ppg ~/.local/share/npm/bin
 fish_add_path -Ppg ~/.appimages
 fish_add_path -Ppg ~/.dotnet/
 fish_add_path -Ppg ~/.dotfiles/bin
@@ -51,7 +52,7 @@ set -xg RUSTUP_HOME ~/.rustup/
 set -xg GOPATH ~/.go/
 set -xg RUBY_GEMS ~/.local/share/gem/ruby/3.0.0/
 set -xg RUBY_ROOT /usr/lib/ruby/gems/3.0.0
-
+set -xg NODE_PATH "$(/bin/npm root --quiet -g)"
 set -xg SHELL /bin/fish
 
 fish_add_path -Ppg $RUBY_GEMS
@@ -61,6 +62,8 @@ fish_add_path -Ppg $RUBY_ROOT
 set fish_greeting
 set -xg TERM "xterm-256color"
 set -xg EDITOR nvim
+set -xg PAGER less
+set -xg MANPAGER less
 set -xg HOMEBREW_NO_ENV_HINTS true
 set -xg HAS_ALLOW_UNSAFE y
 set -xg RANGER_LOAD_DEFAULT_RC false

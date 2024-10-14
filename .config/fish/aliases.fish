@@ -65,6 +65,11 @@ _has bat && alias bathelp='bat --plain --language=help'
 # alias alias-update='source ~/.dotfiles/.bash_aliases'
 # alias alias-edit='vim ~/.dotfiles/.bash_aliases'
 
+alias npm "~/.dotfiles/scripts/npm"
+
+alias trruen "trans -e google -I -hl ru -t en"
+alias trenru "trans -e google -I -hl en -t ru"
+
 abbr !! --position anywhere --function last_history_item
 
 function last_history_item --description 'Last command for !! abbreviation'
