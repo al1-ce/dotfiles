@@ -9,6 +9,9 @@ def is_tool(name):
     from shutil import which
     return which(name) is not None
 
+def fimg(mods):
+    return home + f"/.config/qtile/images/{mods}.png "
+
 shell = "fish"
 
 terminal        = guess_terminal()
@@ -36,7 +39,6 @@ home            = os.path.expanduser('~')
 dotfiles        = home + "/.dotfiles"
 altbrowser      = "vivaldi-stable"
 mybrowser       = "qutebrowser"
-spawnshortcuts  = "qutebrowser --target private-window -R " + dotfiles + "/.shortcuts.html"
 filemanager     = unrace_exec("ranger")
 filemanager_gui = "nemo"
 editor          = unrace_exec("nvim")
@@ -44,6 +46,23 @@ editor_gui      = "code"
 process_explr   = unrace_exec("btop")
 osc_draw        = "gromit-mpx"
 music_player    = unrace_exec("musikcube")
+# spawnshortcuts  = "qutebrowser --target private-window -R " + dotfiles + "/.shortcuts.html"
+spawnshortcuts = "feh "                    + \
+                 fimg("mod4")              + \
+                 fimg("mod4-mod1-control") + \
+                 fimg("no_modifier")       + \
+                 fimg("shift")             + \
+                 fimg("mod4-mod1-shift")   + \
+                 fimg("mod4-control")      + \
+                 fimg("mod4-mod1")         + \
+                 fimg("mod4-shift")
+
+steam = "steam-runtime"
+beeper = "beeper"
+rustdesk = "rustdesk"
+screenshot = "flameshot gui"
+screenrec = "peek"
+color_pick = "gpick"
 
 rofi_launcher   = "rofi -show drun"     # Run apps (.desktop)
 rofi_run        = "rofi -show run" # Run bin

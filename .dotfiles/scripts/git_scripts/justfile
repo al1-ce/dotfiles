@@ -4,6 +4,9 @@
 #
 # set positional-arguments
 
+chmod:
+    chmod +x git-*
+
 build FILEPATH:
     #!/bin/bash
     if [[ {{FILEPATH}} == *.d ]]; then

@@ -25,7 +25,7 @@ settings:
   content.register_protocol_handler:
     https://mail.yandex.ru?mailto=%25s: false
   input.mouse.rocker_gestures:
-    global: true
+    global: false
   qt.force_platform:
     global: xcb
   qt.force_software_rendering:

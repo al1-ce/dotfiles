@@ -65,7 +65,7 @@ _has bat && alias bathelp='bat --plain --language=help'
 # alias alias-update='source ~/.dotfiles/.bash_aliases'
 # alias alias-edit='vim ~/.dotfiles/.bash_aliases'
 
-alias npm "~/.dotfiles/scripts/npm"
+alias npm "~/.dotfiles/scripts/npm.js"
 
 alias trruen "trans -e google -I -hl ru -t en"
 alias trenru "trans -e google -I -hl en -t ru"

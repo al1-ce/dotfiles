@@ -112,7 +112,12 @@ function print_packages(packages) {
 }
 
 if (argv[1] == "i" || argv[1] == "install") {
-    if (argc == 2) { error("Must provide package name", 1); }
+    if (argc == 2) {
+        echo("Installinf packages from package.json");
+        npm_args.push("install");
+        npx(npm_args);
+        exit(0);
+    }
     let pkgnames = argv; pkgnames.splice(0, 2);
     pkgnames = print_packages(pkgnames);
     if (pkgnames.length == 0) { echo("No packages available for intallation"); }

@@ -29,7 +29,7 @@ c.aliases = {
     'bashfmt': 'open https://misc.flogisoft.com/bash/tip_colors_and_formatting',
 }
 
-c.url.default_page = 'https://al1-ce.github.io/homepage/'
+c.url.default_page = 'https://home.al1-ce.dev/'
 c.url.open_base_url = True
 
 eng_google = 'https://google.com/search?q={}&udm=14'
@@ -149,14 +149,14 @@ c.downloads.location.suggestion = 'path'
 c.downloads.position = 'top'
 c.downloads.remove_finished = 4000
 
-c.editor.command = ['kitty', 'nvim', '-c', 'normal {line}G{column0}l', '--', '{file}']
+c.editor.command = ['wezterm', '-e', 'nvim', '-c', 'normal {line}G{column0}l', '--', '{file}']
 c.editor.encoding = 'utf-8'
 c.editor.remove_file = True
 
-c.fileselect.folder.command = ['kitty', 'ranger', '--choosedir={}']
-c.fileselect.handler = 'external'
-c.fileselect.multiple_files.command = ['kitty', 'ranger', '--choosefiles={}']
-c.fileselect.single_file.command = ['kitty', 'ranger', '--choosefile={}']
+# c.fileselect.folder.command = ['wezterm', '-e', 'ranger', '--choosedir={}']
+# c.fileselect.handler = 'external'
+# c.fileselect.multiple_files.command = ['wezterm', '-e', 'ranger', '--choosefiles={}']
+# c.fileselect.single_file.command = ['wezterm', '-e', 'ranger', '--choosefile={}']
 
 c.fonts.completion.category = 'bold default_size default_family'
 c.fonts.completion.entry = 'default_size default_family'

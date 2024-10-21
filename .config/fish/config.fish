@@ -31,6 +31,7 @@ echo '"\e[1;3P": ""' >> ~/.inputrc
 # echo '"\e[3;5~": kill-word' >> ~/.inputrc
 # echo '"\e[H": beginning-of-line' >> ~/.inputrc
 # echo '"\e[F": end-of-line' >> ~/.inputrc
+stty -ixon
 
 # PATH
 fish_add_path -Ppg /usr/bin /bin /usr/sbin /sbin /usr/local/homebrew/bin /usr/local/bin
@@ -44,6 +45,7 @@ fish_add_path -Ppg ~/.appimages
 fish_add_path -Ppg ~/.dotnet/
 fish_add_path -Ppg ~/.dotfiles/bin
 fish_add_path -Ppg ~/.dotfiles/scripts
+fish_add_path -Ppg ~/.dotfiles/scripts/git_scripts
 fish_add_path -Ppg /home/linuxbrew/.linuxbrew/bin
 fish_add_path -Ppg ~/.go/bin
 
@@ -62,8 +64,8 @@ fish_add_path -Ppg $RUBY_ROOT
 set fish_greeting
 set -xg TERM "xterm-256color"
 set -xg EDITOR nvim
-set -xg PAGER less
-set -xg MANPAGER less
+set -xg PAGER "less --use-color -R"
+set -xg MANPAGER "$PAGER"
 set -xg HOMEBREW_NO_ENV_HINTS true
 set -xg HAS_ALLOW_UNSAFE y
 set -xg RANGER_LOAD_DEFAULT_RC false
@@ -145,3 +147,4 @@ end
 # bind \b backward-kill-word
 
 _has starship && starship init fish | source
+_has jj && jj util completion fish | source

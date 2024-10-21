@@ -26,6 +26,10 @@
 /.config/Code - OSS/
 /.config/Code/
 /.config/DMusic
+/.config/Beeper/
+/.config/jj/
+/.config/rustdesk/
+/.config/simple-update-notifier/
 /.config/EgoSoft/
 /.config/yay/
 /.config/Vial/
@@ -164,6 +168,7 @@
 /.byobu/
 /.bun/
 /.cache/
+/.grip/
 /.calc_history
 /.cargo/
 /.dart-tool/
@@ -246,3 +251,4 @@
 /zk/
 .node_*
 .node_*/
+/steam.desktop
