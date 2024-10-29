@@ -213,14 +213,22 @@ for _ix, group in enumerate(groups[:10]):
     ]])
 
 # .: Use the mouse to drag floating layouts :. #
-mouse = [
-    Drag([mod], "Button1", lazy.window.set_position_floating(),
+mouse = []
+mouse += [
+    Drag([mod], "Button1", lazy.window.set_position_floating().when(when_floating=True),
          start=lazy.window.get_position()),
-    Drag([mod], "Button3", lazy.window.set_size_floating(),
+    Drag([mod], "Button3", lazy.window.set_size_floating().when(when_floating=True),
          start=lazy.window.get_size()),
     Click([mod], "Button2", lazy.window.bring_to_front())
     ]
 
+mouse += [
+    Drag(["control", "shift"], "Button1", lazy.window.set_position_floating().when(when_floating=True),
+         start=lazy.window.get_position()),
+    Drag(["control", "shift"], "Button3", lazy.window.set_size_floating().when(when_floating=True),
+         start=lazy.window.get_size()),
+    Click(["control", "shift"], "Button2", lazy.window.bring_to_front())
+    ]
 # def switch_screens(target_screen):
 #     '''Send the current group to the other screen.'''
 #     @lazy.function

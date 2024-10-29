@@ -65,10 +65,54 @@ _has bat && alias bathelp='bat --plain --language=help'
 # alias alias-update='source ~/.dotfiles/.bash_aliases'
 # alias alias-edit='vim ~/.dotfiles/.bash_aliases'
 
-alias npm "~/.dotfiles/scripts/npm.js"
+_has npm && alias npm "~/.dotfiles/scripts/npm.js"
 
-alias trruen "trans -e google -I -hl ru -t en"
-alias trenru "trans -e google -I -hl en -t ru"
+_has trans && alias trruen "trans -e google -I -hl ru -t en"
+_has trans && alias trenru "trans -e google -I -hl en -t ru"
+
+_has shpool && alias sesh "shpool"
+
+function conf
+    if count "$argv" > /dev/null
+        if echo "$argv" | grep -q "^-"
+            ~/.dotfiles/unbin/confed $argv
+            return 0
+        end
+        set -l tmp_path "$(~/.dotfiles/unbin/confed -p $argv)"
+        if test "$tmp_path" = ""
+            echo "Failed to find config or encoutered an error"
+        else
+            path is -f $tmp_path && cd "$(dirname $tmp_path)" || cd $tmp_path
+            $EDITOR $tmp_path
+        end
+    else
+        echo "Please supply config name"
+    end
+end
+
+
+if _has nvim
+    # alias v nvim
+    alias nv nvim
+    alias e "nvim (gum file)"
+
+    function nvim-switch
+        set -l nvim_current "$(basename $(readlink ~/.config/nvim))"
+        rm ~/.config/nvim
+        if test $nvim_current = "monolith.nvim"
+            echo "Current configuration is $nvim_current"
+            ln -sf ~/.config/despair.nvim ~/.config/nvim
+        else
+            echo "Current configuration is $nvim_current"
+            ln -sf ~/.config/monolith.nvim ~/.config/nvim
+        end
+        echo "Set Neovim configuration to $(basename $(readlink ~/.config/nvim))"
+    end
+
+end
+function repos
+    cd $(selectrepodir.js)
+end
 
 abbr !! --position anywhere --function last_history_item
 
@@ -90,11 +134,6 @@ end
 _has ncal && alias calendar 'ncal -yMb'
 alias doomsday '~/.dotfiles/bin/doomsday-clock'
 
-if _has nvim
-    # alias v nvim
-    alias nv nvim
-    alias e "nvim (gum file)"
-end
 # alias awesome-check "Xephyr :5 & sleep 1 ; DISPLAY=:5 awesome"
 alias ls-fonts 'fc-list  --format="%{family[0]} %{style[0]}\n" | sort | uniq | fzf'
 

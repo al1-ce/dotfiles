@@ -25,3 +25,4 @@ zk // /home/al1-ce/zk/.zk/config.toml
 zellij // /home/al1-ce/.config/zellij/config.kdl
 cheat // /home/al1-ce/.config/cheat
 dot // /home/al1-ce/.dotfiles
+zsh // /home/al1-ce/.config/zsh/

@@ -2,29 +2,24 @@
 
 from libqtile import widget, qtile
 
-from icons import icons, images
+from icons import icons
+from theme import theme
 
 import apps as apps
 
 bar_margin = [5, 5, 2, 5]
 bar_opacity = "bb"
-bar_color =   "#282828"
-
-# colors = {
-#     "main": "#e27100",
-#     "accent": "#d8ceb8",
-#     "off": "#606060",
-#     }
+bar_color =   theme["bg"]
 
 colors = {
-    "main":   "#fe8019",
-    "accent": "#ebdbb2",
-    "off":    "#928374",
+    "main":   theme["orange"],
+    "accent": theme["fg"],
+    "off":    theme["bg5"],
 }
 
 widget_defaults = {
-    "font":       "DinaRemaster",
-    "fontsize":   16,
+    "font":       icons["text_font"],
+    "fontsize":   icons["text_size"],
     "padding":    3,
     # "font":       "Cascadia Mono PL",
     # "fontsize":   13,
@@ -45,18 +40,18 @@ gr_def = {
     "foreground": colors["main"],
     "padding":    4,
 
-    "font":       "CozetteHiDpi",
+    "font":       icons["icon_font"],
     # "font":       "Cascadia Mono PL",
-    "fontsize":   31,
+    "fontsize":   icons["icon_size"],
 }
 
 fa_def = {
     "foreground": colors["main"],
     "padding":    3,
 
-    "font":       "CozetteHiDpi",
+    "font":       icons["icon_font"],
     # "font":       "Material Design Icons",
-    "fontsize":   31, # 36
+    "fontsize":   icons["icon_size"], # 36
 }
 
 im_def = {
@@ -85,9 +80,9 @@ widgets = {
         active = colors["main"],
         inactive = colors["off"],
         borderwidth = 2,
-        this_current_screen_border = "#504945",
+        this_current_screen_border = theme["bg2"],
         other_current_screen_border = bar_color,
-        this_screen_border = "#3f3a38",
+        this_screen_border = theme["bg1"],
         other_screen_border = bar_color,
         highlight_color = [bar_color, bar_color],
         **gr_def

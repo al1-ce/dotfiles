@@ -12,7 +12,7 @@ def is_tool(name):
 def fimg(mods):
     return home + f"/.config/qtile/images/{mods}.png "
 
-shell = "fish"
+shell = "zsh"
 
 terminal        = guess_terminal()
 terminal_exec   = terminal
@@ -30,10 +30,14 @@ if (is_tool("wezterm")):
     terminal_exec = "wezterm -e"
     term_exec     = terminal_exec + " " + shell + " -c \""
 
+def env_exec(cmd):
+    # 0.2 seems to be smallest value to allow stuff to resize correctly
+    return terminal_exec + " -- " + os.environ.get("SHELL", "sh") + " -c '" + cmd + "'"
+
 # Makes qtile win the resizing race
 def unrace_exec(cmd):
     # 0.2 seems to be smallest value to allow stuff to resize correctly
-    return terminal_exec + " -- sh -c 'sleep 0.2 && " + cmd + "'"
+    return env_exec("sleep 0.2 && " + cmd);
 
 home            = os.path.expanduser('~')
 dotfiles        = home + "/.dotfiles"
@@ -57,11 +61,11 @@ spawnshortcuts = "feh "                    + \
                  fimg("mod4-mod1")         + \
                  fimg("mod4-shift")
 
-steam = "steam-runtime"
-beeper = "beeper"
-rustdesk = "rustdesk"
+steam      = "steam-runtime"
+beeper     = "beeper"
+rustdesk   = "rustdesk"
 screenshot = "flameshot gui"
-screenrec = "peek"
+screenrec  = "peek"
 color_pick = "gpick"
 
 rofi_launcher   = "rofi -show drun"     # Run apps (.desktop)

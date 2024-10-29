@@ -62,7 +62,7 @@ c.url.searchengines = {
     'mk': eng_mk,
 }
 
-c.url.start_pages = ['https://al1-ce.github.io/homepage/']
+c.url.start_pages = [ c.url.default_page ]
 
 
 c.auto_save.interval = 15000

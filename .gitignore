@@ -21,6 +21,7 @@
 
 # Exclude useless configs
 /.config/cheat/cheatsheets/community/
+/.config/wireplumber/
 /.config/.isolated-storage
 /.config/balenaEtcher/
 /.config/Code - OSS/
@@ -117,7 +118,6 @@
 /.config/nemo/
 /.config/neofetch/
 /.config/neovim-theme/
-/.config/nvim/
 /.config/nyxt/
 /.config/obs-studio/
 /.config/pacseek/
@@ -161,6 +161,11 @@
 /.config/ytmdl/
 /.config/yandex-cloud/
 
+# Not own repos
+/.config/nvim/
+/.config/nvim
+/.config/despair.nvim/
+/.config/monolith.nvim/
 
 # Home dir ignore
 /.TrenchBroom/

@@ -5,6 +5,8 @@ import re
 from libqtile import layout, hook, qtile
 from libqtile.config import Match
 
+from theme import theme
+
 # layout_theme = {
 #     "margin": 5,
 #     "border_width": 2,
@@ -14,13 +16,22 @@ from libqtile.config import Match
 #     "border_normal_stack": "#7d634c"
 #     }
 
+# layout_theme = {
+#     "border_width":        1,
+#     # "border_width":        2,
+#     "border_focus":        "#4e3f39",
+#     "border_normal":       "#262626",
+#     "border_focus_stack":  "#58493c",
+#     "border_normal_stack": "#413b37"
+#     }
+
 layout_theme = {
     "border_width":        1,
     # "border_width":        2,
-    "border_focus":        "#4e3f39",
-    "border_normal":       "#262626",
-    "border_focus_stack":  "#58493c",
-    "border_normal_stack": "#413b37"
+    "border_focus":        theme["bg2"],
+    "border_normal":       theme["bg0_h"],
+    "border_focus_stack":  theme["bg2"],
+    "border_normal_stack": theme["bg0_h"]
     }
 
 layouts = [
@@ -44,9 +55,9 @@ layouts = [
 floating_layout = layout.Floating(
     border_width = 1,
     # border_width = 2,
-    border_focus = "#273230",
-    # border_focus = "#65c5b2",
-    border_normal = "#2d3542",
+    # border_focus = theme["bg0_s"],
+    border_focus = theme["bblue"],
+    border_normal = theme["gray"],
 
     float_rules=[
         # xprop WM_CLASS

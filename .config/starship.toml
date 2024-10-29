@@ -11,15 +11,7 @@ command_timeout = 1500
 # POWERLINE CONTENTS
 
 format = """$character${custom.nvim}${custom.jobs}$directory"""
-right_format = """$all"""
-
-[cmd_duration]
-disabled = true
-min_time = 0
-format = ' [$duration]($style) '
-
-[jobs]
-disabled = true
+right_format = """$git_commit$git_branch$git_status$username$hostname${custom.session}${custom.gitclean}${custom.gitdirty}"""
 
 [custom.jobs]
 symbol = '@'
@@ -35,12 +27,19 @@ style = "bold underline red"
 format = "[nvim]($style) "
 ignore_timeout = true
 
+[custom.session]
+when = '[ -n "$SHPOOL_SESSION_NAME" ]'
+style = "bold cyan"
+command = "echo $SHPOOL_SESSION_NAME"
+format = " @[($output)]($style)"
+
 [username]
-format = "[$user]($style)@"
+format = " [$user]($style)@"
 
 [hostname]
 ssh_symbol = ""
-format = "[$ssh_symbol$hostname]($style) "
+format = "[$ssh_symbol$hostname]($style)"
+style = "bold green"
 
 # CHARACTER FORMAT
 
@@ -49,17 +48,17 @@ success_symbol = '[▲](bright-white)'
 error_symbol = '[△](bright-white)'
 # vimcmd when fixed ▼ ▽
 
-# DIRECTORY WIDGET
-
-[directory]
-# truncation_symbol = '…'
-
 # GIT
+
+[git_commit]
+format = ' [\($hash$tag\)]($style)'
+tag_symbol = ""
 
 [git_branch]
 # truncation_length = 3
 truncation_symbol = '...'
 symbol = ''
+format = " on [$symbol$branch]($style)"
 # ignore_branches = ['master', 'main']
 
 # ⚙ ◆ ▼ ▽
@@ -76,66 +75,20 @@ staged = ""
 renamed = ""
 deleted = ""
 typechanged = ""
-format = '([$all_status$ahead_behind]($style) )'
+format = '[$all_status$ahead_behind]($style)'
 style = "bold purple"
-
-[git_commit]
-format = '[\($hash$tag\)]($style) '
-tag_symbol = ""
-
-# [git_state]
-
-[package]
-symbol = ""
-
-# LANGUAGES
-
-[custom.d]
-# detect_files = ["dub.sdl", "dub.json"]
-when = """test "$(find "$(git rev-parse --show-toplevel)" -name "dub.*")" != """""
-# command = "dub --version | sed -E 's/.*?version //' | sed -E 's/,.*//'"
-style = "bold red"
-format = "via [D]($style) "
-# format = "via [ v$symbol($output )]($style)"
-description = "The currently installed verison of D"
-
-[python]
-# detect_extensions = []
-format = "via [Python]($style) "
-
-[dart]
-format = "via [Dart]($style) "
-
-[c]
-format = "via [C]($style) "
-
-[lua]
-format = "via [Lua]($style) "
-
-[java]
-format = "via [Java]($style) "
-
-[golang]
-format = "via [Go]($style) "
-
-[docker_context]
-format = "via [Docker]($style) "
-
-[cmake]
-format = "via [CMake]($style) "
 
 [custom.gitclean]
 when = """git rev-parse --show-toplevel && test "$(git status -s)" = """""
 style = "bright-white"
-format = "[⬢]($style)"
+format = " [⬢]($style) "
 description = "Shown on clean git repository"
 ignore_timeout = true
 
 [custom.gitdirty]
 when = """git rev-parse --show-toplevel && test "$(git status -s)" != """""
 style = "bright-white"
-format = "[⬡]($style)"
+format = " [⬡]($style) "
 description = "Shown when git has unstaged files"
 ignore_timeout = true
-
 

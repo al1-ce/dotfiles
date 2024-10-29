@@ -23,6 +23,9 @@ gitleaks                check for hardcoded key leaks
 jsh                     javascript unix scripting utils
 shelljs                 jsh but on steroids
 cppipe                  run c programs as scripts
+tldr                    web fetched command cheatsheet
+cheat                   local command cheatsheet
+grip                    serve gh markdown
 
 #  UNIX                                                    #
 hr                      horisontal ruler
@@ -42,6 +45,7 @@ duf                     better df alternative
 dust                    better du alternative
 gpg-tui                 easy gpg (orhun/gpg-tui)
 ov                      alternative pager (noborus/ov)
+shpool                  tmux but only sessions
 
 # PACMAN                                                   #
 yay                     aur package manager
