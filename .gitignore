@@ -13,6 +13,7 @@
 # Machine-local
 /.xexec
 /.xprofile
+/.Xauthority
 
 # Exclude all that is unholy
 **/__pycache__/

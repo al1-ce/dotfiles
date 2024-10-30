@@ -5,11 +5,11 @@ setopt append_history
 setopt hist_reduce_blanks
 setopt share_history
 setopt auto_cd
-setopt bang_hist
 setopt no_beep
 # setopt inc_append_history
 
 unsetopt BEEP
+unsetopt bang_hist
 
 autoload -Uz compinit && compinit
 

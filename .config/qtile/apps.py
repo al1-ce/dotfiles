@@ -12,7 +12,12 @@ def is_tool(name):
 def fimg(mods):
     return home + f"/.config/qtile/images/{mods}.png "
 
-shell = "zsh"
+shell = "bash"
+if (is_tool("fish")):
+    shell = "fish"
+
+if (is_tool("zsh")):
+    shell = "zsh"
 
 terminal        = guess_terminal()
 terminal_exec   = terminal
