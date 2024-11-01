@@ -35,8 +35,8 @@ path=(/var/lib/flatpak/exports/bin/ $path)
 # zsh config
 export ZDOTDIR=$XDG_CONFIG_HOME/zsh
 export HISTFILE=$XDG_DATA_HOME/zsh/history
-export HISTZIE="12800"
-export SAVEHIST="12800"
+export HISTZIE="8192"
+export SAVEHIST="8192"
 
 # Misc env
 export DXVK_ASYNC=1

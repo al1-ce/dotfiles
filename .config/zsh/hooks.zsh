@@ -9,6 +9,7 @@ __on_pwd_chage() {
 __starship_prompt_builder() {
     # hr "─"
     export JOB_COUNT=$( jobs | wc -l )
+    [ ! -n "$(jobs)" ] && export JOB_COUNT=0
 
     if jobs | grep -q nvim ; then
         export STARSHIP_SHOW_NVIM=true
@@ -65,7 +66,7 @@ __remove_last_history_entry() {
     fc -R # read history file.
 }
 
-COMMAND_IGNORE="fg|fg .*|bg|jobs"
+COMMAND_IGNORE="fg\s*.*|bg\s*.*|jobs\s*.*|history\s*.*"
 
 __zsh_history_delete() {
     LAST_HIST=$( fc -l -1 | sed -E "s/ +[0-9]+ +//" )

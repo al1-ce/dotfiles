@@ -1,5 +1,5 @@
-__has() {
-    command -v $@ 2>&1 >/dev/null && return 0 || return 1
+__echoerr() {
+    echo -e "\e[91;1m$@\e[0m"
 }
 
 detach() {
@@ -45,7 +45,7 @@ scrape() {
         echo ""
         wget -r -p -l 10 -E -k -N -w 2 --random-wait $@ -P $ddir
     else
-        echo "Please supply website address"
+        __echoerr "Please supply website address"
     fi
 }
 
@@ -73,6 +73,39 @@ remetamp3() {
         -c:a copy "$track. $artist - $title - out.mp3"
 }
 
+switch-theme() {
+    THEME_NAME_FILE="$XDG_CONFIG_HOME/env_theme_name"
+
+    if [ $# -gt 0 ]; then
+        if [ ! -f "$THEME_NAME_FILE" ] && touch "$THEME_NAME_FILE"
+        if [[ "$@" == "gruvbox" ]]; then
+            # gruvbox
+            echo "gruvbox" > $THEME_NAME_FILE
+        elif [[ "$@" == "despair" ]]; then
+            # despair
+            echo "despair" > $THEME_NAME_FILE
+        elif ( [[ "$@" == "-l" ]] || [[ "$@" == "--list" ]] ); then
+            echo -e "Supported themes:\n    gruvbox\n    despair"
+        elif ( [[ "$@" == "-h" ]] || [[ "$@" == "--help" ]] ); then
+            echo "Usage:"
+            echo "    switch-theme [flags|theme_name]"
+            echo ""
+            echo "Flags:"
+            echo "    -l, --list - Lists supported theme names"
+            echo "    -h, --help - Prints this message"
+        else
+            __echoerr -e "Unsupported theme name '$@'"
+            return 1
+        fi
+
+        __has qtile && qtile-reload
+
+        return 0
+    fi
+    __echoerr "Missing theme name"
+}
+
+
 if __has $HOME/.dotfiles/unbin/confed; then
     conf() {
         if [ $# -gt 0 ]; then
@@ -81,7 +114,7 @@ if __has $HOME/.dotfiles/unbin/confed; then
                 return 0
             fi
             tmp_path="$(~/.dotfiles/unbin/confed -p $@)"
-            if [ "$tmp_path" = "" ]; then
+            if [[ "$tmp_path" == "" ]]; then
                 echo "Failed to find config or encoutered an error"
             else
                 [ -f $tmp_path ] && cd "$(dirname $tmp_path)" || cd $tmp_path
@@ -103,7 +136,7 @@ if __has nvim; then
     nvim-switch() {
         nvim_current="$(basename $(readlink ~/.config/nvim))"
         rm ~/.config/nvim
-        if [ test $nvim_current = "monolith.nvim" ]; then
+        if [[ "$nvim_current" == "monolith.nvim" ]]; then
             echo "Current configuration is $nvim_current"
             ln -sf ~/.config/despair.nvim ~/.config/nvim
         else
@@ -111,6 +144,23 @@ if __has nvim; then
             ln -sf ~/.config/monolith.nvim ~/.config/nvim
         fi
         echo "Set Neovim configuration to $(basename $(readlink ~/.config/nvim))"
+    }
+
+    nvmerge() {
+        if ( [[ "$@" == "-h" ]] || [[ "$@" == "--help" ]] ); then
+            echo "Usage:"
+            echo "    nvmerge [from] [into]"
+            echo ""
+            echo "Description:"
+            echo "    Diffs [from] and [into] and pipes output of diff"
+            echo "    into neovim while setting filename to [into]"
+            return 0
+        fi
+        if [ $# -lt 2 ]; then
+            __echoerr "Must provide two files for mergins"
+            return 1
+        fi
+        merge -A -q -p $2 $1 $2 | nvim +"file $2"
     }
 fi
 

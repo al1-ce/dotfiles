@@ -3,9 +3,8 @@
 from libqtile import bar
 from libqtile.config import Screen
 
-from apps import home
 from widgets import init_widgets, init_widgets_part, bar_color, bar_margin
-from groups import group_names
+from theme import theme
 
 screen_order    = [1, 0, 2]
 
@@ -16,15 +15,15 @@ screens = [
     Screen( # center
         top = bar.Bar(widgets = init_widgets(), size = 24, margin = bar_margin, background = bar_color, ),
         # wallpaper=home + '/.config/qtile/wallpapers/center.png', # girl in center
-        wallpaper=home + '/.config/qtile/wallpapers/darker.png', # left.png none
+        wallpaper =theme["wallpaper"],
         wallpaper_mode='stretch', ),
     Screen( # right
         top = bar.Bar(widgets = init_widgets_part(), size = 24, margin = bar_margin, background = bar_color, ),
-        wallpaper=home + '/.config/qtile/wallpapers/darker.png', # gray_5.png girl on right
+        wallpaper=theme["wallpaper"],
         wallpaper_mode='stretch', ),
     Screen( # left
         top = bar.Bar(widgets = init_widgets_part(), size = 24, margin = bar_margin, background = bar_color, ),
-        wallpaper=home + '/.config/qtile/wallpapers/darker.png', # left.png none
-        wallpaper_mode='fill', ),
+        wallpaper=theme["wallpaper"],
+        wallpaper_mode='stretch', ),
 ]
 

@@ -26,6 +26,7 @@ cppipe                  run c programs as scripts
 tldr                    web fetched command cheatsheet
 cheat                   local command cheatsheet
 grip                    serve gh markdown
+bashdb                  bash debugger
 
 #  UNIX                                                    #
 hr                      horisontal ruler

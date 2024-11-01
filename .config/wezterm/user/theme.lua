@@ -49,12 +49,18 @@ M.colors = function () return {
     },
     selection_bg = theme.foreground,
     selection_fg = theme.background,
+    cursor_bg = theme.foreground,
+    cursor_fg = theme.background,
 } end
 
 M.init = function (name)
     scheme_name = name
+    if scheme_name == "gruvbox" then scheme_name = "GruvboxDark" end
     ---@diagnostic disable-next-line: unused-local, undefined-field
     theme = wezterm.color.get_builtin_schemes()[scheme_name]
+    if theme == nil then
+        theme = wezterm.color.load_scheme(wezterm.home_dir .. "/.config/wezterm/colors/" .. scheme_name .. ".toml")
+    end
 
     return M
 end

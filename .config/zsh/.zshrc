@@ -2,14 +2,18 @@
 # if they're not touching env plus it'd pollute
 # possible calls from other programs
 if [[ $- == *i* ]]; then
+    __has() {
+        command -v $@ 2>&1 >/dev/null && return 0 || return 1
+    }
+
     __zsource() {
         [ -e $@ ] && source $@
     }
 
     __zsource $ZDOTDIR/plugins.zsh
 
-    __zsource $ZDOTDIR/functions.zsh
     __zsource $ZDOTDIR/aliases.zsh
+    __zsource $ZDOTDIR/functions.zsh
 
     __zsource $ZDOTDIR/config.zsh
     __zsource $ZDOTDIR/keymap.zsh

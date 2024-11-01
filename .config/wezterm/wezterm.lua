@@ -1,10 +1,20 @@
 local wezterm = require('wezterm')
 local config = wezterm.config_builder()
+local io = require("io")
 
 local font = require("user.fonts").dina_remaster
 
 -- FONTS
 -- config.font = wezterm.font(font.regular)
+local confdir = os.getenv("XDG_CONFIG_HOME") or os.getenv("HOME") .. "/.config"
+local f = io.open(confdir .. "/env_theme_name", "r")
+local theme_name = "gruvbox"
+if f ~= nil then
+    theme_name = f:read("*l")
+    f:close()
+    wezterm.add_to_config_reload_watch_list(confdir .. "/env_theme_name")
+end
+
 config.font = wezterm.font_with_fallback({font.regular, "Noto Sans CJK JP"})
 config.font_rules = font.rules
 config.font_size = font.size
@@ -14,7 +24,8 @@ config.line_height = font.line_height
 config.harfbuzz_features = { "calt=0", "clig=0", "liga=0" }
 
 -- COLOR THEME
-local theme = require("user.theme").init("GruvboxDark")
+local theme = require("user.theme").init(theme_name)
+-- local theme = require("user.theme").init("GruvboxDark")
 config.color_scheme = theme.color_scheme()
 config.colors = theme.colors()
 -- config.color_scheme = 'Laser'
@@ -25,7 +36,7 @@ config.default_cursor_style = 'BlinkingBar'
 config.cursor_blink_ease_in = 'Constant'
 config.cursor_blink_ease_out = 'Constant'
 config.cursor_blink_rate = 600
-config.cursor_thickness = 0.5
+config.cursor_thickness = 0.7
 config.text_blink_ease_in = 'Constant'
 config.text_blink_ease_out = 'Constant'
 config.text_blink_rapid_ease_in = 'Constant'

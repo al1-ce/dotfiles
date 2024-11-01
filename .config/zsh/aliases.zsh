@@ -31,7 +31,7 @@ alias clearvswap='echo "Removing nvim swap."; rm -rf ~/.local/state/nvim/swap'
 alias pacman-time='sudo ntpd -qg && sudo hwclock -w'
 alias pacman-clean='pacman -Qtdq | sudo pacman -Rns -'
 
-alias j="jobs"
+alias j="jobs -dlprs"
 
 alias srcrc="exec zsh"
 
@@ -75,7 +75,7 @@ __has qtile     && alias qtile-restart='qtile cmd-obj -o cmd -f restart'
 
 if __has nvim; then
     alias nv=nvim
-    alias e="nvim (gum file)"
+    alias e='nvim $(gum file)'
 fi
 
 if __has onefetch; then
@@ -87,5 +87,10 @@ fi
 if __has buckle; then
     alias buckle-start='buckle -f & disown'
     alias buckle-stop='pkill buckle'
+fi
+
+if __has qtile; then
+    alias qtile-reload="qtile cmd-obj -o cmd -f reload_config"
+    alias qtile-restart="qtile cmd-obj -o cmd -f restart"
 fi
 

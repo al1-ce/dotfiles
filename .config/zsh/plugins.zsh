@@ -14,5 +14,5 @@ plug "zsh-users/zsh-syntax-highlighting"
 
 plug "zsh-users/zsh-history-substring-search"
 
-plug "hlissner/zsh-autopair"
+# plug "hlissner/zsh-autopair"
 

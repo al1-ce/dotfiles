@@ -161,6 +161,7 @@
 /.config/yd-tools/
 /.config/ytmdl/
 /.config/yandex-cloud/
+/.config/zsh/.zcompdump
 
 # Not own repos
 /.config/nvim/
@@ -257,4 +258,8 @@
 /zk/
 .node_*
 .node_*/
+/.bashdb_hist
+/.config/env_theme_name
+/test.*
 /steam.desktop
+
