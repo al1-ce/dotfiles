@@ -10,7 +10,7 @@ command_timeout = 1500
 
 # POWERLINE CONTENTS
 
-format = """$character${custom.nvim}${custom.jobs}$directory"""
+format = """$character${custom.zsh_mode}${custom.nvim}${custom.jobs}$directory"""
 right_format = """$git_commit$git_branch$git_status$username$hostname${custom.session}${custom.gitclean}${custom.gitdirty}"""
 
 [custom.jobs]
@@ -25,6 +25,13 @@ ignore_timeout = true
 when = '[ $STARSHIP_SHOW_NVIM = true ]'
 style = "bold underline red"
 format = "[nvim]($style) "
+ignore_timeout = true
+
+[custom.zsh_mode]
+when = '[[ "$VI_KEYMAP" != "INS" ]]'
+style = "bold"
+format = "[($output)]($style) "
+command = "echo $VI_KEYMAP"
 ignore_timeout = true
 
 [custom.session]
@@ -46,7 +53,11 @@ style = "bold green"
 [character]
 success_symbol = '[▲](bright-white)'
 error_symbol = '[△](bright-white)'
-# vimcmd when fixed ▼ ▽
+vimcmd_symbol             = '[▲](bright-white)'
+vimcmd_replace_one_symbol = '[▲](bright-white)'
+vimcmd_replace_symbol     = '[▲](bright-white)'
+vimcmd_visual_symbol      = '[▲](bright-white)'
+# disabled = true
 
 # GIT
 

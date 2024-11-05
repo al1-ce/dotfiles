@@ -22,7 +22,7 @@ alias mv="mv -i"
 alias cp="cp -i"
 alias ln="ln -i"
 
-alias make-ls="grep : Makefile | awk -F: '/^[^.]/ {print $1;}'"
+alias make-ls="grep : Makefile | awk -F: '/^[^.]/ {print \$1;}'"
 
 alias wttr='curl wttr.in/Moscow'
 
@@ -33,7 +33,8 @@ alias pacman-clean='pacman -Qtdq | sudo pacman -Rns -'
 
 alias j="jobs -dlprs"
 
-alias srcrc="exec zsh"
+# alias srcrc="exec zsh"
+alias srcrc="source $XDG_CONFIG_HOME/zsh/.zshrc"
 
 __has eza       && alias ls="eza"
 __has fetch     && alias cls="clear && fetch"
@@ -60,6 +61,7 @@ __has telnet    && alias mapscii='telnet mapscii.me'
 __has dart      && alias pub="dart pub"
 __has npm       && alias npm="~/.dotfiles/scripts/npm.js"
 __has reuse     && alias reuse="reuse --suppress-deprecation"
+__has devdocs   && alias docs="devdocs"
 
 __has trans     && alias trenru="trans -e google -I -hl en -t ru"
 __has trans     && alias trruen="trans -e google -I -hl ru -t en"
@@ -70,12 +72,13 @@ __has grep      && alias grep="grep --color=auto"
 
 __has qtile     && alias qtile-restart='qtile cmd-obj -o cmd -f restart'
 
-
 ( __has fzf && __has fc-list ) && alias ls-fonts='fc-list  --format="%{family[0]} %{style[0]}\n" | sort | uniq | fzf'
 
 if __has nvim; then
     alias nv=nvim
     alias e='nvim $(gum file)'
+    alias monnvim="nvim-set-config monolith.nvim && nvim"
+    alias desnvim="nvim-set-config despair.nvim && nvim"
 fi
 
 if __has onefetch; then

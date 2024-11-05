@@ -47,7 +47,7 @@ auto_minimize = True
 wmname = "Qtile"
 
 @hook.subscribe.startup_once
-def autostart():
+def hook_startup_once():
     screens[0].toggle_group(group_names[1]) # center
     screens[1].toggle_group(group_names[2]) # right
     subprocess.Popen(home + "/.screenlayout/main.sh", env = os.environ)

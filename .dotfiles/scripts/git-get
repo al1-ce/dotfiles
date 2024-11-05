@@ -1,0 +1,37 @@
+#!/bin/bash
+
+_uname=""
+_repos=""
+_choice=""
+
+function exit_err() {
+    echo $@
+    exit 1
+}
+
+if [ $# -eq 0 ]; then
+    # echo "Must provide either 'user/repo' or 'user repo'"
+    _uname="$(gum input --placeholder="Github username")"
+    [ ! -n "$_uname" ] && exit_err "Must provide username"
+
+    _repos="$(gh search repos --owner "$_uname" --sort updated --include-forks="true")"
+    [ ! -n "$_repos" ] && exit_err "Failed to find specified user"
+
+    _choice="$(echo "$_repos" | sed -r "s#(\t|\s)+.*##g" | gum choose)"
+    [ ! -n "$_choice" ] && exit_err "Invalid choice"
+
+    git clone "git@github.com:$_choice.git" "/g/$_choice" && echo "Repository cloned to '/g/$_choice'"
+    exit 0
+fi
+
+if [ $# -eq 1 ]; then
+    git clone "git@github.com:$1.git" "/g/$1"
+    exit 0
+fi
+
+if [ $# -eq 2 ]; then
+    git clone "git@github.com:$1/$2.git" "/g/$1/$2"
+    exit 0
+fi
+
+

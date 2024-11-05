@@ -5,6 +5,8 @@
 #     ranger - for managing merged dir
 #     nvim  - obviously needed
 
+# TODO: sync after/ instead
+
 FILE_DIFFS=""
 FILE_ONLY=""
 FILE_REMOVE=""
@@ -44,7 +46,7 @@ function df_file() {
 function df_dirs() {
     _diff_res="$(diff -q -r "$1" "$2" | sed '/^\s*Only in.*$/d')"
     FILE_DIFFS="$FILE_DIFFS\n$_diff_res"
-    _diff_res="$(diff -q -r "$1" "$2" | sed '/^\s*(?!Only in).*$/d')"
+    _diff_res="$(diff -q -r "$1" "$2" | sed '/^\s*Only in.*$/!d')"
     FILE_ONLY="$FILE_ONLY\n$_diff_res"
 }
 
@@ -121,22 +123,22 @@ DES_NV="$XDG_CONFIG_HOME/despair.nvim"
 
 # Dirs rio
 syncdir "$MON_NV/colors" "$DES_NV/colors"
-syncdir "$MON_NV/ftplugin" "$DES_NV/ftplugin"
-syncdir "$MON_NV/indent" "$DES_NV/indent"
-syncdir "$MON_NV/syntax" "$DES_NV/syntax"
-syncdir "$MON_NV/ftdetect" "$DES_NV/ftdetect"
+syncdir "$MON_NV/after" "$DES_NV/after"
+syncdir "$MON_NV/plugin/sil" "$DES_NV/plugin/sil"
+syncdir "$MON_NV/lua/lib" "$DES_NV/lua/lib"
+syncdir "$MON_NV/lua/opt" "$DES_NV/lua/opt"
 # Files
-syncfile "$MON_NV/lua/config/theme.lua" "$DES_NV/lua/theme.lua"
-syncfile "$MON_NV/lua/config/filetypes.lua" "$DES_NV/lua/filetypes.lua"
-syncfile "$MON_NV/lua/config/options.lua" "$DES_NV/lua/options.lua"
-syncfile "$MON_NV/lua/config/commands.lua" "$DES_NV/lua/commands.lua"
-syncfile "$MON_NV/lua/config/keymap.lua" "$DES_NV/lua/keymap.lua"
-syncfile "$MON_NV/lua/config/keyfunc.lua" "$DES_NV/lua/keyfunc.lua"
+# syncfile "$MON_NV/lua/config/theme.lua" "$DES_NV/lua/theme.lua"
+# syncfile "$MON_NV/lua/config/filetypes.lua" "$DES_NV/lua/filetypes.lua"
+# syncfile "$MON_NV/lua/config/options.lua" "$DES_NV/lua/options.lua"
+# syncfile "$MON_NV/lua/config/commands.lua" "$DES_NV/lua/commands.lua"
+# syncfile "$MON_NV/lua/config/keymap.lua" "$DES_NV/lua/keymap.lua"
+# syncfile "$MON_NV/lua/config/keyfunc.lua" "$DES_NV/lua/keyfunc.lua"
 
-syncfile "$MON_NV/lua/setglobals.lua" "$DES_NV/lua/setglobals.lua"
-syncfile "$MON_NV/lua/colorscheme.lua" "$DES_NV/lua/colorscheme.lua"
-syncfile "$MON_NV/lua/module.lua" "$DES_NV/lua/module.lua"
-syncfile "$MON_NV/lua/map.lua" "$DES_NV/lua/map.lua"
+# syncfile "$MON_NV/lua/setglobals.lua" "$DES_NV/lua/setglobals.lua"
+# syncfile "$MON_NV/lua/colorscheme.lua" "$DES_NV/lua/colorscheme.lua"
+# syncfile "$MON_NV/lua/module.lua" "$DES_NV/lua/module.lua"
+# syncfile "$MON_NV/lua/map.lua" "$DES_NV/lua/map.lua"
 
 FILE_ONLY_LIST="$(echo -e "$FILE_ONLY" | sed -r "s+$MON_NV/++;s+$DES_NV/++;s+Only in (.*?): +\1/+;/^\s*$/d")"
 

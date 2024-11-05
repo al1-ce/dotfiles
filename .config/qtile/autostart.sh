@@ -10,5 +10,3 @@ rem-accel () {
 rem-accel "pointer:Logitech G304"
 # rem-accel "pointer:Logitech ERGO M575"
 
-
-

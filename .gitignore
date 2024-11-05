@@ -14,6 +14,8 @@
 /.xexec
 /.xprofile
 /.Xauthority
+/.w3m/history
+/.w3m/cookie
 
 # Exclude all that is unholy
 **/__pycache__/

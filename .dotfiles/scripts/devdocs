@@ -1,0 +1,284 @@
+#!/usr/bin/env sh
+# Select docs from devdocs.io using a fuzzy-finder for display at the CLI
+#
+# Deps: tidy, xmlstarlet, jq, lynx, fzy, curl, POSIX, lr (leahneukirchen)
+# (This uses a few shell scripts from $HOME/bin. Look there for reference.)
+#
+# Download docsets:
+#
+#     devdocs get
+#     devdocs get lodash~4 rxjs
+#     devdocs get_from /path/to/devdocs-prefs-export.json
+#
+# Query downloaded docsets:
+#
+#     devdocs
+#     devdocs "language"
+#
+# Regenerate cached pages:
+#
+#     devdocs regen
+#
+
+NAME=$(basename "$0")
+TEMP="${TMPDIR-/tmp}/${NAME}.${$}.$(awk \
+    'BEGIN {srand(); printf "%d\n", rand() * 10^10}')"
+
+init_cache_dir() {
+    mkdir -p "$DEVDOCS_DIR"
+    node_idx="$DEVDOCS_DIR/index.js"
+    node_pkg="$DEVDOCS_DIR/package.json"
+    node_fof="$DEVDOCS_DIR/404.html"
+    idx_js='
+const express = require("express");
+const path = require("path");
+const fs = require("fs");
+
+const app = express();
+
+app.use(express.json());
+app.use(express.static(path.join(__dirname, "."), { extensions: ["html", "htm", "xhtml"] }));
+
+app.all("*", (req, res) => {
+    const nurl = req.url.replace(/\/$/, "") + ".html"
+    const fname = path.join(__dirname, nurl);
+    if (fs.existsSync(fname)) {
+        res.redirect(nurl);
+    } else {
+        res.writeHead(200, { "Content-Type": "text/html" });
+        res.status(404).end(`<h1>404 Specified page not found</h1><h2>Your current url is "${req.url}".</h2>`);
+    }
+});
+
+const port = process.env.PORT || 8080;
+
+app.listen(port, (err, res) => {
+    if (err) {
+        console.log(err);
+        return res.status(500).send(err.message);
+    } else {
+        console.log("[INFO] Server Running on port:", port);
+    }
+});
+
+module.exports = app;
+'
+    package_json='
+{
+  "name": "devdocs-local",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "serve": "node index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "express": "^4.21.1"
+  }
+}
+'
+
+    echo "$idx_js" > "$node_idx"
+    echo "$package_json" > "$node_pkg"
+    echo "<h1>404 Specified page not found</h1>" > "$node_fof"
+
+    npm install --prefix "$DEVDOCS_DIR"
+}
+
+[ -n "$DEVDOCS_DIR" ] && DEVDOCS_DIR="$XDG_DATA_HOME/devdocs"
+[ "$DEVDOCS_DIR" = "/devdocs" ] && DEVDOCS_DIR="$HOME/.local/share/devdocs"
+[ ! -d "$DEVDOCS_DIR" ] && init_cache_dir
+
+list() {
+    # Find the docs JavaScript and try to extract the slug and mtime values.
+
+    curl -sSL https://devdocs.io/docs.json | jq -r '.[] | [.slug, .mtime] | @tsv'
+}
+
+gen_pages() {
+    slug="$@"
+    lang_dir="${DEVDOCS_DIR}/${slug}"
+
+    did_index=0
+
+    [ -d "${lang_dir}/pages" ] && rm -rf "${lang_dir}/pages"
+    mkdir -p "${lang_dir}/pages"
+
+    jq -r '.entries[] | "\(.path)"' "${lang_dir}/index.json" | while read line; do
+        page="$(echo -e "$line" | cut -d "#" -f 1)"
+        if [[ "$line" == *"#"* ]]; then
+            if ! ( [[ "$(basename "$page")" == "index" ]] && [[ $did_index -eq 0 ]] ); then
+                continue
+            else
+                did_index=1
+            fi
+        fi
+
+        dir_name="$(dirname "${lang_dir}/pages/${page}.html")"
+        [ ! -d "$dir_name" ] && mkdir -p "$dir_name"
+
+        idx="$page"
+        if ! [[ "$page" == *".html" || "$page" == *".xhtml" ]]; then
+            page="$page.html"
+        fi
+        echo "Writing ${page}"
+        jq -r ".\"${idx}\"" \
+            <"${lang_dir}/db.json" \
+            >"${lang_dir}/pages/${page}"
+
+        printf "\033[1A\033[K"
+    done
+    echo "Finished generating pages for ${slug}"
+}
+
+regen() {
+    lr "$DEVDOCS_DIR" -1 -s -t 'type == d' -t '!type == d || depth > 0' |
+        gen_pages "$(fzy -p 'Choose docs > ')"
+
+}
+
+download() {
+    # Download the docsets to a deterministic location.
+
+    while read -r slug mtime; do
+        test -n "$slug" || return
+
+        ddir="${DEVDOCS_DIR}/${slug}"
+
+        mkdir -p "$ddir"
+        cd "$ddir"
+
+        if [ -r "${ddir}/mtime" ]; then
+            $(ls "${ddir}/mtime" 1>&2)
+            old_mtime=$(cat "${ddir}/mtime")
+
+            if [ "$old_mtime" -ge "$mtime" ]; then
+                printf 'Up-to-date %s\n' "$slug" 1>&2
+                continue
+            else
+                printf 'Updating %s\n' "$slug" 1>&2
+            fi
+        else
+            printf 'Installing %s\n' "$slug" 1>&2
+        fi
+
+        printf '%s\n' "$mtime" >mtime
+        curl -C - -sS -o index.json "https://devdocs.io/docs/${slug}/index.json?${mtime}"
+        curl -C - -sS -o db.json "https://documents.devdocs.io/${slug}/db.json?${mtime}"
+
+        gen_pages "${slug}"
+
+        echo "Finished downloading docs for ${slug}"
+    done
+}
+
+get() {
+    if [ $# -eq 0 ]; then
+        list | fzy -p 'Choose a docset > ' | download
+    else
+        list | awk '
+            BEGIN {
+                for (i = 1; i < length(ARGV); i += 1) {
+                    docs[ARGV[i]] = 1; ARGV[i] = ""
+                }
+            }
+
+            docs[$1] { print $0 }
+        ' "$@" | download
+    fi
+}
+
+get_from() {
+    jq -r '.docs | split("/")[]' "${1:?Missing Devdocs Prefs export JSON}" |
+        xe -N0 "$0" choose
+}
+
+doc_for() {
+    echo "$@" | {
+        read -r slug
+        test -n "$slug" || return
+
+        jq -r '.entries[] | "\(.name) --- \(.path) --- (\(.type))"' \
+            "${DEVDOCS_DIR}/${slug}/index.json" |
+            fzy -p 'Choose a topic > ' |
+            awk -F " --- " '{
+                h = index($2, "#")
+                if (h == 0) {
+                    print $2
+                } else {
+                    print substr($2, 1, h - 1), substr($2, h)
+                }
+            }' | {
+            read -r dpath frag
+            test -n "$dpath" || return
+
+            # jq -r ".\"${dpath}\"" \
+            #     <"${DEVDOCS_DIR}/${slug}/db.json" \
+            #     >"${TEMP}/index.html"
+
+            # screen -d -m http-server "${DEVDOCS_DIR}/${slug}/pages/" &
+            screen -d -m npm run --prefix="$DEVDOCS_DIR" serve &
+
+            sleep 0.25
+
+            # lynx -assume_charset=utf-8 \
+            w3m -I=utf-8 \
+                "http://127.0.0.1:8080/${slug}/pages/${dpath}${frag}"
+            # lynx -assume_charset=utf-8 \
+            #     "file://localhost/${DEVDOCS_DIR}/${slug}/pages/${dpath}.html${frag}"
+
+            # not using screen and will not
+            pkill -9 screen
+        }
+    }
+}
+
+doc() {
+    lr "$DEVDOCS_DIR" -1 -s -t 'type == d' -t '!type == d || depth > 0' -t 'name != "node_modules"' |
+        doc_for "$(fzy -p 'Choose docs > ')"
+}
+
+main() {
+    # shows help message
+    while getopts h opt; do
+        case $opt in
+        h)
+            awk 'NR == 1 { next } /^$/ { exit } { print substr($0, 3) }' "$0"
+            exit
+            ;;
+        esac
+    done
+    # shift program out?
+    shift $((OPTIND - 1))
+
+    trap '
+        excode=$?; trap - EXIT;
+        rm -rf '"$TEMP"'
+        exit $excode
+    ' INT TERM EXIT
+    mkdir -p -m 700 "$TEMP"
+
+    if [ $# -eq 0 ]; then
+        doc
+    elif [ "$@" = "get" ]; then
+        get
+    elif [ "$@" = "get_from" ]; then
+        get_from
+    elif [ "$@" = "list" ]; then
+        list
+    elif [ "$@" = "regen" ]; then
+        regen
+    elif [ "$@" = "reinit_cache_dir" ]; then
+        init_cache_dir
+    else
+        lang=$1
+        shift
+
+        # "$cmd" "$@"
+        doc_for "$lang"
+    fi
+}
+
+main "$@"

@@ -62,6 +62,8 @@ export RUBY_GEMS=$XDG_DATA_HOME/gem/ruby/3.0.0/
 export RUBY_ROOT=/usr/lib/ruby/gems/3.0.0
 export RUSTUP_HOME=$HOME/.rustup/
 export ZK_NOTEBOOK_DIR="$HOME/zk"
+export DEVDOCS_DIR="$XDG_DATA_HOME/devdocs/"
+export LYNX_CFG="$XDG_CONFIG_HOME/lynx/lynx.cfg"
 
 # Program dependant path
 path=($RUBY_GEMS $path)

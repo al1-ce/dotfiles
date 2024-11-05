@@ -146,6 +146,15 @@ if __has nvim; then
         echo "Set Neovim configuration to $(basename $(readlink ~/.config/nvim))"
     }
 
+    nvim-set-config() {
+        if [ ! -d "$XDG_CONFIG_HOME/$@" ]; then
+            echo "Supplied config directory doesn't exist"
+            return 1
+        fi
+        rm ~/.config/nvim
+        ln -sf "$XDG_CONFIG_HOME/$@" "$XDG_CONFIG_HOME/nvim"
+    }
+
     nvmerge() {
         if ( [[ "$@" == "-h" ]] || [[ "$@" == "--help" ]] ); then
             echo "Usage:"
@@ -174,3 +183,16 @@ if __has yadm; then
         yadm add ~/.config/qtile
     }
 fi
+
+if __has boxes; then
+    b-warn() {
+        echo "$@" | boxes -d warning --no-color
+    }
+    b-info() {
+        echo "$@" | boxes -d info --no-color
+    }
+    b-crit() {
+        echo "$@" | boxes -d critical --no-color
+    }
+fi
+
