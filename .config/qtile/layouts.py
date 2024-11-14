@@ -82,6 +82,8 @@ floating_layout = layout.Floating(
         Match(title=re.compile(r"Steam \- News.*")),
         # sideapps
         Match(wm_class="gpick"),
+        Match(wm_class="gnome-calculator"),
+        Match(wm_class="kcalc"),
         # qtile
         Match(title=re.compile(r"Krita \- Edit.*")),
         # Match(title=".shortcuts.html - qutebrowser"),

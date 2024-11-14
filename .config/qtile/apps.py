@@ -39,6 +39,9 @@ def env_exec(cmd):
     # 0.2 seems to be smallest value to allow stuff to resize correctly
     return terminal_exec + " -- " + os.environ.get("SHELL", "sh") + " -c '" + cmd + "'"
 
+def env_gui(cmd):
+    return os.environ.get("SHELL", "sh") + " -c '" + cmd + "'"
+
 # Makes qtile win the resizing race
 def unrace_exec(cmd):
     # 0.2 seems to be smallest value to allow stuff to resize correctly
@@ -55,6 +58,9 @@ editor_gui      = "code"
 process_explr   = unrace_exec("btop")
 osc_draw        = "gromit-mpx"
 music_player    = unrace_exec("musikcube")
+modern_tracker  = "milkytracker"
+fast_tracker    = "ft2-clone"
+calculator      = "kcalc"
 # spawnshortcuts  = "qutebrowser --target private-window -R " + dotfiles + "/.shortcuts.html"
 spawnshortcuts = "feh "                    + \
                  fimg("mod4")              + \

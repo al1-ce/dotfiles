@@ -53,20 +53,31 @@ export STARSHIP_LOG="error"
 export TERM="xterm-256color"
 export WEBKIT_DISABLE_COMPOSITING_MODE=1
 
+# artix-dark-theme-git
+export GTK_THEME="Artix-dark"
+export QT_QPA_PLATFORMTHEME="qt5ct"
+
 # Program path env
 export CARGO_HOME=$HOME/.cargo/
 export GOPATH=$HOME/.go/
 export INVDIR="$HOME/.local/share/inventory"
 export NODE_PATH="$(/bin/npm root --quiet -g)"
-export RUBY_GEMS=$XDG_DATA_HOME/gem/ruby/3.0.0/
-export RUBY_ROOT=/usr/lib/ruby/gems/3.0.0
+export BUNDLE_PATH=$XDG_DATA_HOME/gem/
+# export RUBY_ROOT=/usr/lib/ruby/gems/3.0.0
 export RUSTUP_HOME=$HOME/.rustup/
 export ZK_NOTEBOOK_DIR="$HOME/zk"
-export DEVDOCS_DIR="$XDG_DATA_HOME/devdocs/"
 export LYNX_CFG="$XDG_CONFIG_HOME/lynx/lynx.cfg"
+[ -d "/g" ] && export DEVDOCS_DIR="/g/devdocs/" || export DEVDOCS_DIR="$XDG_DATA_HOME/devdocs/"
 
 # Program dependant path
-path=($RUBY_GEMS $path)
-path=($RUBY_ROOT $path)
+# path=($RUBY_GEMS $path)
+# path=($RUBY_ROOT $path)
+
+for dir in $XDG_DATA_HOME/gem/ruby/*/bin; do
+    [ -d "$dir" ] && path=($dir $path)
+done
 
 export PATH
+
+export ZSH_ENV_WAS_SOURCED="yes"
+

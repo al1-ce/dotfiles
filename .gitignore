@@ -164,6 +164,10 @@
 /.config/ytmdl/
 /.config/yandex-cloud/
 /.config/zsh/.zcompdump
+/.config/AmneziaVPN.ORG/
+/.config/Pinta/
+/.config/kcalcrc
+/.config/MasterPlan/log_*
 
 # Not own repos
 /.config/nvim/
@@ -264,4 +268,5 @@
 /.config/env_theme_name
 /test.*
 /steam.desktop
-
+/games/
+/.mozilla/

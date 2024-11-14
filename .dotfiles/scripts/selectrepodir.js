@@ -38,6 +38,7 @@ let repolist = [];
 for (let user of userlist) {
     if (user == "") continue;
     if (!user.endsWith("/")) continue;
+    if (exists(proj_dir + "/" + user + ".nonrepo")) continue;
     let repos = eza(proj_dir + "/" + user);
     // console.log(repos);
     if (repos.length == 0 || (repos.length == 1 && repos[0] == "")) {
@@ -45,6 +46,7 @@ for (let user of userlist) {
         continue;
     }
     for (let repo of repos) {
+        if (exists(proj_dir + "/" + user + "/" + repo + ".nonrepo")) continue;
         repolist.push(user.substring(0, user.length - 1) + "/" + repo.substring(0, repo.length - 1));
     }
 }
@@ -52,5 +54,5 @@ for (let user of userlist) {
 // console.log(repolist);
 
 // exec(`cd "${proj_dir}/$(gum filter --indicator="-" --header="Cloned Repositories" --limit=1 --select-if-one  "${repolist.join(`" "`)}")"`, {echoCommand:false});
-exec(`echo ${proj_dir}/$(gum filter --indicator="-" --header="Cloned Repositories" --limit=1 --select-if-one  "${repolist.join(`" "`)}")`, {echoCommand:false});
+exec(`echo ${proj_dir}/$(echo '${repolist.join(`\n`)}' | fzf --prompt="Select repo > " --layout=reverse --height=35%)`, {echoCommand:false});
 

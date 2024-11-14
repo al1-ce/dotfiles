@@ -1,3 +1,6 @@
+
+[ ! -n "$ZSH_ENV_WAS_SOURCED" ] && source "$HOME/.zshenv"
+
 # No sense to load those things in non-tty mode
 # if they're not touching env plus it'd pollute
 # possible calls from other programs

@@ -4,6 +4,24 @@ _uname=""
 _repos=""
 _choice=""
 
+spinner(){
+    local pnt=0 shs=( 19 38 b0 e0 c4 46 07 0b )
+    printf '\e7'
+    while ! read -sn 1 -t .2 _; do
+        printf %b\\e8  \\U28${shs[pnt++%${#shs[@]}]}
+    done
+}
+
+function startSpinner () {
+    tput civis;
+    exec {doSpinner}> >(spinner "$@")
+}
+function stopSpinner () {
+    echo >&"$doSpinner" && exec {doSpinner}>&-;
+    tput cnorm;
+    echo
+}
+
 function exit_err() {
     echo $@
     exit 1
@@ -14,10 +32,14 @@ if [ $# -eq 0 ]; then
     _uname="$(gum input --placeholder="Github username")"
     [ ! -n "$_uname" ] && exit_err "Must provide username"
 
-    _repos="$(gh search repos --owner "$_uname" --sort updated --include-forks="true")"
+    printf "Getting Github repositories for $_uname "
+    startSpinner
+    _repos="$(gh search repos --owner "$_uname" --sort updated --include-forks="true" --limit 999)"
+    stopSpinner
+    printf "\033[1A\033[K"
     [ ! -n "$_repos" ] && exit_err "Failed to find specified user"
 
-    _choice="$(echo "$_repos" | sed -r "s#(\t|\s)+.*##g" | gum choose)"
+    _choice="$(echo "$_repos" | sed -r "s#(\t|\s)+.*##g" | fzf --height=35% --layout=reverse --prompt="Choose repo > ")"
     [ ! -n "$_choice" ] && exit_err "Invalid choice"
 
     git clone "git@github.com:$_choice.git" "/g/$_choice" && echo "Repository cloned to '/g/$_choice'"

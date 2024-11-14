@@ -61,7 +61,6 @@ __has telnet    && alias mapscii='telnet mapscii.me'
 __has dart      && alias pub="dart pub"
 __has npm       && alias npm="~/.dotfiles/scripts/npm.js"
 __has reuse     && alias reuse="reuse --suppress-deprecation"
-__has devdocs   && alias docs="devdocs"
 
 __has trans     && alias trenru="trans -e google -I -hl en -t ru"
 __has trans     && alias trruen="trans -e google -I -hl ru -t en"

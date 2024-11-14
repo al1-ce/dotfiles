@@ -97,7 +97,10 @@ keys = [EzKey(k[0], *k[1:-1], desc = k[-1]) for k in [
     # FM
     ("M-e",          lazy.spawn(apps.filemanager), "Spawn TUI file manager"),
     ("M-S-e",        lazy.spawn(apps.filemanager_gui), "Spawn GUI file manager"),
+    # Music
     ("M-m",          lazy.spawn(apps.music_player), "Spawn music player"),
+    ("M-S-m",        lazy.spawn(apps.modern_tracker), "Spawn modern music tracker"),
+    ("M-S-f",        lazy.spawn(apps.fast_tracker), "Spawn old music tracker"),
     # Web
     ("M-w",          lazy.spawn(apps.mybrowser), "Spawn browser"),
     ("M-S-w",        lazy.spawn(apps.altbrowser), "Spawn alt browser"),
@@ -111,6 +114,7 @@ keys = [EzKey(k[0], *k[1:-1], desc = k[-1]) for k in [
     ("M-v",          lazy.spawn(apps.editor), "Spawn TUI text editor"),
     ("M-S-v",        lazy.spawn(apps.editor_gui), "Spawn GUI text editor"),
     ("M-p",          lazy.spawn(apps.color_pick), "Spawn color picker"),
+    ("M-c",          lazy.spawn(apps.calculator), "Spawn calculator"),
     # Draw
     ("M-d",          lazy.spawn(apps.osc_draw + " --toggle"), "Toggle drawing on screen"),
     ("M-A-d",        lazy.spawn(apps.osc_draw + " --redo"), "Redo screen drawing"),
