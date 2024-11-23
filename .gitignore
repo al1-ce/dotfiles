@@ -13,6 +13,9 @@
 # Machine-local
 /.xexec
 /.xprofile
+/.Xauthority
+/.w3m/history
+/.w3m/cookie
 
 # Exclude all that is unholy
 **/__pycache__/
@@ -20,11 +23,21 @@
 **/Cache/
 
 # Exclude useless configs
+/.config/cheat/cheatsheets/community/
+/.config/wireplumber/
 /.config/.isolated-storage
+/.config/balenaEtcher/
 /.config/Code - OSS/
 /.config/Code/
 /.config/DMusic
+/.config/Beeper/
+/.config/jj/
+/.config/rustdesk/
+/.config/simple-update-notifier/
 /.config/EgoSoft/
+/.config/yay/
+/.config/Vial/
+/.config/lxqt/
 /.config/Epic
 /.config/Hardcode-Tray/
 /.config/LunarG
@@ -108,7 +121,6 @@
 /.config/nemo/
 /.config/neofetch/
 /.config/neovim-theme/
-/.config/nvim/
 /.config/nyxt/
 /.config/obs-studio/
 /.config/pacseek/
@@ -151,7 +163,17 @@
 /.config/yd-tools/
 /.config/ytmdl/
 /.config/yandex-cloud/
+/.config/zsh/.zcompdump
+/.config/AmneziaVPN.ORG/
+/.config/Pinta/
+/.config/kcalcrc
+/.config/MasterPlan/log_*
 
+# Not own repos
+/.config/nvim/
+/.config/nvim
+/.config/despair.nvim/
+/.config/monolith.nvim/
 
 # Home dir ignore
 /.TrenchBroom/
@@ -159,6 +181,7 @@
 /.byobu/
 /.bun/
 /.cache/
+/.grip/
 /.calc_history
 /.cargo/
 /.dart-tool/
@@ -193,7 +216,7 @@
 /.minecraft/
 /.mypy_cache/
 /.newsboat/
-/.npmrc
+/.npm/
 /.nuget/
 /.nv/
 /.nvidia-settings-rc
@@ -227,6 +250,7 @@
 /.xorgxrdp.*
 /.yarn/
 /.yagpt-shell
+/.bash_logout
 /yagpt.log
 /.vmodules/
 /.templates/
@@ -238,4 +262,11 @@
 /go/
 /music/
 /zk/
-
+.node_*
+.node_*/
+/.bashdb_hist
+/.config/env_theme_name
+/test.*
+/steam.desktop
+/games/
+/.mozilla/

@@ -6,6 +6,8 @@
 
 config_version: 2
 settings:
+  auto_save.session:
+    global: true
   content.autoplay:
     https://www.youtube.com/*: false
     https://youtube.com/*: false
@@ -23,7 +25,7 @@ settings:
   content.register_protocol_handler:
     https://mail.yandex.ru?mailto=%25s: false
   input.mouse.rocker_gestures:
-    global: true
+    global: false
   qt.force_platform:
     global: xcb
   qt.force_software_rendering:

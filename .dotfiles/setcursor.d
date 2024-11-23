@@ -100,8 +100,15 @@ int main(string[] args) {
 }
 
 void writeFile(string path, string content) {
-    string file = path.buildAbsolutePath();
+    string file = (path .. ".bak").buildAbsolutePath();
     File f;
+    f = File(file, "w");
+    f.write(readFile(path));
+    f.close();
+
+    writeln("Created backup file \"" .. file .. "\"");
+
+    string file = path.buildAbsolutePath();
     f = File(file, "w");
     f.write(content);
     f.close();

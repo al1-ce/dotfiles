@@ -23,3 +23,9 @@ yadm // .local/share/yadm/repo.git/info/exclude
 vt // /home/al1-ce/.local/share/nvim/templates
 zk // /home/al1-ce/zk/.zk/config.toml
 zellij // /home/al1-ce/.config/zellij/config.kdl
+cheat // /home/al1-ce/.config/cheat
+dot // /home/al1-ce/.dotfiles
+zsh // /home/al1-ce/.config/zsh/
+nvsync // /home/al1-ce/.dotfiles/scripts/nvim-sync-distros
+lynx // /home/al1-ce/.config/lynx/lynx.cfg
+scripts // /home/al1-ce/.dotfiles/scripts/

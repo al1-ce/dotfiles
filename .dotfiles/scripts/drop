@@ -11,14 +11,21 @@ if [ ! -d "$invdir" ]; then
     mkdir "$invdir"
 fi
 
-if [ ! -e "$invdir"/"$1" ]; then
+inv_file="$1"
+
+if [ -z "$inv_file" ]; then
+    inv_file="$(gum file -a $INVDIR)"
+    inv_file="$(basename $inv_file)"
+fi
+
+if [ ! -e "$invdir"/"$inv_file" ]; then
     echo "You can't drop something that doesn't exist!"
 else
-    if [ -e ./"$1" ]; then
+    if [ -e ./"$inv_file" ]; then
         printf "Oh no!\nThe file that you are trying to drop already exists. Please rename it or drop it somewhere else.\n"
     else
-        mv "$invdir"/"$1" ./
-        echo "You dropped "$1"."
+        mv "$invdir"/"$inv_file" ./
+        echo "You dropped "$inv_file"."
     fi
 fi
 

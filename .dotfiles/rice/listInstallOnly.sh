@@ -1,1 +1,1 @@
-yay -S --needed $(awk '!/^ *#/ && NF' pkglist.conf) --nodiffmenu --noeditmenu --nouseask --nocleanmenu
+yay -S --needed $(awk '!/^ *#/ && NF' ~/.dotfiles/rice/pkglist.conf)

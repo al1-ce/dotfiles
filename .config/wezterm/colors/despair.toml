@@ -1,0 +1,44 @@
+# name: Despair
+# author: al1-ce
+# license: MIT
+# blurb: despair
+
+[colors]
+ansi = [
+  "#101010", #Black
+  "#903a3a", # Red
+  "#6d7144", # Green
+  "#af8431", # Yellow
+  "#50616f", # Blue
+  "#92729f", # Purple
+  "#61837e", # Cyan
+  "#7c7c7c", # White
+]
+brights = [
+  "#8e8e8e", # Black
+  "#ce5252", # Red
+  "#9ca54e", # Green
+  "#f0c674", # Yellow
+  "#5f819d", # Blue
+  "#b48ac4", # Purple
+  "#73b8af", # Cyan
+  "#b9b9b9", # White
+]
+foreground = "#b9b9b9"
+background = "#101010"
+
+cursor_bg = "#101010"
+cursor_border = "#b9b9b9"
+cursor_fg = "#b9b9b9"
+selection_bg = "#b9b9b9"
+selection_fg = "#101010"
+
+[colors.indexed]
+
+[metadata]
+aliases = ["Despair"]
+name = "despair"
+origin_url = "https://github.com/al1-ce/monolith.nvim"
+wezterm_version = "Always"
+
+

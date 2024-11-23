@@ -30,8 +30,9 @@ groups = [
     Group(name = group_names[8], label = icons["group_gfx"], layout="columns", persist = True, init = True),
     Group(name = group_names[9], label = icons["group_msc"], layout="columns", persist = True, init = True),
     ScratchPad(name = group_names[10], dropdowns = [
-        DropDown("quake", "kitty -T QuakeTerminal",
-            match=Match(title="QuakeTerminal"), width=1, x=0, height=0.45, on_focus_lost_hide=True
+        # DropDown("quake", "kitty -T QuakeTerminal",
+        DropDown("quake", "wezterm start --class 'org.wezfurlong.wezterm.quake'",
+            match=Match(wm_class="org.wezfurlong.wezterm.quake"), width=1, x=0, height=0.45, on_focus_lost_hide=True
             ),
         ])
     ]

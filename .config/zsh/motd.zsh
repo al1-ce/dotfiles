@@ -1,0 +1,2 @@
+~/.dotfiles/bin/fetch
+

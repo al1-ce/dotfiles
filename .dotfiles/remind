@@ -19,12 +19,21 @@ csvlens                 less for csv
 gh-dash                 github dashboard
 gl                      gitless (easy git)
 fq                      jq for binary formats (wader/fq)
+gitleaks                check for hardcoded key leaks
+jsh                     javascript unix scripting utils
+shelljs                 jsh but on steroids
+cppipe                  run c programs as scripts
+tldr                    web fetched command cheatsheet
+cheat                   local command cheatsheet
+grip                    serve gh markdown
+bashdb                  bash debugger
 
 #  UNIX                                                    #
 hr                      horisontal ruler
 tail -f file            monitor file changes
 watch                   track command output
 ranger                  cli file manager
+rover                   dead simple file manager
 aria2c                  torrent (aria2 pkg)
 cod                     completion daemon
 tere                    quick cd/ls
@@ -37,6 +46,7 @@ duf                     better df alternative
 dust                    better du alternative
 gpg-tui                 easy gpg (orhun/gpg-tui)
 ov                      alternative pager (noborus/ov)
+shpool                  tmux but only sessions
 
 # PACMAN                                                   #
 yay                     aur package manager
@@ -68,6 +78,8 @@ streamlink              cli video pipe
 glow                    pretty markdown viewer
 mdcat                   markdown viewer with images
 mdp                     markdown presentation
+kooha                   screen recorder
+kew                     cli music player (ravachol/kew)
 
 # SOCIAL                                                   #
 weechat                 irc chat

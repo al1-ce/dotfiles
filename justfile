@@ -6,9 +6,7 @@
 # List available recipes
 @list:
     echo ""
-    echo "Available Recipes at"
-    echo "$PWD"
-    echo "are:"
+    echo "Available Recipes at $PWD are:"
     echo ""
     just -l --list-prefix 'just ' --list-heading ''
     echo ""

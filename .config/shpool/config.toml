@@ -1,0 +1,8 @@
+prompt_prefix = ""
+session_restore_mode = "simple"
+motd = "never"
+
+[[keybinding]]
+# binding = ""
+binding = "Ctrl-d"
+action = "detach"
