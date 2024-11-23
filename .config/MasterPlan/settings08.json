@@ -14,7 +14,7 @@
     "PlayAlarmSound": true,
     "ShowAboutDialogOnStart": false,
     "ReversePan": false,
-    "CustomFontPath": "/home/al1-ce/downloads/DinaRemaster.ttf",
+    "CustomFontPath": "/home/al1-ce/downloads/misc/DinaRemaster.ttf",
     "ScreenshotPath": "",
     "AutoLoadLastProject": true,
     "SmoothMovement": true,
@@ -42,7 +42,8 @@
     "BorderlessWindow": true,
     "AlwaysShowNumbering": false,
     "Display Deadlines As": "",
-    "time unit": null
+    "time unit": null,
+    "SuccesfulLoad": true
   },
   "recent files": ["/home/al1-ce/downloads/coffin/coffin.plan"],
   "keybindings": {

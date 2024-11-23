@@ -47,6 +47,7 @@ dust                    better du alternative
 gpg-tui                 easy gpg (orhun/gpg-tui)
 ov                      alternative pager (noborus/ov)
 shpool                  tmux but only sessions
+zenity                  gui dialogs
 
 # PACMAN                                                   #
 yay                     aur package manager

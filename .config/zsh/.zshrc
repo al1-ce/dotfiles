@@ -1,5 +1,8 @@
 
-[ ! -n "$ZSH_ENV_WAS_SOURCED" ] && source "$HOME/.zshenv"
+# if [ ! -n "$ZSH_ENV_WAS_SOURCED" ]; then
+#     source "$HOME/.zshenv"
+#     export ZSH_ENV_WAS_SOURCED="yes"
+# fi
 
 # No sense to load those things in non-tty mode
 # if they're not touching env plus it'd pollute
