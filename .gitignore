@@ -9,6 +9,8 @@
 /.config/codestats.lua
 /.config/polybar/scripts/now_playing/data/data.json
 /.dotfiles/scripts/data/data.json
+/.config/zsh/.zcompdump
+/.Xauthority
 
 # Machine-local
 /.xexec

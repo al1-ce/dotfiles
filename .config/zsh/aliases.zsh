@@ -96,3 +96,8 @@ if __has qtile; then
     alias qtile-restart="qtile cmd-obj -o cmd -f restart"
 fi
 
+if [[ "$(uname -n)" == "Helios" ]]; then
+    alias boot-apollo='sudo grub-reboot Apollo && sudo shutdown -r 0'
+fi
+
+
