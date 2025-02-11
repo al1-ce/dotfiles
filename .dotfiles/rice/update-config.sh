@@ -12,6 +12,7 @@ copyEtcFile() {
 }
 
 copyEtc greetd
+copyEtc zsh
 
 copyEtcFile pacman.conf
 

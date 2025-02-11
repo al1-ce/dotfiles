@@ -1,15 +1,12 @@
 #!/bin/sh
 
-xinput set-prop "pointer:Logitech G304" "libinput Accel Speed" -0.8
-xinput set-prop "pointer:Logitech G304" "libinput Accel Profile Enabled" 1 0 0
-
 # xset s 0 0
 # xset s off
 # TODO: move it somewhere where it'd work
 
 # streamdeck --no-ui &
-companion &
-nohup gromit-mpx > /tmp/gromit-mpx.log &
+# companion &
+# nohup gromit-mpx > /tmp/gromit-mpx.log &
 
 # twm &
 # xclock -geometry 50x50-1+1 &
@@ -23,19 +20,23 @@ nohup gromit-mpx > /tmp/gromit-mpx.log &
 # xinput map-to-output "Melfas LGDisplay Incell Touch" DP-0
 # systemctl --user enable opentabletdriver --now
 
-# ~/.screenlayout/main.sh
+# [ -f ~/.screenlayout/main.sh ] && . ~/.screenlayout/main.sh
 
 numlockx &
 xsettingsd &
 dunst &
-picom &
+# picom &
 pasystray &
 powerkit &
 blueman-applet &
 blueman-tray &
-yandex-disk start &
-yandex-disk-indicator &
-lxpolkit &
-unclutter --timeout 2147483647 --hide-on-touch -b &
+# yandex-disk start &
+# yandex-disk-indicator &
+# lxpolkit &
+lxqt-policykit-agent &
+
+# mpv --volume=80 "$HOME/.dotfiles/audio/boot.mp3" &
+
+# unclutter --timeout 2147483647 --hide-on-touch -b &
 # start-pulseaudio-x13 &
 

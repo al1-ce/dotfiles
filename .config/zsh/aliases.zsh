@@ -62,8 +62,8 @@ __has dart      && alias pub="dart pub"
 __has npm       && alias npm="~/.dotfiles/scripts/npm.js"
 __has reuse     && alias reuse="reuse --suppress-deprecation"
 
-__has trans     && alias trenru="trans -e google -I -hl en -t ru"
-__has trans     && alias trruen="trans -e google -I -hl ru -t en"
+__has trans     && alias tenru="trans -e google -I -hl en -t ru"
+__has trans     && alias truen="trans -e google -I -hl ru -t en"
 
 __has egrep     && alias egrep="egrep --color=auto"
 __has fgrep     && alias fgrep="fgrep --color=auto"
@@ -94,6 +94,10 @@ fi
 if __has qtile; then
     alias qtile-reload="qtile cmd-obj -o cmd -f reload_config"
     alias qtile-restart="qtile cmd-obj -o cmd -f restart"
+fi
+
+if __has mpv; then
+    alias play='mpv "$(gum file)"'
 fi
 
 if [[ "$(uname -n)" == "Helios" ]]; then

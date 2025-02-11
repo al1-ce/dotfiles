@@ -764,12 +764,12 @@ c.colors.contextmenu.selected.fg = FG
 
 # color for the download bar.
 c.colors.downloads.bar.bg = BG
-c.colors.downloads.error.bg = RED
-c.colors.downloads.error.fg = FG
-c.colors.downloads.start.bg = AQUA
-c.colors.downloads.start.fg = FG
-c.colors.downloads.stop.bg = AQUA
-c.colors.downloads.stop.fg = FG
+c.colors.downloads.error.bg = BG
+c.colors.downloads.error.fg = RED
+c.colors.downloads.start.bg = BG
+c.colors.downloads.start.fg = AQUA
+c.colors.downloads.stop.bg = BG
+c.colors.downloads.stop.fg = AQUA
 c.colors.downloads.system.bg = 'none'
 c.colors.downloads.system.fg = 'none'
 

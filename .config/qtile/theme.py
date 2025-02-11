@@ -3,6 +3,7 @@
 import os
 
 config_home = os.environ["XDG_CONFIG_HOME"] if "XDG_CONFIG_HOME" in os.environ else os.path.expanduser("~/.config")
+hostname = os.uname()[1]
 
 themes = {
     "gruvbox": {
@@ -86,3 +87,6 @@ if os.path.exists(config_home + "/env_theme_name"):
 
 # current theme
 theme = themes[selected_theme]
+
+if hostname == "Mars" and selected_theme == "despair":
+    theme["wallpaper"] = config_home + "/qtile/wallpapers/forest.png"

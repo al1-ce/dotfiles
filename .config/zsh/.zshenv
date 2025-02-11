@@ -24,6 +24,7 @@ export PATH="/usr/sbin:$PATH"
 export PATH="/var/lib/flatpak/exports/bin/:$PATH"
 
 # zsh config
+export HISTFILE="$XDG_DATA_HOME/zsh/history"
 export HISTZIE="8192"
 export SAVEHIST="8192"
 

@@ -38,6 +38,7 @@ let repolist = [];
 for (let user of userlist) {
     if (user == "") continue;
     if (!user.endsWith("/")) continue;
+    if (user.startsWith(".")) continue;
     if (exists(proj_dir + "/" + user + ".nonrepo")) continue;
     let repos = eza(proj_dir + "/" + user);
     // console.log(repos);
