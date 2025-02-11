@@ -101,7 +101,7 @@ icons_dina = {
 
     "text_font": "DinaRemaster",
     "text_size": 16,
-    "icon_font": "CozetteHiDpi",
+    "icon_font": "Cozette",
     "icon_size": 31,
 }
 
