@@ -171,6 +171,11 @@
 /.config/Pinta/
 /.config/kcalcrc
 /.config/MasterPlan/log_*
+/.config/PyNGtuber/
+/.config/Puppetstring/
+/.config/nodemon.json
+/.config/inochi-creator/
+/.config/inochi-session/
 
 # Not own repos
 /.config/nvim/
@@ -179,6 +184,7 @@
 /.config/monolith.nvim/
 
 # Home dir ignore
+/.veadotube/
 /.TrenchBroom/
 /.bash_history
 /.byobu/
@@ -264,6 +270,8 @@
 /gamedisk/
 /go/
 /music/
+/video/
+/videos/
 /zk/
 .node_*
 .node_*/
@@ -273,3 +281,4 @@
 /steam.desktop
 /games/
 /.mozilla/
+/.wine/

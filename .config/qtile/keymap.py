@@ -107,6 +107,7 @@ keys = [EzKey(k[0], *k[1:-1], desc = k[-1]) for k in [
     ("M-S-s",        lazy.spawn(apps.steam), "Spawn Steam"),
     ("M-S-b",        lazy.spawn(apps.beeper), "Spawn Beeper"),
     ("M-S-r",        lazy.spawn(apps.rustdesk), "Spawn RustDesk"),
+    ("M-S-a",        lazy.spawn(apps.amnesia_vpn), "Spawn AmnesiaVPN"),
     # Screen
     ("<Print>",      lazy.spawn(apps.screenshot), "Take screenshot"),
     ("S-<Print>",    lazy.spawn(apps.screenrec), "Spawn screen recorder"),

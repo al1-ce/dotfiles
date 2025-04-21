@@ -4,7 +4,11 @@ local io = require("stdio")
 local js_popup_open = io.read_file(luakit.config_dir .. "/popup_open.js")
 local js_popup_close = io.read_file(luakit.config_dir .. "/popup_close.js")
 
-local function create_popup(w, text)
+local function create_popup(w, header, text)
+    w.view:eval_js("var luakit_popup_text = `" .. text .. "`; var luakit_popup_header = `" .. header .. "`", {
+        no_return = true,
+        callback = function(_, e) w:error(e) end,
+    })
     w.view:eval_js(js_popup_open, {
         no_return = true,
         callback = function(_, e) w:error(e) end,
@@ -45,6 +49,15 @@ local function set_mode(w, mode, reset_prompt)
     return not w:is_mode("passthrough")
 end
 
+local hintGitpopup = [[
+  s: Status    
+  b: Branches  
+  c: Commits   
+  S: Stash     
+  g: GUI       
+               
+  q: Quit      ]]
+
 local hintGit = [[
 ┌     git     ┐
   s: Status    
@@ -58,26 +71,27 @@ local hintGit = [[
 
 
 -- w stands for window
-modes.add_binds("normal", {
-    { "\\", "Open Hydra",
-    function(w)
-        w:notify(hintGit)
-        set_mode(w, "hydra")
-    end},
-    { ";", "Open Popup",
-    function(w)
-        create_popup(w, "Test")
-    end}
-})
-
-modes.add_binds("hydra", {
-    { "s", "Test", function(w) w:notify("Status!!!"); set_mode(w, "normal") end },
-    { "b", "Test", function(w) w:notify("Branches!!!"); set_mode(w, "normal") end },
-    { "c", "Test", function(w) w:notify("Commits!!!"); set_mode(w, "normal") end },
-    { "S", "Test", function(w) w:notify("Stash!!!"); set_mode(w, "normal") end },
-    { "g", "Test", function(w) w:notify("GUI!!!"); set_mode(w, "normal") end },
-    { "<Escape>", "Return to `normal` mode.", function(w) set_mode(w, "normal", true) end},
-    { "q", "Return to `normal` mode.", function(w) set_mode(w, "normal", true) end},
-    { "\\", "Return to `normal` mode.", function(w) set_mode(w, "normal", true) end},
-})
+-- modes.add_binds("normal", {
+--     { "\\", "Open Hydra",
+--     function(w)
+--         w:notify(hintGit)
+--         set_mode(w, "hydra")
+--     end},
+--     { ";", "Open Popup",
+--     function(w)
+--         set_mode(w, "hydra")
+--         create_popup(w, "git", hintGitpopup)
+--     end}
+-- })
+--
+-- modes.add_binds("hydra", {
+--     { "s", "Test", function(w) w:notify("Status!!!"); set_mode(w, "normal") end },
+--     { "b", "Test", function(w) w:notify("Branches!!!"); set_mode(w, "normal") end },
+--     { "c", "Test", function(w) w:notify("Commits!!!"); set_mode(w, "normal") end },
+--     { "S", "Test", function(w) w:notify("Stash!!!"); set_mode(w, "normal") end },
+--     { "g", "Test", function(w) w:notify("GUI!!!"); set_mode(w, "normal") end },
+--     { "<Escape>", "Return to `normal` mode.", function(w) set_mode(w, "normal", true) end},
+--     { "q", "Return to `normal` mode.", function(w) set_mode(w, "normal", true) end},
+--     { "\\", "Return to `normal` mode.", function(w) set_mode(w, "normal", true) end},
+-- })
 

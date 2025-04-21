@@ -1,3 +1,3 @@
 {
-    document.getElementById("luakit_popup").remove();
+    document.getElementById("luakit_popup")?.remove();
 }

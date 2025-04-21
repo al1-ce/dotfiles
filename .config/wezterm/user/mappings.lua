@@ -4,7 +4,7 @@ local wezterm = require('wezterm')
 local M = {}
 
 M.keys = {
-    { key = 'u',        mods = 'CTRL|SHIFT', action = wezterm.action.CharSelect },
+    { key = 'u',        mods = 'CTRL|SHIFT', action = wezterm.action.CharSelect({ copy_on_select = false, group = "RecentlyUsed" }) },
     { key = 'p',        mods = 'CTRL|SHIFT', action = wezterm.action.ActivateCommandPalette },
     { key = 'c',        mods = 'CTRL|SHIFT', action = wezterm.action.CopyTo("ClipboardAndPrimarySelection") },
     { key = 'Insert',   mods = 'CTRL',       action = wezterm.action.CopyTo("ClipboardAndPrimarySelection") },

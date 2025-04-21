@@ -249,6 +249,7 @@ doc_for() {
 
             sleep 0.35
 
+            # $var = exec "$var"
             # lynx -assume_charset=utf-8 \
             $browser \
                 "http://127.0.0.1:2517/${slug}/pages/${dpath}${frag}"
@@ -286,15 +287,15 @@ print_help() {
 
 check_health() {
     echo "Missing programs:"
-    __has awk    || echo "    awk"
-    __has sed    || echo "    sed"
-    __has fzf    || echo "    fzf"
-    __has jq     || echo "    jq"
-    __has lr     || echo "    lr"
-    __has npm    || echo "    npm"
-    __has node   || echo "    node"
-    __has curl   || echo "    curl"
-    __has screen || echo "    screen"
+    __has awk      || echo "    awk"
+    __has sed      || echo "    sed"
+    __has fzf      || echo "    fzf"
+    __has jq       || echo "    jq"
+    __has lr       || echo "    lr"
+    __has npm      || echo "    npm"
+    __has node     || echo "    node"
+    __has curl     || echo "    curl"
+    __has screen   || echo "    screen"
     __has $browser || echo "    missing browser (lynx > w3m > elinks)"
 }
 
@@ -332,7 +333,10 @@ main() {
     elif [ "$1" = "reinit_cache_dir" ]; then
         init_cache_dir
     else
-        doc_for "$@ "
+        while true; do
+            doc_for "$@ " || exit 1
+            sleep 1
+        done
     fi
 }
 

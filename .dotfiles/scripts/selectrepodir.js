@@ -40,6 +40,10 @@ for (let user of userlist) {
     if (!user.endsWith("/")) continue;
     if (user.startsWith(".")) continue;
     if (exists(proj_dir + "/" + user + ".nonrepo")) continue;
+    if (exists(proj_dir + "/" + user + ".metarepo")) {
+        repolist.push(user.substring(0, user.length - 1));
+        continue;
+    }
     let repos = eza(proj_dir + "/" + user);
     // console.log(repos);
     if (repos.length == 0 || (repos.length == 1 && repos[0] == "")) {

@@ -308,106 +308,98 @@ c.bindings.key_mappings = {
     '<Ctrl-Enter>': '<Ctrl-Return>',
 }
 
-c.aliases.update({
-    # '_File': 'fake-key --global |f',
-    '_Page': 'fake-key --global |p',
-    '_Tabs': 'fake-key --global |t',
-    '_Marks': 'fake-key --global |m',
-    '_Download': 'fake-key --global |d',
-    '_Hint': 'fake-key --global |h',
-    '_Config': 'fake-key --global |c',
-    '_Yank': 'fake-key --global |y',
-    # '_Menu': 'fake-key --global <Escape>',
-})
+class Head:
+    prefix = ""
 
-# config.bind('\\f', '_File')
-config.bind(';p', '_Page')
-config.bind(';t', '_Tabs')
-config.bind(';m', '_Marks')
-config.bind(';d', '_Download')
-config.bind(';h', '_Hint')
-config.bind(';c', '_Config')
-config.bind(';y', '_Yank')
+    def key(self, key, func):
+        config.bind("|" + self.prefix + key, func)
+
+def head_create(page_name):
+    p = Head()
+    p.prefix = page_name.lower()[0]
+    fake = "_" + page_name
+    config.bind(";" + p.prefix, fake)
+    c.aliases[fake] = "fake-key --global |" + p.prefix;
+    return p
+
+h_page = head_create("Page")
+h_page.key('u', 'navigate up -t')
+h_page.key('s', 'view-source')
+h_page.key('d', 'devtools')
+h_page.key('f', 'devtools-focus')
+h_page.key('h', 'devtools left')
+h_page.key('j', 'devtools bottom')
+h_page.key('k', 'devtools top')
+h_page.key('l', 'devtools right')
+h_page.key('w', 'devtools window')
+
+h_tab = head_create("Tab")
+h_tab.key('c', 'tab-clone')
+h_tab.key('g', 'tab-give')
+h_tab.key('o', 'tab-only')
+h_tab.key('C', 'tab-close -o')
+h_tab.key('R', 'set input.mouse.rocker_gestures true')
+h_tab.key('r', 'set input.mouse.rocker_gestures false')
+
+h_mark = head_create("Mark")
+h_mark.key('q', 'cmd-set-text -s :quickmark-load')
+h_mark.key('Q', 'cmd-set-text -s :quickmark-load -t')
+h_mark.key('w', 'cmd-set-text -s :quickmark-load -w')
+h_mark.key('h', 'history')
+h_mark.key('a', 'bookmark-add')
+h_mark.key('l', 'bookmark-list')
+h_mark.key('L', 'bookmark-list --jump')
+h_mark.key('b', 'cmd-set-text -s :bookmark-load')
+h_mark.key('B', 'cmd-set-text -s :bookmark-load -t')
+h_mark.key('W', 'cmd-set-text -s :bookmark-load -w')
+
+h_download = head_create("Download")
+h_download.key('d', 'download')
+h_download.key('c', 'download-cancel')
+h_download.key('C', 'download-clear')
+
+h_hint = head_create("Hint")
+h_hint.key('i', 'hint images')
+h_hint.key('I', 'hint images tab')
+h_hint.key('l', 'hint links fill :open {hint-url}')
+h_hint.key('L', 'hint links fill :open -t -r {hint-url}')
+h_hint.key('r', 'hint --rapid links tab-bg')
+h_hint.key('R', 'hint --rapid links window')
+h_hint.key('a', 'hint all tab-fg')
+h_hint.key('A', 'hint all tab-bg')
+h_hint.key('w', 'hint all window')
+h_hint.key('d', 'hint links download')
+h_hint.key('D', 'hint images download')
+h_hint.key('h', 'hint all hover')
+h_hint.key('t', 'hint inputs')
+h_hint.key('T', 'hint inputs --first')
+h_hint.key('y', 'hint links yank')
+h_hint.key('Y', 'hint links yank-primary')
+
+h_conf = head_create("Config")
+h_conf.key('c', 'config-cycle -p -t -u {url} content.cookies.accept all no-3rdparty never ;; reload')
+h_conf.key('C', 'config-cycle -p -t -u *://{url:host}/* content.cookies.accept all no-3rdparty never ;; reload')
+h_conf.key('i', 'config-cycle -p -t -u {url} content.images ;; reload')
+h_conf.key('I', 'config-cycle -p -t -u *://{url:host}/* content.images ;; reload')
+h_conf.key('p', 'config-cycle -p -t -u {url} content.plugins ;; reload')
+h_conf.key('P', 'config-cycle -p -t -u *://{url:host}/* content.plugins ;; reload')
+h_conf.key('j', 'config-cycle -p -t -u {url} content.javascript.enabled ;; reload')
+h_conf.key('J', 'config-cycle -p -t -u *://{url:host}/* content.javascript.enabled ;; reload')
+h_conf.key('r', 'config-source')
+
+h_yank = head_create("Yank")
+h_yank.key('l', 'yank url')
+
+h_view = head_create("View")
+h_view.key('m', 'spawn --detach mpv --force-window {url}')
+h_view.key('h', 'hint links spawn --detach mpv --force-window {hint-url}')
+
+config.bind('<Ctrl-Shift-M>', 'spawn --detach mpv --force-window {url}')
+config.bind('<Ctrl-M>', 'hint links spawn --detach mpv --force-window {hint-url}')
+
 config.bind(';Q', 'quit')
 config.bind(';q', 'quit --save')
 config.bind(';w', 'save')
-
-# File
-
-# Page
-config.bind('|pu', 'navigate up -t')
-config.bind('|ps', 'view-source')
-config.bind('|pd', 'devtools')
-config.bind('|pf', 'devtools-focus')
-config.bind('|ph', 'devtools left')
-config.bind('|pj', 'devtools bottom')
-config.bind('|pk', 'devtools top')
-config.bind('|pl', 'devtools right')
-config.bind('|pw', 'devtools window')
-# config.bind('|p;', '_Menu')
-
-# Tabs
-config.bind('|tc', 'tab-clone')
-config.bind('|tg', 'tab-give')
-config.bind('|to', 'tab-only')
-# config.bind('|tc', 'tab-close')
-config.bind('|tC', 'tab-close -o')
-# config.bind('|t;', '_Menu')
-config.bind('|tR', 'set input.mouse.rocker_gestures true')
-config.bind('|tr', 'set input.mouse.rocker_gestures false')
-
-# Marks
-config.bind('|mq', 'cmd-set-text -s :quickmark-load')
-config.bind('|mQ', 'cmd-set-text -s :quickmark-load -t')
-config.bind('|mw', 'cmd-set-text -s :quickmark-load -w')
-config.bind('|mh', 'history')
-config.bind('|ma', 'bookmark-add')
-config.bind('|ml', 'bookmark-list')
-config.bind('|mL', 'bookmark-list --jump')
-config.bind('|mb', 'cmd-set-text -s :bookmark-load')
-config.bind('|mB', 'cmd-set-text -s :bookmark-load -t')
-config.bind('|mW', 'cmd-set-text -s :bookmark-load -w')
-# config.bind('|m;', '_Menu')
-
-# Downloads
-config.bind('|dd', 'download')
-config.bind('|dc', 'download-cancel')
-config.bind('|dC', 'download-clear')
-# config.bind('|d;', '_Menu')
-
-# Hint
-config.bind('|hi', 'hint images')
-config.bind('|hI', 'hint images tab')
-config.bind('|hl', 'hint links fill :open {hint-url}')
-config.bind('|hL', 'hint links fill :open -t -r {hint-url}')
-config.bind('|hr', 'hint --rapid links tab-bg')
-config.bind('|hR', 'hint --rapid links window')
-config.bind('|ha', 'hint all tab-fg')
-config.bind('|hA', 'hint all tab-bg')
-config.bind('|hw', 'hint all window')
-config.bind('|hd', 'hint links download')
-config.bind('|hD', 'hint images download')
-config.bind('|hh', 'hint all hover')
-config.bind('|ht', 'hint inputs')
-config.bind('|hT', 'hint inputs --first')
-config.bind('|hy', 'hint links yank')
-config.bind('|hY', 'hint links yank-primary')
-# config.bind('|h;', '_Menu')
-
-# Config
-config.bind('|cc', 'config-cycle -p -t -u {url} content.cookies.accept all no-3rdparty never ;; reload')
-config.bind('|cC', 'config-cycle -p -t -u *://{url:host}/* content.cookies.accept all no-3rdparty never ;; reload')
-config.bind('|ci', 'config-cycle -p -t -u {url} content.images ;; reload')
-config.bind('|cI', 'config-cycle -p -t -u *://{url:host}/* content.images ;; reload')
-config.bind('|cp', 'config-cycle -p -t -u {url} content.plugins ;; reload')
-config.bind('|cP', 'config-cycle -p -t -u *://{url:host}/* content.plugins ;; reload')
-config.bind('|cj', 'config-cycle -p -t -u {url} content.javascript.enabled ;; reload')
-config.bind('|cJ', 'config-cycle -p -t -u *://{url:host}/* content.javascript.enabled ;; reload')
-config.bind('|cr', 'config-source')
-# config.bind('|c;', '_Menu')
-
-# Yank
-config.bind('|yl', 'yank url')
 
 # Bindings for normal mode
 config.bind("`", 'mode-enter jump_mark')
@@ -442,9 +434,6 @@ config.bind('<Ctrl-Shift-O>', 'cmd-set-text -s :open -w')
 config.bind('R', 'reload -f')
 config.bind('P', 'open -t -- {primary}')
 config.bind('p', 'open -t -- {clipboard}')
-
-config.bind('<Ctrl-Shift-M>', 'spawn --detach mpv --force-window {url}')
-config.bind('<Ctrl-M>', 'hint links spawn --detach mpv --force-window {hint-url}')
 
 config.bind('<Ctrl-l>', 'cmd-set-text :open {url:pretty}')
 config.bind('<Ctrl-1>', 'tab-focus 1')

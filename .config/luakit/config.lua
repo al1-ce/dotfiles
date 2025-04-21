@@ -48,10 +48,10 @@ settings.webview.allow_modal_dialogs = true
 settings.webview.javascript_can_access_clipboard = true
 
 settings.window.default_search_engine = "duckduckgo"
-settings.window.home_page = "https://al1-ce.github.io/homepage/"
-settings.window.new_tab_page = "https://al1-ce.github.io/homepage/"
+settings.window.home_page = "https://home.al1-ce.dev/"
+settings.window.new_tab_page = "https://home.al1-ce.dev/"
 
-settings.window.home_page = "https://al1-ce.github.io/homepage/"
+settings.window.home_page = "https://home.al1-ce.dev/"
 
 settings.window.search_engines = {
     ["default"] = "https://duckduckgo.com/?q=%s",
@@ -61,8 +61,8 @@ settings.window.search_engines = {
     ["wikipedia"] = "https://en.wikipedia.org/wiki/Special:Search?search=%s",
 }
 
-newtab_chrome.new_tab_file = "https://al1-ce.github.io/homepage/index.html"
-newtab_chrome.new_tab_src = [[ <script>window.location.href = 'https://al1-ce.github.io/homepage/'</script> ]]
+-- newtab_chrome.new_tab_file = "https://home.al1-ce.dev/"
+newtab_chrome.new_tab_src = [[ <script>window.location.href = 'https://home.al1-ce.dev/'</script> ]]
 
 select.label_maker = function()
     ---@diagnostic disable-next-line: undefined-global

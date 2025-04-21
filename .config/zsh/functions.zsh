@@ -196,3 +196,11 @@ if __has boxes; then
     }
 fi
 
+if [[ "$(uname -n)" == "Helios" ]]; then
+    # alias boot-apollo='sudo grub-reboot Apollo && sudo shutdown -r 0'
+    boot-apollo() {
+        sudo sed -i -e '/saved_entry/c\saved_entry=Apollo' /boot/grub/grubenv
+        sudo shutdown -r 0
+    }
+fi
+

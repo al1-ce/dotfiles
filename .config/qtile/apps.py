@@ -49,8 +49,10 @@ def unrace_exec(cmd):
 
 home            = os.path.expanduser('~')
 dotfiles        = home + "/.dotfiles"
-altbrowser      = "vivaldi-stable"
+# altbrowser      = "vivaldi-stable"
+altbrowser      = "luakit"
 mybrowser       = "qutebrowser"
+browser_private = "qutebrowser --target private-window"
 filemanager     = unrace_exec("ranger")
 filemanager_gui = "nemo"
 editor          = unrace_exec("nvim")
@@ -103,4 +105,8 @@ screen_keyboard = "ls" # FIXME: put something that works
 
 tabletscript = dotfiles + "/scripts/maptotablet.sh"
 touchsscript = dotfiles + "/scripts/maptotouchs.sh"
+
+amnesia_vpn = "AmneziaVPN"
+
+
 

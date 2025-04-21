@@ -9,20 +9,27 @@ targetPath "bin/"
 +/
 
 import std.getopt: getopt, Option, config;
-import std.stdio: writeln, write, File, readln;
+import std.stdio: writeln, write, File, readln, stderr;
 import std.array: split, replace;
-import std.process: wait, spawnProcess, execute;
+import std.process: wait, spawnProcess, execute, environment;
 import std.file;
+
+import std.string: toStringz;
 
 import sily.getopt;
 import sily.bashfmt: eraseLines;
+
+import core.sys.posix.unistd: access, F_OK;
+
+import core.stdc.stdlib: exit, EXIT_FAILURE;
 
 string fixPath(string p) {
     import std.path : absolutePath, buildNormalizedPath, expandTilde;
     return p.expandTilde.absolutePath.buildNormalizedPath;
 }
 
-const string gitPath = "https://aur.archlinux.org/@.git";
+const string gitPath = "https://aur.archlinux.org/REPO.git";
+const string gitSSH = "ssh://aur@aur.archlinux.org/REPO.git";
 const string _version = "aur v1.0.0";
 
 bool optForce = false;
@@ -36,7 +43,8 @@ int main(string[] args) {
     );
 
     Option[] commands = [
-        customOption("clone", "clones package"),
+        customOption("clone", "clones https package"),
+        customOption("clone", "clones ssh package"),
         customOption("build", "builds package"),
         customOption("install", "installs package"),
         customOption("srcinfo", "generates .SRCINFO"),
@@ -56,8 +64,13 @@ int main(string[] args) {
         return 0;
     }
 
+    if (!checkDep("git")) error("Missing git binary");
+    if (!checkDep("namcap")) error("Missing namcap binary");
+    if (!checkDep("makepkg")) error("Missing makepkg binary");
+
     switch (args[1]) {
-        case "clone": return cloneRepo(args[2]);
+        case "clone_readonly": return cloneRepo(args[2], gitPath);
+        case "clone": return cloneRepo(args[2], gitSSH);
         case "build": return buildPkg();
         case "install": return installPkg();
         case "srcinfo": return genSrcInfo();
@@ -70,10 +83,18 @@ int main(string[] args) {
     // string kern = wait(spawnProcess(["uname", "-r"]).output[0..$-1]);
 }
 
-int cloneRepo(string repo) {
+int cloneRepo(string repo, string gpath) {
     assistant("Cloning " ~ repo);
-    auto _out = wait(spawnProcess(["git", "clone", gitPath.replace("@", repo)]));
+    auto _out = wait(spawnProcess(["git", "clone", gpath.replace("REPO", repo)]));
     return _out;
+}
+
+bool checkDep(string binary) {
+    string[] PATH = environment.get("PATH").split(':');
+    foreach (string p; PATH) {
+        if (access(fixPath(p ~ '/' ~ binary).toStringz, F_OK) == 0) return true;
+    }
+    return false;
 }
 
 int buildPkg() {
@@ -219,5 +240,10 @@ void assistant(string[] prompt...) {
     uint r = choice([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
     if (r == 0) writeln("( o o ) ", prompt[1]);
     else        writeln("( . . ) ", prompt[1]);
+}
+
+void error(string msg) {
+    stderr.writeln(msg);
+    exit(EXIT_FAILURE);
 }
 
