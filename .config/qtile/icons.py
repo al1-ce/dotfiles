@@ -23,6 +23,7 @@ icons_text = {
     "clock":     "clk", # mdi-clock-time-five-outline
     "music":     "mus",
     "mic":       "mic",
+    "wcount":    "wnm",
 
     "screen_focus":   "[x]", # mdi-chart-donut
     "screen_nofocus": "[ ]", # mdi-chart-donut
@@ -58,6 +59,7 @@ icons_mdi = {
     "clock":     "", # mdi-clock-time-five-outline
     "music":     "",
     "mic":       "",
+    "wcount":    "󰍹",
 
     "screen_focus":   "󰍹", # mdi-monitor
     "screen_nofocus": "󰶐", # mdi-monitor-off
@@ -92,6 +94,7 @@ icons_dina = {
     "clock":     "", # mdi-clock-time-five-outline
     "music":     "",
     "mic":       "",
+    "wcount":    "󰖯",
 
     "screen_focus":   "◇", # mdi-chart-donut
     "screen_nofocus": "◇", # mdi-chart-donut

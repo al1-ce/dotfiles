@@ -19,7 +19,7 @@ if [ "$(id -u)" = 0 ]; then
     exit 1
 fi
 
-echo-blue "## Script now will begin installation of AtheOS ##"
+echo-blue "## Script now will begin installation ##"
 echo " "
 echo-red "## Please be nearby since script might need your input or in case of any ##"
 echo-red "## errors that will come up. Also note that you will be required to      ##"
@@ -46,11 +46,11 @@ echo-blue "## Enabling AUR and installing PKM with YAY ##"
 sudo pacman -S --needed git base-devel
 git clone https://aur.archlinux.org/yay-bin.git
 cd yay-bin
-makepkg -si
+sudo makepkg -si
 cd ..
 rm -rf yay-bin
 
-which yay && echo-blue "## Successfully installed yay ##" || fail "Failed to install yay" 
+which yay && echo-blue "## Successfully installed yay ##" || fail "Failed to install yay"
 
 echo-blue "## Configuring YAY for first use ##"
 

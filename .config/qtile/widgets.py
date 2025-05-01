@@ -95,6 +95,11 @@ widgets = {
         parse_text = lambda text: "" if text is None else ( text.rsplit("— ", 1)[1] if text.find("— ") != -1 else text )
     )),
 
+    "wc_text": (lambda: widget.WindowCount(
+        **widget_defaults,
+        fmt = "{}"
+    )),
+
     "lastfm_text": (lambda: widget.GenPollCommand(
         **widget_defaults,
         cmd = apps.home + "/.dotfiles/scripts/lastfm.sh",
@@ -187,6 +192,7 @@ widgets = {
     # "calendar_icon": (lambda: widget.Image( **im_def, filename = images["calendar"])),
     # "clock_icon"   : (lambda: widget.Image( **im_def, filename = images["clock"])),
 
+    "wc_icon"      : (lambda: widget.TextBox( **fa_def, text = icons["wcount"])),
     "lastfm_icon"  : (lambda: widget.TextBox( **fa_def, text = icons["music"])),
     "update_icon"  : (lambda: widget.TextBox( **fa_def, text = icons["update"])),
     "disk_icon"    : (lambda: widget.TextBox( **fa_def, text = icons["disk"])),
@@ -204,6 +210,10 @@ def init_widgets():
 
         widgets["window_name"](),
 
+        widgets["wc_icon"](),
+        widgets["wc_text"](),
+
+        widgets["spacer"](),
         widgets["lastfm_icon"](),
         widgets["lastfm_text"](),
 

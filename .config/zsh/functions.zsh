@@ -133,27 +133,27 @@ if __has selectrepodir.js; then
 fi
 
 if __has nvim; then
-    nvim-switch() {
-        nvim_current="$(basename $(readlink ~/.config/nvim))"
-        rm ~/.config/nvim
-        if [[ "$nvim_current" == "monolith.nvim" ]]; then
-            echo "Current configuration is $nvim_current"
-            ln -sf ~/.config/despair.nvim ~/.config/nvim
-        else
-            echo "Current configuration is $nvim_current"
-            ln -sf ~/.config/monolith.nvim ~/.config/nvim
-        fi
-        echo "Set Neovim configuration to $(basename $(readlink ~/.config/nvim))"
-    }
+    # nvim-switch() {
+    #     nvim_current="$(basename $(readlink ~/.config/nvim))"
+    #     rm ~/.config/nvim
+    #     if [[ "$nvim_current" == "monolith.nvim" ]]; then
+    #         echo "Current configuration is $nvim_current"
+    #         ln -sf ~/.config/despair.nvim ~/.config/nvim
+    #     else
+    #         echo "Current configuration is $nvim_current"
+    #         ln -sf ~/.config/monolith.nvim ~/.config/nvim
+    #     fi
+    #     echo "Set Neovim configuration to $(basename $(readlink ~/.config/nvim))"
+    # }
 
-    nvim-set-config() {
-        if [ ! -d "$XDG_CONFIG_HOME/$@" ]; then
-            echo "Supplied config directory doesn't exist"
-            return 1
-        fi
-        rm ~/.config/nvim
-        ln -sf "$XDG_CONFIG_HOME/$@" "$XDG_CONFIG_HOME/nvim"
-    }
+    # nvim-set-config() {
+    #     if [ ! -d "$XDG_CONFIG_HOME/$@" ]; then
+    #         echo "Supplied config directory doesn't exist"
+    #         return 1
+    #     fi
+    #     rm ~/.config/nvim
+    #     ln -sf "$XDG_CONFIG_HOME/$@" "$XDG_CONFIG_HOME/nvim"
+    # }
 
     nvmerge() {
         if ( [[ "$@" == "-h" ]] || [[ "$@" == "--help" ]] ); then

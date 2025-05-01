@@ -10,7 +10,7 @@ setopt auto_cd
 setopt no_beep
 # setopt inc_append_history
 
-# set -o emacs
+set -o emacs
 # set -o vi
 
 unsetopt BEEP
@@ -34,6 +34,7 @@ zstyle ':completion:*' rehash true
 autoload -U add-zle-hook-widget
 
 export VI_KEYMAP="INS"
+
 function line_pre_redraw {
     local previous_vi_keymap="${VI_KEYMAP}"
     # echo "${ZLE_STATE}"
