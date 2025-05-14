@@ -71,6 +71,8 @@ __has grep      && alias grep="grep --color=auto"
 
 __has qtile     && alias qtile-restart='qtile cmd-obj -o cmd -f restart'
 
+__has zathura   && alias pdf="detach zathura"
+
 ( __has fzf && __has fc-list ) && alias ls-fonts='fc-list  --format="%{family[0]} %{style[0]}\n" | sort | uniq | fzf'
 
 if __has nvim; then

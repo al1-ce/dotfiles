@@ -8,6 +8,8 @@ targetType "executable"
 targetPath "bin/"
 +/
 
+// FIXME: convert is deprecated, figure out how to use magick here
+
 import std.getopt: getopt, Option, config;
 import std.stdio: writeln, write, File, readln;
 import std.array: split, replace, split, join, array;
@@ -37,10 +39,11 @@ const string FONTS_INDEX = "https://deb.debian.org/debian/dists/sid/main/binary-
 const string FONTS_MIRROR = "https://deb.debian.org/debian";
 
 // in case of no kitty replace kitty icat --align=left with wezterm imgcat
-const string HB_VIEW = "hb-view \"$FONT\" --text \"$TEXT\" --background=#282828 --foreground=#ebdbb2 -O svg | rsvg-convert | convert -trim -resize '25%' - - | kitty icat --align=left";
+// const string HB_VIEW = "hb-view \"$FONT\" --text \"$TEXT\" --background=#282828 --foreground=#ebdbb2 -O svg | rsvg-convert | convert -trim -resize '25%' - - | kitty icat --align=left";
+const string HB_VIEW = "hb-view \"$FONT\" --text \"$TEXT\" --background=#282828 --foreground=#ebdbb2 -O svg | rsvg-convert | convert -trim -resize '25%' - - | wezterm imgcat";
 const string FN_INFO = "otfinfo -i \"$FONT\" | head -6";
 
-const string _version = "fmg v1.0.0";
+const string _version = "fnt v1.0.0";
 string fontPath = "";
 string fontTemp = "";
 string fontCache = "";
@@ -73,7 +76,7 @@ int main(string[] args) {
     }
 
     if (help.helpWanted || args.length == 1) {
-        printGetopt("aur <operation> [...]",
+        printGetopt("fnt <operation> [...]",
             "Options", help.options, "Commands", commands
         );
         return 0;
@@ -454,10 +457,13 @@ string[] getFontNamesDebian() {
 }
 
 void ensureFontDirectory() {
-    string home = getenv("XDG_DATA_HOME");
-    home = (home.length == 0 ? getenv("HOME") : home).fixPath;
+    string dataHome = getenv("XDG_DATA_HOME");
+    string home = getenv("HOME").fixPath;
+    if (dataHome.length == 0) {
+        dataHome = (home ~ '/' ~ ".local/share").fixPath;
+    }
 
-    string target = (home ~ '/' ~ ".local/share/fonts/fnt/").fixPath;
+    string target = (dataHome ~ "/fonts/fnt/").fixPath;
     if (!exists(target)) mkdirRecurse(target);
 
     string cacheDir = getenv("XDG_CACHE_HOME");

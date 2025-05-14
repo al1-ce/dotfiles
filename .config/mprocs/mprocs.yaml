@@ -1,0 +1,6 @@
+keymap_procs:
+  <M-f>: { c: toggle-focus }
+  <C-a>: null
+keymap_term:
+  <M-f>: { c: toggle-focus }
+  <C-a>: null

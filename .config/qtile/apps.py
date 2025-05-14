@@ -74,7 +74,7 @@ spawnshortcuts = "feh "                    + \
                  fimg("mod4-mod1")         + \
                  fimg("mod4-shift")
 
-steam      = "steam-runtime"
+steam      = "steam"
 beeper     = "beeper"
 rustdesk   = "rustdesk"
 screenshot = "flameshot gui"

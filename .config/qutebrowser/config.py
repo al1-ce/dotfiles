@@ -338,6 +338,8 @@ h_tab.key('c', 'tab-clone')
 h_tab.key('g', 'tab-give')
 h_tab.key('o', 'tab-only')
 h_tab.key('C', 'tab-close -o')
+h_tab.key('w', 'set tabs.tabs_are_windows true')
+h_tab.key('W', 'set tabs.tabs_are_windows false')
 h_tab.key('R', 'set input.mouse.rocker_gestures true')
 h_tab.key('r', 'set input.mouse.rocker_gestures false')
 

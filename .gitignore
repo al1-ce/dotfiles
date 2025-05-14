@@ -95,6 +95,7 @@
 /.config/gromit-mpx.ini
 /.config/mps-youtube/
 /.config/neovim-theme.lua
+/.config/neovim-distro.lua
 /.config/ytmetadl.ini
 /.config/gpick/
 /.config/gtk-3.0/
@@ -282,3 +283,4 @@
 /games/
 /.mozilla/
 /.wine/
+/mprocs.log

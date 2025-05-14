@@ -75,15 +75,19 @@ floating_layout = layout.Floating(
         # xfce
         Match(wm_class="xfce4-appearance-settings"),
         # godot
-        Match(wm_class="Godot_ProjectList"),
-        Match(title="Load Errors"),
-        Match(title="Open With"),
+        Match(wm_class="Godot"),
+        # Match(title="Load Errors"),
+        # Match(title="Open With"),
+        # Match(title=re.compile(r".*\(DEBUG\)")),
+        # Match(title=re.compile(r".*\(DEBUG\).*")),
         # steam
         Match(title=re.compile(r"Steam \- News.*")),
         # sideapps
         Match(wm_class="gpick"),
         Match(wm_class="gnome-calculator"),
         Match(wm_class="kcalc"),
+        Match(wm_class="kooha"),
+        Match(wm_class="kazam"),
         # qtile
         Match(title=re.compile(r"Krita \- Edit.*")),
         # Match(title=".shortcuts.html - qutebrowser"),
