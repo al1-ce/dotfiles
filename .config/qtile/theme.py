@@ -38,7 +38,8 @@ themes = {
         "fg2":     "#d5c4a1",
         "fg1":     "#ebdbb2",
         "fg0":     "#fbf1c7",
-        "wallpaper": config_home + "/qtile/wallpapers/darker_gruvbox.png"
+        "wallpaper": config_home + "/qtile/wallpapers/darker_gruvbox.png",
+        "wallpaper_alt": config_home + "/qtile/wallpapers/darker_despair.png"
     },
     "despair":  {
         "bg":      "#101010",
@@ -72,7 +73,8 @@ themes = {
         "fg2":     "#e3e3e3",
         "fg1":     "#e3e3e3",
         "fg0":     "#f7f7f7",
-        "wallpaper": config_home + "/qtile/wallpapers/darker_despair.png"
+        "wallpaper": config_home + "/qtile/wallpapers/darker_despair.png",
+        "wallpaper_alt": config_home + "/qtile/wallpapers/darker_despair.png"
     }
 }
 

@@ -46,6 +46,11 @@ auto_minimize = True
 # wmname = f"Qtile {VERSION}"
 wmname = "Qtile"
 
+@hook.subscribe.screen_change
+def restart_on_randr(qtile, event):
+    qtile.cmd_restart()
+    qtile.to_screen(0)
+
 @hook.subscribe.startup_once
 def hook_startup_once():
     screens[0].toggle_group(group_names[1]) # center

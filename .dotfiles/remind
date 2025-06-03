@@ -91,6 +91,7 @@ twitch-tui              twitch chat in cli
 newsboat                rss reader
 gomuks                  matrix client
 qrcp                    transfer files with QR
+nom                     kiss rss reader
 
 # IRL                                                      #
 wttr                    weather forecast

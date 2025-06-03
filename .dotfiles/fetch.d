@@ -62,7 +62,7 @@ void main() {
 
     string kern = execute(["uname", "-r"]).output[0..$-1];
     string uptime = execute(["uptime", "-p"]).output[3..$-1];
-    ulong pkgins = execute(["yay", "-Q"]).output[0..$-2].count('\n');
+    // ulong pkgins = execute(["yay", "-Q"]).output[0..$-2].count('\n');
     // ulong pkgupd = execute(["yay", "-Qu"]).output[0..$-2].count('\n');
     // TODO: fetch packages once in a while?
     // size_t services = execute(["systemctl", "--type=service", "--state=running"]).output.count("running");
@@ -94,7 +94,7 @@ void main() {
     writeln("  Kernel  : ", kern);
     writeln("  Login   : ", lastLogin);
     writeln("  Uptime  : ", uptime);
-    writeln("  Packages: ", pkgins);
+    // writeln("  Packages: ", pkgins);
     // writeln("  Services: ", services);
 
     // --------
