@@ -30,7 +30,7 @@ export SAVEHIST="8192"
 
 # Misc env
 export DXVK_ASYNC=1
-export EDITOR="/usr/sbin/nvim"
+export EDITOR="/usr/bin/nvim"
 export FILE_PICKER_CMD="ranger"
 export HAS_ALLOW_UNSAFE="y"
 export HOMEBREW_NO_ENV_HINTS=true
