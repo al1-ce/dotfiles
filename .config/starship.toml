@@ -10,8 +10,8 @@ command_timeout = 1500
 
 # POWERLINE CONTENTS
 
-format = """$character${custom.zsh_mode}${custom.nvim}${custom.jobs}$directory"""
-right_format = """$git_commit$git_branch$git_status$username$hostname${custom.session}${custom.gitclean}${custom.gitdirty}"""
+format = """$character$directory"""
+right_format = """$username$hostname"""
 
 [custom.jobs]
 symbol = '@'
