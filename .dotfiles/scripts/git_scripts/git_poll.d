@@ -43,6 +43,7 @@ void main(string[] args) {
     bool sortRepo = false;
     bool sortCommit = false;
     bool doFetch = false;
+    bool doSubdir = false;
 
     GetoptResult help = getopt(
         args,
@@ -54,6 +55,7 @@ void main(string[] args) {
         "repo|r", "Sorts repos by repo field", &sortRepo,
         "commit|c", "Sorts repos by commit field", &sortCommit,
         "fetch|f", "Fetches before polling", &doFetch,
+        "subdir|d", "Looks at repos in subdirectories", &doSubdir,
     );
 
     if (help.helpWanted) {
@@ -65,7 +67,19 @@ void main(string[] args) {
 
 
     printHeader();
-    string[] dirs = listdir(getcwd(), true, false);
+    string[] dirs;
+    if (doSubdir) {
+        string[] topdirs = listdir(getcwd(), true, false);
+        foreach (dir; topdirs) {
+            string[] subdirs = listdir(dir, true, false);
+            foreach (sdir; subdirs) {
+                dirs ~= dir ~ dirSeparator ~ sdir;
+            }
+        }
+    } else {
+        dirs = listdir(getcwd(), true, false);
+    }
+
     foreach (dir; dirs) {
         string path = buildAbsolutePath(getcwd() ~ dirSeparator ~ dir);
         if (!listdir(path).canFind(".git")) continue;
@@ -97,7 +111,7 @@ void printLine(string ahead, string behind, string status, string repo, string c
     // align right %1s
     // align by arg %*s
     writef(
-        "%s%-5s%s %s%-6s%s %s%-6s%s %s%-16s%s %s%-16s%s\n",
+        "%s%-5s%s %s%-6s%s %s%-6s%s %s%-26s%s %s%-16s%s\n",
         FG.LT_GREEN, ahead, FRESET.ALL,
         FG.LT_MAGENTA, behind, FRESET.ALL,
         FG.LT_GRAY, status, FRESET.ALL,
@@ -111,7 +125,7 @@ void printHeader() {
     // align right %1s
     // align by arg %*s
     writef(
-        "%s%-5s%s %s%-6s%s %s%-6s%s %s%-16s%s %s%-16s%s\n",
+        "%s%-5s%s %s%-6s%s %s%-6s%s %s%-26s%s %s%-16s%s\n",
         FG.LT_GREEN ~ FORMAT.UNDERLINE, "Ahead", FRESET.ALL,
         FG.LT_MAGENTA ~ FORMAT.UNDERLINE, "Behind", FRESET.ALL,
         FG.LT_GRAY ~ FORMAT.UNDERLINE, "Status", FRESET.ALL,
