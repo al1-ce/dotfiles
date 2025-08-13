@@ -1,0 +1,137 @@
+" vim.
+
+let mapleader      = ";"
+let maplocalleader = ","
+
+set history=500
+set undofile
+
+filetype plugin on
+filetype indent on
+
+set autoread
+au FocusGained,BufEnter * silent! checktime
+
+map <leader>q :q!<cr>
+map <leader>w :w!<cr>
+
+command! W execute 'w !sudo tee % > /dev/null' <bar> edit!
+
+let $LANG='en'
+
+set wildmenu
+set wildignore=*.o,*~
+
+if has("win16") || has("win32")
+    set wildignore+=.git\*,.hg\*,.svn\*
+else
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+endif
+
+set ruler
+
+set cmdheight=1
+set shortmess=filnxtToOF
+
+set hid
+
+set backspace=eol,start,indent
+" set whichwrap+=<,>,h,l
+
+set ignorecase
+set smartcase
+set hlsearch
+set incsearch
+
+set lazyredraw
+
+set magic
+
+set showmatch
+set mat=2
+
+" set noerrorbells
+" set novisualbell
+" set t_vb=
+" set tm=500
+
+set foldcolumn=0
+
+syntax enable
+
+set regexpengine=0
+
+try
+    colorscheme despair_color
+catch
+endtry
+
+set background=dark
+set termguicolors
+
+set splitbelow
+set splitright
+
+set encoding=utf8
+set ffs=unix,dos,mac
+
+set nobackup
+set nowb
+" set noswapfile
+
+set expandtab
+set smarttab
+set shiftwidth=4
+set tabstop=4
+
+set lbr
+set tw=500
+
+set ai
+set si
+set nowrap
+
+set number
+set relativenumber
+
+set clipboard=unnamedplus
+set mouse=nvi
+set mousemodel=extend
+set signcolumn=no
+set cursorlineopt=screenline
+set completeopt=menuone,menu,longest,preview
+set nojoinspaces
+set noshowmode
+
+
+au BufEnter * set fo-=c fo-=r fo-=o
+set guicursor=n-v-sm:block,i-c-ci-ve:ver25,r-cr-o:hor20
+set errorformat^=filepath:%f
+
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * ""y/<C-r>"<cr>
+vnoremap <silent> # ""y?<C-r>"<cr>
+
+" function! StatuslineGit()
+"   let l:branchname = system("echo 'hi'")
+"   return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+" endfunction
+
+" let s  = ""
+" let s .= "%{StatuslineGit()}"
+
+" set statusline=%!s
+
+let &t_SI = "\<Esc>[6 q"
+let &t_SR = "\<Esc>[4 q"
+let &t_EI = "\<Esc>[2 q"
+set ttimeout
+set ttimeoutlen=1
+set ttyfast
+
+silent !echo -ne "\033[2 q"
+
+" print "\<Esc>[2 q"
+
+" set statusline = get_mode_hl() .. stline_get_mode() .. "%#DesStatusNormal# %f%m%h%r %=%v %{substitute(getcwd(),$HOME,'~','')} %{&ft}" .. get_tape() .. " " .. get_mode_hl() .. " %P %#Normal#"

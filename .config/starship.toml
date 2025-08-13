@@ -10,8 +10,12 @@ command_timeout = 1500
 
 # POWERLINE CONTENTS
 
-format = """$character$directory"""
-right_format = """$username$hostname"""
+# format = """$character$directory"""
+# right_format = """$username$hostname"""
+
+# format = """$character${custom.zsh_mode}${custom.nvim}${custom.jobs}$directory"""
+format = """$character$jobs$directory"""
+right_format = """$git_commit$git_branch$git_status$username$hostname${custom.session}${custom.gitclean}${custom.gitdirty}"""
 
 [custom.jobs]
 symbol = '@'
@@ -20,6 +24,12 @@ format = '[$symbol($output)]($style) '
 when = '[ $STARSHIP_SHOW_JOBS = true ]'
 command = 'echo $JOB_COUNT'
 ignore_timeout = true
+
+[jobs]
+symbol = '@'
+number_threshold = 1
+symbol_threshold = 1
+style = "bold underline red"
 
 [custom.nvim]
 when = '[ $STARSHIP_SHOW_NVIM = true ]'

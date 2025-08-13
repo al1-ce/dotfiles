@@ -34,6 +34,10 @@ psearch() {
     fi
 }
 
+cheat() {
+    curl cheat.sh/$@
+}
+
 scrape() {
     if [ $# -gt 0 ]; then
         ddir="$(echo $@ | sed -e 's/[^/]*\/\/\([^@]*@\)\?\([^:/]*\).*/\2/')-$(date +'%Y-%m-%d')"

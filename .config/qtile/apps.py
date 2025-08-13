@@ -45,14 +45,14 @@ def env_gui(cmd):
 # Makes qtile win the resizing race
 def unrace_exec(cmd):
     # 0.2 seems to be smallest value to allow stuff to resize correctly
-    return env_exec("sleep 0.2 && " + cmd);
+    return env_exec("sleep 0.2 && " + cmd)
 
 home            = os.path.expanduser('~')
 dotfiles        = home + "/.dotfiles"
 # altbrowser      = "vivaldi-stable"
-altbrowser      = "luakit"
 mybrowser       = "qutebrowser"
-browser_private = "qutebrowser --target private-window"
+altbrowser      = "min-browser"
+# browser_private = "qutebrowser --target private-window"
 filemanager     = unrace_exec("ranger")
 filemanager_gui = "nemo"
 editor          = unrace_exec("nvim")
@@ -94,7 +94,7 @@ rofi_powermenu = "rofi -show powermenu -modi powermenu:rofi-power-menu"
 rofi_websearch  = home + "/.config/rofi/applets/rofi-search.sh"
 rofi_pass       = home + "/.dotfiles/bin/pass-rofi-gui"
 
-screen_keyboard = "ls" # FIXME: put something that works
+screen_keyboard = "onboard -x " + str(round(1920 + 1920 / 6))
 
 # rofi_launcher = "rofi -show drun" # Run apps (.desktop)
 # rofi_power_menu = "rofi -show power-menu -modi \"power-menu:rofi-power-menu --no-symbols\"" # Power menu

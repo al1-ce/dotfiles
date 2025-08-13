@@ -88,6 +88,8 @@ floating_layout = layout.Floating(
         Match(wm_class="kcalc"),
         Match(wm_class="kooha"),
         Match(wm_class="kazam"),
+        Match(wm_class="AmneziaVPN"),
+        Match(wm_class="onboard"),
         # qtile
         Match(title=re.compile(r"Krita \- Edit.*")),
         # Match(title=".shortcuts.html - qutebrowser"),

@@ -3,7 +3,7 @@ alias lf="ls -lF"
 alias la="ls -a"
 alias ll="ls -aghl"
 
-alias logout="exit"
+# alias logout="exit"
 alias logoff="exit"
 alias logon="login"
 
@@ -22,7 +22,8 @@ alias mv="mv -i"
 alias cp="cp -i"
 alias ln="ln -i"
 
-alias make-ls="grep : Makefile | awk -F: '/^[^.]/ {print \$1;}'"
+alias make-ls="grep : makefile | awk -F: '/^[^.]/ {print \$1;}'"
+alias Make-ls="grep : Makefile | awk -F: '/^[^.]/ {print \$1;}'"
 
 alias wttr='curl wttr.in/Moscow'
 
@@ -31,7 +32,7 @@ alias clearvswap='echo "Removing nvim swap."; rm -rf ~/.local/state/nvim/swap'
 alias pacman-time='sudo ntpd -qg && sudo hwclock -w'
 alias pacman-clean='pacman -Qtdq | sudo pacman -Rns -'
 
-alias j="jobs -dlprs"
+alias j="fg %\$(jobs | awk '!/^(\()/' | gum choose | awk '{print substr(\$0, 2, 1)}')"
 
 # alias srcrc="exec zsh"
 alias srcrc="source $XDG_CONFIG_HOME/zsh/.zshrc"

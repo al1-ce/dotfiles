@@ -20,6 +20,7 @@
 
 #                 1920/2 1080/2
 xdotool mousemove 960    540
+xdotool click 1
 
 sleep 1
 

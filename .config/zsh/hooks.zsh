@@ -83,3 +83,10 @@ chpwd_functions+=("__on_pwd_chage")
 precmd_functions+=("__starship_prompt_builder")
 precmd_functions+=("__zsh_history_delete")
 
+__fix_cursor() {
+   echo -ne '\e[5 q'
+}
+
+precmd_functions+=("__fix_cursor")
+
+

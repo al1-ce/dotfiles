@@ -1,0 +1,5 @@
+sudo mount --mkdir --verbose -t cifs \
+    //APOLLO/minecraft /mnt/smb/minecraft \
+    -o username=guest,password=,iocharset=utf8,rw,uid=1000,gid=1000,vers=3.02 \
+    && ls -la /mnt/smb/minecraft/ \
+    || sudo dmesg | tail -n 8

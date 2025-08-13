@@ -80,10 +80,14 @@ widgets = {
         active = colors["main"],
         inactive = colors["off"],
         borderwidth = 2,
+        # this_current_screen_border = theme["bgreen"],
+        # other_current_screen_border = theme["bred"],
+        # this_screen_border = theme["byellow"],
+        # other_screen_border = theme["baqua"],
         this_current_screen_border = theme["bg2"],
-        other_current_screen_border = bar_color,
-        this_screen_border = theme["bg1"],
-        other_screen_border = bar_color,
+        other_current_screen_border = theme["bg0"],
+        this_screen_border = theme["bg2"],
+        other_screen_border = theme["bg0"],
         highlight_color = [bar_color, bar_color],
         **gr_def
     )),
@@ -183,6 +187,12 @@ widgets = {
         inactive_color = colors["off"],
     )),
 
+    "keyboard": (lambda: widget.TextBox(
+        **fa_def,
+        text = icons["keyboard"],
+        mouse_callbacks = {'Button1': lambda: qtile.cmd_spawn(apps.screen_keyboard)},
+    )),
+
 
     # "update_icon"  : (lambda: widget.Image( **im_def, filename = images["update"])),
     # "disk_icon"    : (lambda: widget.Image( **im_def, filename = images["disk"])),
@@ -274,6 +284,9 @@ def init_widgets_part():
         widgets["spacer"](),
         widgets["clock_icon"](),
         widgets["clock_text"](),
+
+        widgets["spacer"](),
+        widgets["keyboard"](),
 
         widgets["spacer"](),
         widgets["screen"](),

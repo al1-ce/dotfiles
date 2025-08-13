@@ -44,14 +44,17 @@ eng_dub = 'https://code.dlang.org/search?q={}'
 eng_arch = 'https://wiki.archlinux.org/index.php?search={}'
 eng_git = 'https://github.com/search?q={}'
 eng_repo = 'https://github.com/{}'
+eng_srht = 'https://git.sr.ht/~{}'
 eng_yt = 'https://www.youtube.com/results?search_query={}'
 eng_music = 'https://music.yandex.ru/home?null={}'
 eng_dlang = 'https://google.com/search?domains=dlang.org&q={}+site:dlang.org/phobos&udm=14'
 eng_mk = 'https://market.yandex.ru/?q={}'
+eng_surf = 'https://surf.al1-ce.dev/?q={}'
 
 c.url.searchengines = {
-    'DEFAULT': eng_duck,
+    'DEFAULT': eng_surf,
     'd': eng_duck,
+    's': eng_surf,
     'p': eng_phind,
     'g': eng_google,
     'm': eng_metager,
@@ -60,6 +63,7 @@ c.url.searchengines = {
     'a': eng_arch,
     'gh': eng_git,
     'repo': eng_repo,
+    'hut': eng_srht,
     'y': eng_yt,
     'yt': eng_yt,
     'ym': eng_music,

@@ -23,6 +23,7 @@
 **/__pycache__/
 **/cache/
 **/Cache/
+/*.*~
 
 # Exclude useless configs
 /.config/cheat/cheatsheets/community/
@@ -177,6 +178,7 @@
 /.config/nodemon.json
 /.config/inochi-creator/
 /.config/inochi-session/
+/.config/Min
 
 # Not own repos
 /.config/nvim/
@@ -284,3 +286,5 @@
 /.mozilla/
 /.wine/
 /mprocs.log
+/.quakespasm/
+

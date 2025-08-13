@@ -3,6 +3,7 @@ local config = wezterm.config_builder()
 local io = require("io")
 
 local font = require("user.fonts").dina_remaster
+-- local font = require("user.fonts").cozette
 
 -- FONTS
 -- config.font = wezterm.font(font.regular)
@@ -15,7 +16,7 @@ if f ~= nil then
     wezterm.add_to_config_reload_watch_list(confdir .. "/env_theme_name")
 end
 
-config.font = wezterm.font_with_fallback({font.regular, "Noto Sans CJK JP"})
+config.font = wezterm.font_with_fallback({font.regular, "Noto Sans Mono CJK JP", "Noto Sans CJK JP"})
 config.font_rules = font.rules
 config.font_size = font.size
 config.bold_brightens_ansi_colors = font.brighten

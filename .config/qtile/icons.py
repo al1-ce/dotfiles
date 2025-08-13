@@ -24,6 +24,7 @@ icons_text = {
     "music":     "mus",
     "mic":       "mic",
     "wcount":    "wnm",
+    "keyboard":  "%",
 
     "screen_focus":   "[x]", # mdi-chart-donut
     "screen_nofocus": "[ ]", # mdi-chart-donut
@@ -60,6 +61,7 @@ icons_mdi = {
     "music":     "",
     "mic":       "",
     "wcount":    "󰍹",
+    "keyboard":  "%",
 
     "screen_focus":   "󰍹", # mdi-monitor
     "screen_nofocus": "󰶐", # mdi-monitor-off
@@ -95,6 +97,7 @@ icons_dina = {
     "music":     "",
     "mic":       "",
     "wcount":    "󰖯",
+    "keyboard":  "",
 
     "screen_focus":   "◇", # mdi-chart-donut
     "screen_nofocus": "◇", # mdi-chart-donut
